@@ -1,4 +1,6 @@
 import streamlit as st
+from groq import Groq
+
 
 st.set_page_config(
     page_title="EduTwin AI",
@@ -6,13 +8,29 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.title("🧠 EduTwin AI")
 
-st.subheader("Your Personal AI Learning Twin")
+st.write("Testing Groq AI...")
 
-st.write(
-    "EduTwin creates a personalized learning profile "
-    "based on your skills, career goals, and learning progress."
+
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"]
 )
 
-st.success("EduTwin is working!")
+
+if st.button("Test Groq AI"):
+
+    response = client.chat.completions.create(
+        model="openai/gpt-oss-20b",
+        messages=[
+            {
+                "role": "user",
+                "content": "Explain AI in very simple words."
+            }
+        ]
+    )
+
+    answer = response.choices[0].message.content
+
+    st.write(answer)
