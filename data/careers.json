@@ -1,1 +1,27 @@
+{
+    "AI Engineer": {
+        "Python": 90,
+        "Machine Learning": 90,
+        "Deep Learning": 85,
+        "Statistics": 70,
+        "SQL": 60,
+        "Git": 60,
+        "Docker": 50
+    },
 
+    "Data Analyst": {
+        "Python": 70,
+        "SQL": 90,
+        "Excel": 85,
+        "Statistics": 80,
+        "Power BI": 80
+    },
+
+    "Cybersecurity Engineer": {
+        "Networking": 90,
+        "Linux": 85,
+        "Python": 60,
+        "Cybersecurity": 90,
+        "Cryptography": 60
+    }
+}
