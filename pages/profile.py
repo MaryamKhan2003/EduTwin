@@ -26,9 +26,9 @@ st.subheader("Personal Information")
 
 name = st.text_input(
     "Full Name",
+    value=st.session_state.get("profile", {}).get("name", ""),
     placeholder="Enter your name"
 )
-
 education = st.text_input(
     "Education",
     placeholder="Example: BS Computer Science"
