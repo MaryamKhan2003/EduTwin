@@ -13,8 +13,32 @@ st.set_page_config(
 load_css()
 
 
-st.title("📊 Your Digital Twin")
+st.markdown(
+    """
+    <div class="hero">
 
+        <div class="hero-small">
+            YOUR PERSONAL AI LEARNING SPACE
+        </div>
+
+        <div class="hero-title">
+            Your Digital Twin. 🧠
+        </div>
+
+        <div class="hero-text">
+            See your skills, learning profile and career
+            direction in one intelligent dashboard.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# =========================================
+# CHECK PROFILE
+# =========================================
 
 if "profile" not in st.session_state:
 
@@ -37,34 +61,41 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
+# =========================================
+# PREPARE DATA
+# =========================================
+
 skills = [
-    item.strip()
-    for item in profile["skills"].split(",")
-    if item.strip()
+    skill.strip()
+    for skill in profile["skills"].split(",")
+    if skill.strip()
 ]
 
 
 courses = [
-    item.strip()
-    for item in profile["courses"].split(",")
-    if item.strip()
+    course.strip()
+    for course in profile["courses"].split(",")
+    if course.strip()
 ]
 
 
+# =========================================
+# WELCOME
+# =========================================
+
 st.markdown(
     f"""
-    <div class="hero">
+    <div class="insight-card">
 
-        <div class="hero-small">
-            YOUR DIGITAL TWIN
+        <div class="insight-title">
+            👋 Welcome, {profile["name"]}
         </div>
 
-        <div class="hero-title">
-            Welcome back, {profile["name"]} 👋
-        </div>
-
-        <div class="hero-text">
-            Target career: <b>{profile["career_goal"]}</b>
+        <div class="insight-text">
+            Your current target career is
+            <b>{profile["career_goal"]}</b>.
+            EduTwin will use this goal to personalize
+            your learning journey.
         </div>
 
     </div>
@@ -73,18 +104,37 @@ st.markdown(
 )
 
 
-# ==========================================
+st.write("")
+
+
+# =========================================
 # STATS
-# ==========================================
+# =========================================
 
 col1, col2, col3, col4 = st.columns(4)
 
 
 stats = [
-    ("👤", profile["career_goal"], "Career Goal"),
-    ("💻", str(len(skills)), "Skills"),
-    ("📚", str(len(courses)), "Courses"),
-    ("🧠", "Active", "Twin Status")
+    (
+        "🎯",
+        profile["career_goal"],
+        "Career Goal"
+    ),
+    (
+        "💻",
+        str(len(skills)),
+        "Skills"
+    ),
+    (
+        "📚",
+        str(len(courses)),
+        "Courses"
+    ),
+    (
+        "🧠",
+        "Active",
+        "Twin Status"
+    )
 ]
 
 
@@ -93,9 +143,9 @@ for column, stat in zip(
     stats
 ):
 
-    with column:
+    icon, value, label = stat
 
-        icon, value, label = stat
+    with column:
 
         st.markdown(
             f"""
@@ -123,16 +173,18 @@ st.write("")
 st.divider()
 
 
-# ==========================================
-# DIGITAL TWIN
-# ==========================================
+# =========================================
+# DIGITAL TWIN INFORMATION
+# =========================================
 
 st.markdown(
-    '<div class="section-label">YOUR PROFILE</div>',
+    '<div class="section-label">YOUR DIGITAL TWIN</div>',
     unsafe_allow_html=True
 )
 
-st.header("🧠 Digital Twin Overview")
+st.header(
+    "👤 Your Learning Profile"
+)
 
 
 col1, col2 = st.columns(2)
@@ -144,20 +196,16 @@ with col1:
         f"""
         <div class="feature-card">
 
+            <div class="feature-icon">
+                🎓
+            </div>
+
             <div class="feature-title">
-                🎯 Career Direction
+                Education
             </div>
 
             <div class="feature-text">
-
-                <b>Target Career</b><br>
-                {profile["career_goal"]}
-
-                <br><br>
-
-                <b>Education</b><br>
                 {profile["education"]}
-
             </div>
 
         </div>
@@ -172,8 +220,12 @@ with col2:
         f"""
         <div class="feature-card">
 
+            <div class="feature-icon">
+                💻
+            </div>
+
             <div class="feature-title">
-                💻 Skills
+                Skills
             </div>
 
             <div class="feature-text">
@@ -198,8 +250,12 @@ with col1:
         f"""
         <div class="feature-card">
 
+            <div class="feature-icon">
+                🚀
+            </div>
+
             <div class="feature-title">
-                🚀 Projects
+                Projects
             </div>
 
             <div class="feature-text">
@@ -218,8 +274,12 @@ with col2:
         f"""
         <div class="feature-card">
 
+            <div class="feature-icon">
+                🎯
+            </div>
+
             <div class="feature-title">
-                🎯 Interests
+                Interests
             </div>
 
             <div class="feature-text">
@@ -236,16 +296,18 @@ st.write("")
 st.divider()
 
 
-# ==========================================
+# =========================================
 # QUICK ACTIONS
-# ==========================================
+# =========================================
 
 st.markdown(
     '<div class="section-label">QUICK ACTIONS</div>',
     unsafe_allow_html=True
 )
 
-st.header("⚡ What do you want to do?")
+st.header(
+    "⚡ Continue your journey"
+)
 
 
 col1, col2, col3 = st.columns(3)
