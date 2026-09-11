@@ -1,6 +1,10 @@
 import streamlit as st
 
 
+# ==================================================
+# PAGE CONFIGURATION
+# ==================================================
+
 st.set_page_config(
     page_title="EduTwin - Interview",
     page_icon="🎤",
@@ -8,40 +12,22 @@ st.set_page_config(
 )
 
 
-# ============================================================
-# HEADER
-# ============================================================
-
-st.title(
-    "🎤 AI Interview Practice"
-)
-
-st.subheader(
-    "Practice like it's real."
-)
-
-st.write(
-    """
-    Prepare for interviews using questions related
-    to your target career.
-    """
-)
-
-st.divider()
-
-
-# ============================================================
+# ==================================================
 # PROFILE CHECK
-# ============================================================
+# ==================================================
 
 if "profile" not in st.session_state:
 
+    st.title(
+        "🎤 AI Interview Practice"
+    )
+
     st.warning(
-        "Please create your Digital Twin profile first."
+        "Create your Digital Twin first."
     )
 
     if st.button(
-        "👤 Create My Profile",
+        "👤 Create My Digital Twin",
         type="primary"
     ):
 
@@ -55,28 +41,73 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# ============================================================
-# CAREER
-# ============================================================
+# ==================================================
+# SIDEBAR
+# ==================================================
+
+with st.sidebar:
+
+    st.title(
+        "🎤 Interview AI"
+    )
+
+    st.caption(
+        "Practice for your future career"
+    )
+
+    st.divider()
+
+    st.write(
+        f"👤 **{profile['name']}**"
+    )
+
+    st.write(
+        f"🎯 {profile['career_goal']}"
+    )
+
+
+# ==================================================
+# HEADER
+# ==================================================
+
+st.title(
+    "🎤 AI Interview Practice"
+)
+
+st.subheader(
+    "Practice like it's real."
+)
+
+st.write(
+    """
+    Prepare for your target career with
+    realistic interview questions.
+    """
+)
+
+st.divider()
+
+
+# ==================================================
+# TARGET
+# ==================================================
 
 st.header(
     "🎯 Interview Target"
 )
 
-
-st.info(
+st.success(
     f"Target career: **{profile['career_goal']}**"
 )
 
 
-# ============================================================
+# ==================================================
 # QUESTION
-# ============================================================
+# ==================================================
 
 st.header(
     "❓ Interview Question"
 )
-
 
 question = st.text_area(
     "Question",
@@ -88,31 +119,32 @@ question = st.text_area(
 )
 
 
-# ============================================================
+# ==================================================
 # ANSWER
-# ============================================================
+# ==================================================
 
 st.header(
     "💬 Your Answer"
 )
 
-
 answer = st.text_area(
-    "Answer",
+    "Write your answer",
     placeholder=(
-        "Write your answer here..."
+        "Answer as if you were sitting "
+        "in a real interview..."
     ),
-    height=200
+    height=180
 )
 
 
-# ============================================================
-# EVALUATE
-# ============================================================
+# ==================================================
+# EVALUATION
+# ==================================================
 
 if st.button(
     "🎯 Evaluate My Answer",
-    type="primary"
+    type="primary",
+    use_container_width=True
 ):
 
     if answer.strip() == "":
@@ -127,9 +159,49 @@ if st.button(
             "✅ Answer received!"
         )
 
+        st.divider()
+
+        st.header(
+            "🧠 Interview Evaluation"
+        )
+
+        col1, col2, col3 = st.columns(3)
+
+
+        with col1:
+
+            st.metric(
+                "Communication",
+                "Ready for AI"
+            )
+
+
+        with col2:
+
+            st.metric(
+                "Career",
+                profile["career_goal"]
+            )
+
+
+        with col3:
+
+            st.metric(
+                "Status",
+                "Practice"
+            )
+
+
         st.info(
             """
-            AI interview evaluation can now be connected
-            to the interview engine.
+            The AI interview engine can evaluate
+            your answer for:
+
+            • Technical knowledge  
+            • Communication  
+            • Relevance  
+            • Confidence  
+            • Strengths  
+            • Areas for improvement
             """
         )
