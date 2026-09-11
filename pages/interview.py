@@ -1,5 +1,7 @@
 import streamlit as st
 
+from ai.groq_client import ask_groq
+
 
 st.set_page_config(
     page_title="EduTwin - Interview",
@@ -64,11 +66,65 @@ if st.button(
 
     else:
 
-        st.success(
-            "Answer received!"
-        )
+        prompt = f"""
+You are an AI interview coach.
+
+Student name:
+{profile["name"]}
+
+Education:
+{profile["education"]}
+
+Skills:
+{profile["skills"]}
+
+Career goal:
+{profile["career_goal"]}
+
+Interview question:
+{question}
+
+Student answer:
+{answer}
+
+Evaluate the answer.
+
+Give:
+
+1. Overall evaluation
+2. What was good
+3. What can be improved
+4. Technical/content suggestions
+5. Communication suggestions
+6. A better sample answer
+
+Be supportive and educational.
+"""
 
 
-        st.info(
-            "AI interview evaluation will be connected here next."
-        )
+        try:
+
+            with st.spinner(
+                "AI is evaluating your answer..."
+            ):
+
+                evaluation = ask_groq(
+                    prompt
+                )
+
+
+            st.subheader(
+                "🤖 AI Interview Feedback"
+            )
+
+
+            st.markdown(
+                evaluation
+            )
+
+
+        except Exception as error:
+
+            st.error(
+                f"Interview AI error: {error}"
+            )
