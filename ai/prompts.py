@@ -1,32 +1,18 @@
-
 def build_cv_analysis_prompt(cv_text):
 
-    prompt = f"""
+    return f"""
 You are EduTwin AI.
 
-Your job is to analyze a student's CV and create a structured
-student learning profile.
-
-Read the CV below carefully.
+Analyze the following student's CV.
 
 CV:
 -------------------------
 {cv_text}
 -------------------------
 
-Extract the following information:
+Extract only information that is actually present.
 
-1. Name
-2. Education
-3. Skills
-4. Courses
-5. Projects
-6. Interests
-7. Work experience
-8. Certifications
-9. Possible career interests
-
-Return the result using exactly this structure:
+Return the information using this structure:
 
 Name:
 Education:
@@ -34,7 +20,6 @@ Education:
 Skills:
 - skill 1
 - skill 2
-- skill 3
 
 Courses:
 - course 1
@@ -58,39 +43,34 @@ Possible Career Interests:
 - career 1
 - career 2
 
-Only include information supported by the CV.
 Do not invent information.
 """
 
-    return prompt
 
-def build_learning_prompt(
-    topic,
-    profile
-):
+def build_learning_prompt(topic, profile):
 
     return f"""
 You are EduTwin AI, a personalized learning tutor.
 
-Student:
-{profile['name']}
+Student name:
+{profile["name"]}
 
 Education:
-{profile['education']}
+{profile["education"]}
 
 Skills:
-{profile['skills']}
+{profile["skills"]}
 
 Career goal:
-{profile['career_goal']}
+{profile["career_goal"]}
 
-Teach the student about:
+Teach this student about:
 
 {topic}
 
 Create a beginner-friendly lesson.
 
-The lesson should contain:
+Include:
 
 1. Simple explanation
 2. Important concepts
@@ -99,5 +79,6 @@ The lesson should contain:
 5. Short summary
 6. Three questions to test understanding
 
-Do not assume the student already knows advanced concepts.
+Use simple language.
+Do not assume advanced knowledge.
 """
