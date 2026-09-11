@@ -1,5 +1,10 @@
 import streamlit as st
 
+
+# -----------------------------
+# Page Configuration
+# -----------------------------
+
 st.set_page_config(
     page_title="EduTwin - Profile",
     page_icon="👤",
@@ -7,11 +12,17 @@ st.set_page_config(
 )
 
 
+# -----------------------------
+# Page Title
+# -----------------------------
+
 st.title("👤 My Learning Profile")
 
 st.write(
-    "Create your personal learning profile. "
-    "EduTwin will use this information to build your Digital Twin."
+    """
+    Create your personal learning profile.
+    EduTwin will use this information to build your Digital Twin.
+    """
 )
 
 
@@ -22,13 +33,15 @@ st.divider()
 # Personal Information
 # -----------------------------
 
-st.subheader("Personal Information")
+st.header("Personal Information")
+
 
 name = st.text_input(
     "Full Name",
-    value=st.session_state.get("profile", {}).get("name", ""),
-    placeholder="Enter your name"
+    placeholder="Enter your full name"
 )
+
+
 education = st.text_input(
     "Education",
     placeholder="Example: BS Computer Science"
@@ -39,12 +52,16 @@ education = st.text_input(
 # Skills
 # -----------------------------
 
-st.subheader("💻 Skills")
+st.header("💻 Skills")
 
-skills_text = st.text_area(
-    "Enter your skills",
-    placeholder="Example: Python, C++, SQL, Machine Learning, Git",
-    height=100
+
+skills = st.text_area(
+    "Your Skills",
+    placeholder=(
+        "Example: Python, C++, SQL, Machine Learning, "
+        "Data Structures, Git"
+    ),
+    height=120
 )
 
 
@@ -52,12 +69,16 @@ skills_text = st.text_area(
 # Courses
 # -----------------------------
 
-st.subheader("📚 Courses")
+st.header("📚 Courses")
 
-courses_text = st.text_area(
-    "Enter your courses",
-    placeholder="Example: Data Structures, Artificial Intelligence, Database Systems",
-    height=100
+
+courses = st.text_area(
+    "Courses You Have Studied",
+    placeholder=(
+        "Example: Artificial Intelligence, "
+        "Data Structures, Database Systems"
+    ),
+    height=120
 )
 
 
@@ -65,12 +86,16 @@ courses_text = st.text_area(
 # Projects
 # -----------------------------
 
-st.subheader("🚀 Projects")
+st.header("🚀 Projects")
 
-projects_text = st.text_area(
-    "Enter your projects",
-    placeholder="Example: AI Course Recommendation System, Carbon Calculator",
-    height=100
+
+projects = st.text_area(
+    "Your Projects",
+    placeholder=(
+        "Example: AI Course Recommendation System, "
+        "Carbon Calculator"
+    ),
+    height=120
 )
 
 
@@ -78,12 +103,16 @@ projects_text = st.text_area(
 # Interests
 # -----------------------------
 
-st.subheader("🎯 Interests")
+st.header("🎯 Interests")
 
-interests_text = st.text_area(
-    "What are you interested in?",
-    placeholder="Example: Artificial Intelligence, Data Science, Computer Vision",
-    height=100
+
+interests = st.text_area(
+    "Your Interests",
+    placeholder=(
+        "Example: Artificial Intelligence, "
+        "Machine Learning, Data Science"
+    ),
+    height=120
 )
 
 
@@ -91,27 +120,31 @@ interests_text = st.text_area(
 # Career Goal
 # -----------------------------
 
-st.subheader("💼 Career Goal")
+st.header("💼 Career Goal")
+
+
+career_options = [
+    "AI Engineer",
+    "Machine Learning Engineer",
+    "Data Scientist",
+    "Data Analyst",
+    "Software Engineer",
+    "Cybersecurity Engineer",
+    "Cloud Engineer",
+    "Other"
+]
+
 
 career_goal = st.selectbox(
-    "What career are you interested in?",
-    [
-        "AI Engineer",
-        "Machine Learning Engineer",
-        "Data Scientist",
-        "Data Analyst",
-        "Software Engineer",
-        "Cybersecurity Engineer",
-        "Cloud Engineer",
-        "Other"
-    ]
+    "Select your target career",
+    career_options
 )
 
 
 if career_goal == "Other":
 
     career_goal = st.text_input(
-        "Enter your career goal",
+        "Enter your target career",
         placeholder="Example: AI Researcher"
     )
 
@@ -123,35 +156,87 @@ st.divider()
 # Save Profile
 # -----------------------------
 
-if st.button("💾 Save My Profile", type="primary"):
+if st.button(
+    "💾 Save My Profile",
+    type="primary"
+):
 
     if name.strip() == "":
+
         st.error("Please enter your name.")
 
     elif education.strip() == "":
+
         st.error("Please enter your education.")
+
+    elif skills.strip() == "":
+
+        st.error("Please enter at least one skill.")
 
     else:
 
+        # Store profile in Streamlit session
+
         st.session_state["profile"] = {
 
-            "name": name,
+            "name": name.strip(),
 
-            "education": education,
+            "education": education.strip(),
 
-            "skills": skills_text,
+            "skills": skills.strip(),
 
-            "courses": courses_text,
+            "courses": courses.strip(),
 
-            "projects": projects_text,
+            "projects": projects.strip(),
 
-            "interests": interests_text,
+            "interests": interests.strip(),
 
-            "career_goal": career_goal
+            "career_goal": career_goal.strip()
         }
 
-        st.success("✅ Your profile has been saved!")
+
+        st.success(
+            "✅ Your profile has been saved successfully!"
+        )
+
+
+        st.subheader("Your Profile Summary")
+
+
+        col1, col2 = st.columns(2)
+
+
+        with col1:
+
+            st.write(
+                f"**Name:** {name}"
+            )
+
+            st.write(
+                f"**Education:** {education}"
+            )
+
+            st.write(
+                f"**Career Goal:** {career_goal}"
+            )
+
+
+        with col2:
+
+            st.write(
+                f"**Skills:** {skills}"
+            )
+
+            st.write(
+                f"**Courses:** {courses}"
+            )
+
+            st.write(
+                f"**Interests:** {interests}"
+            )
+
 
         st.info(
-            "Your profile will be used later to create your AI Digital Twin."
+            "Your information will be used later by Groq AI "
+            "to create your Digital Twin."
         )
