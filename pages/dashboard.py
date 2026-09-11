@@ -1,6 +1,10 @@
 import streamlit as st
 
 
+# --------------------------------------------------
+# PAGE CONFIGURATION
+# --------------------------------------------------
+
 st.set_page_config(
     page_title="EduTwin - Dashboard",
     page_icon="📊",
@@ -8,20 +12,27 @@ st.set_page_config(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # PROFILE CHECK
-# ============================================================
+# --------------------------------------------------
 
 if "profile" not in st.session_state:
 
-    st.title("📊 Digital Twin Dashboard")
+    st.title("📊 Your Dashboard")
 
     st.warning(
-        "Please create your Digital Twin profile first."
+        "Your Digital Twin has not been created yet."
+    )
+
+    st.write(
+        """
+        Create your profile first so EduTwin can
+        personalize your dashboard.
+        """
     )
 
     if st.button(
-        "👤 Create My Profile",
+        "👤 Create My Digital Twin",
         type="primary"
     ):
 
@@ -35,56 +46,73 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# ============================================================
+# --------------------------------------------------
+# SIDEBAR
+# --------------------------------------------------
+
+with st.sidebar:
+
+    st.title("🧠 EduTwin AI")
+
+    st.caption(
+        "Learning Dashboard"
+    )
+
+    st.divider()
+
+    st.write(
+        f"👋 **{profile['name']}**"
+    )
+
+    st.write(
+        f"🎯 {profile['career_goal']}"
+    )
+
+
+# --------------------------------------------------
 # HEADER
-# ============================================================
+# --------------------------------------------------
 
 st.title(
     "📊 Your Digital Twin"
 )
 
 st.subheader(
-    f"Welcome, {profile['name']} 👋"
+    f"Welcome back, {profile['name']} 👋"
 )
 
 st.write(
     """
-    This dashboard gives you a quick view of your
-    current learning profile.
+    Here is a snapshot of your current learning
+    profile and career direction.
     """
 )
 
 st.divider()
 
 
-# ============================================================
-# DATA
-# ============================================================
+# --------------------------------------------------
+# PROFILE METRICS
+# --------------------------------------------------
 
 skills = [
-    skill.strip()
-    for skill in profile["skills"].split(",")
-    if skill.strip()
+    x.strip()
+    for x in profile["skills"].split(",")
+    if x.strip()
 ]
-
 
 courses = [
-    course.strip()
-    for course in profile["courses"].split(",")
-    if course.strip()
+    x.strip()
+    for x in profile["courses"].split(",")
+    if x.strip()
 ]
-
 
 projects = [
-    project.strip()
-    for project in profile["projects"].split(",")
-    if project.strip()
+    x.strip()
+    for x in profile["projects"].split(",")
+    if x.strip()
 ]
 
-
-# ============================================================
-# METRICS
-# ============================================================
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -92,20 +120,12 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
 
     st.metric(
-        "🎯 Career Goal",
-        profile["career_goal"]
-    )
-
-
-with col2:
-
-    st.metric(
         "💻 Skills",
         len(skills)
     )
 
 
-with col3:
+with col2:
 
     st.metric(
         "📚 Courses",
@@ -113,7 +133,7 @@ with col3:
     )
 
 
-with col4:
+with col3:
 
     st.metric(
         "🚀 Projects",
@@ -121,17 +141,23 @@ with col4:
     )
 
 
+with col4:
+
+    st.metric(
+        "🎯 Career",
+        profile["career_goal"]
+    )
+
+
+# --------------------------------------------------
+# PROFILE OVERVIEW
+# --------------------------------------------------
+
 st.divider()
 
-
-# ============================================================
-# PROFILE
-# ============================================================
-
 st.header(
-    "👤 Your Learning Profile"
+    "👤 Profile Overview"
 )
-
 
 col1, col2 = st.columns(2)
 
@@ -146,7 +172,6 @@ with col1:
         profile["education"]
     )
 
-
     st.subheader(
         "💻 Skills"
     )
@@ -154,7 +179,7 @@ with col1:
     for skill in skills:
 
         st.write(
-            f"• {skill}"
+            f"✅ {skill}"
         )
 
 
@@ -168,12 +193,11 @@ with col2:
         profile["career_goal"]
     )
 
-
     st.subheader(
         "💡 Interests"
     )
 
-    if profile["interests"]:
+    if profile["interests"].strip():
 
         st.write(
             profile["interests"]
@@ -186,12 +210,11 @@ with col2:
         )
 
 
+# --------------------------------------------------
+# COURSES AND PROJECTS
+# --------------------------------------------------
+
 st.divider()
-
-
-# ============================================================
-# PROJECTS AND COURSES
-# ============================================================
 
 col1, col2 = st.columns(2)
 
@@ -207,7 +230,7 @@ with col1:
         for course in courses:
 
             st.write(
-                f"• {course}"
+                f"📘 {course}"
             )
 
     else:
@@ -228,7 +251,7 @@ with col2:
         for project in projects:
 
             st.write(
-                f"• {project}"
+                f"🔹 {project}"
             )
 
     else:
@@ -238,19 +261,17 @@ with col2:
         )
 
 
-st.divider()
-
-
-# ============================================================
+# --------------------------------------------------
 # QUICK ACTIONS
-# ============================================================
+# --------------------------------------------------
+
+st.divider()
 
 st.header(
     "⚡ Continue Learning"
 )
 
-
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 
 with col1:
@@ -268,7 +289,7 @@ with col1:
 with col2:
 
     if st.button(
-        "📚 Start Learning",
+        "📚 Learn",
         use_container_width=True
     ):
 
@@ -280,10 +301,39 @@ with col2:
 with col3:
 
     if st.button(
-        "💼 Career Analysis",
+        "💼 Career",
         use_container_width=True
     ):
 
         st.switch_page(
             "pages/career.py"
         )
+
+
+with col4:
+
+    if st.button(
+        "🎤 Interview",
+        use_container_width=True
+    ):
+
+        st.switch_page(
+            "pages/interview.py"
+        )
+
+
+# --------------------------------------------------
+# DIGITAL TWIN MESSAGE
+# --------------------------------------------------
+
+st.divider()
+
+st.info(
+    """
+    🧠 **Your Digital Twin is the foundation of EduTwin.**
+
+    As you learn, practice and improve, future versions
+    can update this profile with your learning progress,
+    quiz performance and skill development.
+    """
+)
