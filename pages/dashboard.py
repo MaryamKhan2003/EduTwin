@@ -1,9 +1,9 @@
 import streamlit as st
 
 
-# --------------------------------------------------
+# ==================================================
 # PAGE CONFIGURATION
-# --------------------------------------------------
+# ==================================================
 
 st.set_page_config(
     page_title="EduTwin - Dashboard",
@@ -12,23 +12,18 @@ st.set_page_config(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # PROFILE CHECK
-# --------------------------------------------------
+# ==================================================
 
 if "profile" not in st.session_state:
 
-    st.title("📊 Your Dashboard")
+    st.title(
+        "📊 Your Dashboard"
+    )
 
     st.warning(
         "Your Digital Twin has not been created yet."
-    )
-
-    st.write(
-        """
-        Create your profile first so EduTwin can
-        personalize your dashboard.
-        """
     )
 
     if st.button(
@@ -46,16 +41,18 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# --------------------------------------------------
+# ==================================================
 # SIDEBAR
-# --------------------------------------------------
+# ==================================================
 
 with st.sidebar:
 
-    st.title("🧠 EduTwin AI")
+    st.title(
+        "🧠 EduTwin AI"
+    )
 
     st.caption(
-        "Learning Dashboard"
+        "Personal Learning Dashboard"
     )
 
     st.divider()
@@ -68,32 +65,38 @@ with st.sidebar:
         f"🎯 {profile['career_goal']}"
     )
 
+    st.divider()
 
-# --------------------------------------------------
+    st.write(
+        "Use the pages below to continue your journey."
+    )
+
+
+# ==================================================
 # HEADER
-# --------------------------------------------------
+# ==================================================
 
 st.title(
-    "📊 Your Digital Twin"
+    f"Good to see you, {profile['name']} 👋"
 )
 
 st.subheader(
-    f"Welcome back, {profile['name']} 👋"
+    "Your personalized learning command center."
 )
 
 st.write(
     """
-    Here is a snapshot of your current learning
-    profile and career direction.
+    Track your profile, explore new concepts,
+    analyze your career and prepare for interviews.
     """
 )
 
 st.divider()
 
 
-# --------------------------------------------------
-# PROFILE METRICS
-# --------------------------------------------------
+# ==================================================
+# DATA
+# ==================================================
 
 skills = [
     x.strip()
@@ -113,6 +116,10 @@ projects = [
     if x.strip()
 ]
 
+
+# ==================================================
+# TOP METRICS
+# ==================================================
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -149,14 +156,14 @@ with col4:
     )
 
 
-# --------------------------------------------------
-# PROFILE OVERVIEW
-# --------------------------------------------------
+# ==================================================
+# DIGITAL TWIN PROFILE
+# ==================================================
 
 st.divider()
 
 st.header(
-    "👤 Profile Overview"
+    "👤 Your Digital Twin"
 )
 
 col1, col2 = st.columns(2)
@@ -173,7 +180,7 @@ with col1:
     )
 
     st.subheader(
-        "💻 Skills"
+        "💻 Core Skills"
     )
 
     for skill in skills:
@@ -186,7 +193,7 @@ with col1:
 with col2:
 
     st.subheader(
-        "🎯 Career Goal"
+        "🎯 Career Direction"
     )
 
     st.success(
@@ -210,9 +217,9 @@ with col2:
         )
 
 
-# --------------------------------------------------
-# COURSES AND PROJECTS
-# --------------------------------------------------
+# ==================================================
+# COURSES + PROJECTS
+# ==================================================
 
 st.divider()
 
@@ -222,7 +229,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     st.header(
-        "📚 Courses"
+        "📚 Learning Background"
     )
 
     if courses:
@@ -261,14 +268,14 @@ with col2:
         )
 
 
-# --------------------------------------------------
+# ==================================================
 # QUICK ACTIONS
-# --------------------------------------------------
+# ==================================================
 
 st.divider()
 
 st.header(
-    "⚡ Continue Learning"
+    "⚡ Continue Your Journey"
 )
 
 col1, col2, col3, col4 = st.columns(4)
@@ -322,18 +329,19 @@ with col4:
         )
 
 
-# --------------------------------------------------
+# ==================================================
 # DIGITAL TWIN MESSAGE
-# --------------------------------------------------
+# ==================================================
 
 st.divider()
 
+st.header(
+    "🧠 Your AI Learning Loop"
+)
+
 st.info(
     """
-    🧠 **Your Digital Twin is the foundation of EduTwin.**
-
-    As you learn, practice and improve, future versions
-    can update this profile with your learning progress,
-    quiz performance and skill development.
+    **Know yourself → Learn → Practice → Identify gaps
+    → Improve → Move closer to your career goal**
     """
 )
