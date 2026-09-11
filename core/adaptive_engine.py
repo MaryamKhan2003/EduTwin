@@ -1,10 +1,8 @@
-
 def create_learning_recommendations(
     skill_gaps
 ):
 
     recommendations = []
-
 
     for gap in skill_gaps:
 
@@ -13,6 +11,5 @@ def create_learning_recommendations(
         recommendations.append(
             f"Improve your {skill} skills."
         )
-
 
     return recommendations
