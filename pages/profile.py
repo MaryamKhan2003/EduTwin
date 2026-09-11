@@ -1,19 +1,42 @@
 import streamlit as st
 
+
+
 from ai.cv_analyzer import analyze_cv
 from utils.pdf_parser import (
     extract_text_from_pdf
 )
 
+from utils.style import load_css
 
 st.set_page_config(
     page_title="EduTwin - Profile",
     page_icon="👤",
     layout="wide"
 )
+load_css()
 
+st.markdown(
+    """
+    <div class="hero">
 
-st.title("👤 My Learning Profile")
+        <div class="hero-small">
+            STEP 01 • BUILD YOUR DIGITAL TWIN
+        </div>
+
+        <div class="hero-title">
+            Tell EduTwin about you 👤
+        </div>
+
+        <div class="hero-text">
+            Your skills, education, interests and career
+            goals help EduTwin personalize your experience.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 st.write(
