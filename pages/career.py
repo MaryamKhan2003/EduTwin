@@ -5,8 +5,6 @@ from core.career_engine import (
     load_careers
 )
 
-from utils.style import load_css
-
 
 st.set_page_config(
     page_title="EduTwin - Career",
@@ -15,39 +13,31 @@ st.set_page_config(
 )
 
 
-load_css()
+# ============================================================
+# HEADER
+# ============================================================
 
-
-# =========================================
-# HERO
-# =========================================
-
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-small">
-            AI CAREER INTELLIGENCE
-        </div>
-
-        <div class="hero-title">
-            Discover your career readiness. 💼
-        </div>
-
-        <div class="hero-text">
-            Compare your current skills with the skills
-            required for different technology careers.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.title(
+    "💼 Career Intelligence"
 )
 
+st.subheader(
+    "Discover your career readiness."
+)
 
-# =========================================
+st.write(
+    """
+    Compare your current skills with the skills
+    required for different technology careers.
+    """
+)
+
+st.divider()
+
+
+# ============================================================
 # PROFILE CHECK
-# =========================================
+# ============================================================
 
 if "profile" not in st.session_state:
 
@@ -70,27 +60,11 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# =========================================
+# ============================================================
 # CAREER DATA
-# =========================================
+# ============================================================
 
 careers = load_careers()
-
-
-st.markdown(
-    '<div class="section-label">CAREER ANALYSIS</div>',
-    unsafe_allow_html=True
-)
-
-st.subheader(
-    "🎯 Choose a career"
-)
-
-
-career = st.selectbox(
-    "Career",
-    list(careers.keys())
-)
 
 
 skills = [
@@ -100,9 +74,20 @@ skills = [
 ]
 
 
-# =========================================
-# ANALYZE
-# =========================================
+# ============================================================
+# CAREER SELECTION
+# ============================================================
+
+st.header(
+    "🎯 Choose a Career"
+)
+
+
+career = st.selectbox(
+    "Select a career to analyze",
+    list(careers.keys())
+)
+
 
 if st.button(
     "📊 Analyze My Career Readiness",
@@ -115,97 +100,21 @@ if st.button(
     )
 
 
-    st.write("")
+    st.divider()
 
 
-    # =====================================
+    # ========================================================
     # SCORE
-    # =====================================
+    # ========================================================
 
-    col1, col2, col3 = st.columns(3)
-
-
-    with col1:
-
-        st.markdown(
-            f"""
-            <div class="stat-card">
-
-                <div style="font-size:30px;">
-                    🎯
-                </div>
-
-                <div class="stat-number">
-                    {score}%
-                </div>
-
-                <div class="stat-label">
-                    Career Readiness
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-    with col2:
-
-        st.markdown(
-            f"""
-            <div class="stat-card">
-
-                <div style="font-size:30px;">
-                    💻
-                </div>
-
-                <div class="stat-number">
-                    {len(skills)}
-                </div>
-
-                <div class="stat-label">
-                    Your Skills
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-    with col3:
-
-        required_count = len(
-            careers[career]
-        )
-
-        st.markdown(
-            f"""
-            <div class="stat-card">
-
-                <div style="font-size:30px;">
-                    📋
-                </div>
-
-                <div class="stat-number">
-                    {required_count}
-                </div>
-
-                <div class="stat-label">
-                    Required Skills
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-    st.write("")
-
-
-    st.subheader(
+    st.header(
         f"📈 {career} Readiness"
+    )
+
+
+    st.metric(
+        "Career Readiness",
+        f"{score}%"
     )
 
 
@@ -214,17 +123,34 @@ if st.button(
     )
 
 
-    # =====================================
+    if score >= 80:
+
+        st.success(
+            "🎉 You have a strong skill match for this career."
+        )
+
+    elif score >= 60:
+
+        st.warning(
+            "👍 You have a good foundation, but some skills need improvement."
+        )
+
+    else:
+
+        st.info(
+            "📚 You have several important skills to develop for this career."
+        )
+
+
+    st.divider()
+
+
+    # ========================================================
     # CURRENT SKILLS
-    # =====================================
+    # ========================================================
 
-    st.markdown(
-        '<div class="section-label">YOUR STRENGTHS</div>',
-        unsafe_allow_html=True
-    )
-
-    st.subheader(
-        "💪 Current Skills"
+    st.header(
+        "💻 Your Current Skills"
     )
 
 
@@ -232,8 +158,8 @@ if st.button(
 
         for skill in skills:
 
-            st.success(
-                f"✓ {skill}"
+            st.write(
+                f"✅ {skill}"
             )
 
     else:
@@ -243,34 +169,32 @@ if st.button(
         )
 
 
-    # =====================================
+    st.divider()
+
+
+    # ========================================================
     # REQUIRED SKILLS
-    # =====================================
+    # ========================================================
 
-    st.markdown(
-        '<div class="section-label">CAREER REQUIREMENTS</div>',
-        unsafe_allow_html=True
-    )
-
-    st.subheader(
-        f"📋 Skills commonly required for {career}"
+    st.header(
+        "📋 Career Skill Requirements"
     )
 
 
     for skill, level in careers[career].items():
 
         st.write(
-            f"**{skill}** — {level}%"
+            f"**{skill}** — {level}% required"
         )
 
 
     st.info(
         """
-        This readiness score is based on the skills
-        currently entered in your Digital Twin.
+        The current score is based on the skills
+        entered in your Digital Twin.
 
-        Future versions can combine this score with
+        Future versions can combine this with
         AI skill extraction, quiz performance,
-        learning history and personalized recommendations.
+        learning history and recommendations.
         """
     )
