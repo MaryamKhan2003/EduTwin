@@ -1,5 +1,5 @@
 import streamlit as st
-
+from utils.style import load_css
 from ai.groq_client import ask_groq
 from ai.prompts import build_learning_prompt
 
@@ -9,9 +9,30 @@ st.set_page_config(
     page_icon="📚",
     layout="wide"
 )
+load_css()
 
+st.markdown(
+    """
+    <div class="hero">
 
-st.title("📚 Adaptive Learning")
+        <div class="hero-small">
+            PERSONALIZED AI LEARNING
+        </div>
+
+        <div class="hero-title">
+            Learn something that matters. 📚
+        </div>
+
+        <div class="hero-text">
+            EduTwin uses your profile and career goal
+            to create learning content that is relevant
+            to you.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 if "profile" not in st.session_state:
