@@ -2,6 +2,8 @@ import streamlit as st
 
 from utils.pdf_parser import extract_text_from_pdf
 
+from ai.cv_analyzer import analyze_cv
+
 # -----------------------------
 # Page Configuration
 # -----------------------------
@@ -59,6 +61,40 @@ if uploaded_cv is not None:
             if cv_text:
 
                 st.session_state["cv_text"] = cv_text
+
+                st.subheader("🤖 AI CV Analysis")
+
+if st.button("🧠 Analyze My CV with AI"):
+
+    with st.spinner(
+        "EduTwin AI is analyzing your CV..."
+    ):
+
+        try:
+
+            analysis = analyze_cv(
+                cv_text
+            )
+
+
+            st.session_state["cv_analysis"] = analysis
+
+
+            st.success(
+                "✅ CV analysis completed!"
+            )
+
+
+            st.markdown(
+                analysis
+            )
+
+
+        except Exception as error:
+
+            st.error(
+                f"AI analysis failed: {error}"
+            )
 
 
                 st.success(
