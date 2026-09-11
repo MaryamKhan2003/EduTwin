@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 
@@ -30,11 +29,25 @@ st.subheader(
 
 
 st.write(
-    "This dashboard shows your current Digital Twin information."
+    "This dashboard shows your current Digital Twin."
 )
 
 
 st.divider()
+
+
+skills = [
+    item.strip()
+    for item in profile["skills"].split(",")
+    if item.strip()
+]
+
+
+courses = [
+    item.strip()
+    for item in profile["courses"].split(",")
+    if item.strip()
+]
 
 
 col1, col2, col3 = st.columns(3)
@@ -50,8 +63,6 @@ with col1:
 
 with col2:
 
-    skills = profile["skills"].split(",")
-
     st.metric(
         "Skills",
         len(skills)
@@ -59,8 +70,6 @@ with col2:
 
 
 with col3:
-
-    courses = profile["courses"].split(",")
 
     st.metric(
         "Courses",
@@ -71,7 +80,7 @@ with col3:
 st.divider()
 
 
-st.header("👤 Digital Twin Profile")
+st.header("👤 Digital Twin")
 
 
 st.write(
@@ -101,4 +110,24 @@ st.write(
 
 st.write(
     f"**Career Goal:** {profile['career_goal']}"
+)
+
+
+st.divider()
+
+
+st.header("🧠 Twin Status")
+
+
+st.success(
+    "Your Digital Twin is active."
+)
+
+
+st.info(
+    """
+    As you use Vision Tutor, Learning, Career Analysis,
+    quizzes, and Interview Practice, the Digital Twin
+    can later be updated with your learning progress.
+    """
 )
