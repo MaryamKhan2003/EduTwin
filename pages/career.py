@@ -6,6 +6,10 @@ from core.career_engine import (
 )
 
 
+# ==================================================
+# PAGE CONFIGURATION
+# ==================================================
+
 st.set_page_config(
     page_title="EduTwin - Career",
     page_icon="💼",
@@ -13,40 +17,22 @@ st.set_page_config(
 )
 
 
-# ============================================================
-# HEADER
-# ============================================================
-
-st.title(
-    "💼 Career Intelligence"
-)
-
-st.subheader(
-    "Discover your career readiness."
-)
-
-st.write(
-    """
-    Compare your current skills with the skills
-    required for different technology careers.
-    """
-)
-
-st.divider()
-
-
-# ============================================================
+# ==================================================
 # PROFILE CHECK
-# ============================================================
+# ==================================================
 
 if "profile" not in st.session_state:
 
+    st.title(
+        "💼 Career Intelligence"
+    )
+
     st.warning(
-        "Please create your Digital Twin profile first."
+        "Create your Digital Twin first."
     )
 
     if st.button(
-        "👤 Create My Profile",
+        "👤 Create My Digital Twin",
         type="primary"
     ):
 
@@ -59,40 +45,86 @@ if "profile" not in st.session_state:
 
 profile = st.session_state["profile"]
 
-
-# ============================================================
-# CAREER DATA
-# ============================================================
-
 careers = load_careers()
 
 
-skills = [
-    skill.strip()
-    for skill in profile["skills"].split(",")
-    if skill.strip()
-]
+# ==================================================
+# SIDEBAR
+# ==================================================
+
+with st.sidebar:
+
+    st.title(
+        "💼 Career AI"
+    )
+
+    st.caption(
+        "Career readiness intelligence"
+    )
+
+    st.divider()
+
+    st.write(
+        f"👤 **{profile['name']}**"
+    )
+
+    st.write(
+        f"🎯 {profile['career_goal']}"
+    )
 
 
-# ============================================================
-# CAREER SELECTION
-# ============================================================
+# ==================================================
+# HEADER
+# ==================================================
 
-st.header(
-    "🎯 Choose a Career"
+st.title(
+    "💼 Career Intelligence"
 )
 
+st.subheader(
+    "Turn your skills into your career roadmap."
+)
+
+st.write(
+    """
+    Compare your current skills with the skills
+    required for different technology careers.
+    """
+)
+
+st.divider()
+
+
+# ==================================================
+# CAREER SELECTION
+# ==================================================
+
+st.header(
+    "🎯 Choose Your Career"
+)
 
 career = st.selectbox(
-    "Select a career to analyze",
+    "Which career do you want to explore?",
     list(careers.keys())
 )
 
 
+# ==================================================
+# ANALYSIS
+# ==================================================
+
 if st.button(
     "📊 Analyze My Career Readiness",
-    type="primary"
+    type="primary",
+    use_container_width=True
 ):
+
+    skills = [
+        skill.strip()
+        for skill in profile["skills"].split(",")
+        if skill.strip()
+    ]
+
 
     score = calculate_career_readiness(
         skills,
@@ -102,20 +134,40 @@ if st.button(
 
     st.divider()
 
-
-    # ========================================================
-    # SCORE
-    # ========================================================
-
     st.header(
-        f"📈 {career} Readiness"
+        f"📈 {career}"
     )
 
 
-    st.metric(
-        "Career Readiness",
-        f"{score}%"
-    )
+    # ----------------------------------------------
+    # METRICS
+    # ----------------------------------------------
+
+    col1, col2, col3 = st.columns(3)
+
+
+    with col1:
+
+        st.metric(
+            "Career Readiness",
+            f"{score}%"
+        )
+
+
+    with col2:
+
+        st.metric(
+            "Your Skills",
+            len(skills)
+        )
+
+
+    with col3:
+
+        st.metric(
+            "Required Skills",
+            len(careers[career])
+        )
 
 
     st.progress(
@@ -126,60 +178,48 @@ if st.button(
     if score >= 80:
 
         st.success(
-            "🎉 You have a strong skill match for this career."
+            "🎉 Strong match! You have a strong foundation."
         )
 
     elif score >= 60:
 
         st.warning(
-            "👍 You have a good foundation, but some skills need improvement."
+            "👍 Good foundation. Focus on the missing skills."
         )
 
     else:
 
         st.info(
-            "📚 You have several important skills to develop for this career."
+            "📚 Several important skills still need development."
         )
 
 
-    st.divider()
-
-
-    # ========================================================
+    # ----------------------------------------------
     # CURRENT SKILLS
-    # ========================================================
+    # ----------------------------------------------
+
+    st.divider()
 
     st.header(
         "💻 Your Current Skills"
     )
 
+    for skill in skills:
 
-    if skills:
-
-        for skill in skills:
-
-            st.write(
-                f"✅ {skill}"
-            )
-
-    else:
-
-        st.info(
-            "No skills found in your profile."
+        st.write(
+            f"✅ {skill}"
         )
 
 
+    # ----------------------------------------------
+    # REQUIREMENTS
+    # ----------------------------------------------
+
     st.divider()
 
-
-    # ========================================================
-    # REQUIRED SKILLS
-    # ========================================================
-
     st.header(
-        "📋 Career Skill Requirements"
+        "📋 Career Requirements"
     )
-
 
     for skill, level in careers[career].items():
 
@@ -188,13 +228,20 @@ if st.button(
         )
 
 
+    # ----------------------------------------------
+    # AI ROADMAP PLACEHOLDER
+    # ----------------------------------------------
+
+    st.divider()
+
+    st.header(
+        "🚀 Your Next Step"
+    )
+
     st.info(
         """
-        The current score is based on the skills
-        entered in your Digital Twin.
-
-        Future versions can combine this with
-        AI skill extraction, quiz performance,
-        learning history and recommendations.
+        EduTwin can use your career readiness,
+        learning history and quiz performance
+        to generate a personalized career roadmap.
         """
     )
