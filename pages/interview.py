@@ -1,6 +1,6 @@
 import streamlit as st
+
 from utils.style import load_css
-from ai.groq_client import ask_groq
 
 
 st.set_page_config(
@@ -8,7 +8,14 @@ st.set_page_config(
     page_icon="🎤",
     layout="wide"
 )
+
+
 load_css()
+
+
+# =========================================
+# HERO
+# =========================================
 
 st.markdown(
     """
@@ -23,9 +30,8 @@ st.markdown(
         </div>
 
         <div class="hero-text">
-            Answer interview questions and receive
-            personalized AI feedback based on your
-            target career.
+            Prepare for interviews using questions
+            related to your target career.
         </div>
 
     </div>
@@ -34,11 +40,24 @@ st.markdown(
 )
 
 
+# =========================================
+# PROFILE CHECK
+# =========================================
+
 if "profile" not in st.session_state:
 
     st.warning(
-        "Please create your profile first."
+        "Please create your Digital Twin profile first."
     )
+
+    if st.button(
+        "👤 Create My Profile",
+        type="primary"
+    ):
+
+        st.switch_page(
+            "pages/profile.py"
+        )
 
     st.stop()
 
@@ -46,15 +65,18 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-st.write(
-    f"""
-    Practice interview questions for your target career:
-    **{profile['career_goal']}**
-    """
+# =========================================
+# INTERVIEW
+# =========================================
+
+st.markdown(
+    '<div class="section-label">INTERVIEW PRACTICE</div>',
+    unsafe_allow_html=True
 )
 
-
-st.divider()
+st.subheader(
+    f"🎯 Target Career: {profile['career_goal']}"
+)
 
 
 question = st.text_area(
@@ -69,7 +91,9 @@ question = st.text_area(
 
 answer = st.text_area(
     "Your Answer",
-    placeholder="Type your answer here...",
+    placeholder=(
+        "Write your answer here..."
+    ),
     height=200
 )
 
@@ -87,65 +111,13 @@ if st.button(
 
     else:
 
-        prompt = f"""
-You are an AI interview coach.
+        st.success(
+            "✅ Answer received!"
+        )
 
-Student name:
-{profile["name"]}
-
-Education:
-{profile["education"]}
-
-Skills:
-{profile["skills"]}
-
-Career goal:
-{profile["career_goal"]}
-
-Interview question:
-{question}
-
-Student answer:
-{answer}
-
-Evaluate the answer.
-
-Give:
-
-1. Overall evaluation
-2. What was good
-3. What can be improved
-4. Technical/content suggestions
-5. Communication suggestions
-6. A better sample answer
-
-Be supportive and educational.
-"""
-
-
-        try:
-
-            with st.spinner(
-                "AI is evaluating your answer..."
-            ):
-
-                evaluation = ask_groq(
-                    prompt
-                )
-
-
-            st.subheader(
-                "🤖 AI Interview Feedback"
-            )
-
-
-            st.markdown(
-                evaluation
-            )
-
-
-        except Exception as error:
-
-            st.error(
-                f"Interview AI error: {error}"
-            )
+        st.info(
+            """
+            AI interview evaluation is ready
+            to be connected to your interview engine.
+            """
+        )
