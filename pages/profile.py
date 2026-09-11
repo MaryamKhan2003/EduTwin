@@ -4,9 +4,9 @@ from utils.pdf_parser import extract_text_from_pdf
 from ai.cv_analyzer import analyze_cv
 
 
-# --------------------------------------------------
+# ==================================================
 # PAGE CONFIGURATION
-# --------------------------------------------------
+# ==================================================
 
 st.set_page_config(
     page_title="EduTwin - Digital Twin",
@@ -15,9 +15,9 @@ st.set_page_config(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # SIDEBAR
-# --------------------------------------------------
+# ==================================================
 
 with st.sidebar:
 
@@ -31,26 +31,32 @@ with st.sidebar:
 
     st.write(
         """
-        ### Your Profile
+        ### Build your AI profile
 
-        EduTwin uses your profile to personalize:
+        📄 Upload CV
 
-        📷 Vision Tutor
+        🤖 AI Analysis
 
-        📚 Learning
+        ✏️ Confirm information
 
-        💼 Career Analysis
-
-        🎤 Interview Practice
+        🧠 Create Digital Twin
         """
     )
 
+    st.divider()
 
-# --------------------------------------------------
-# PAGE HEADER
-# --------------------------------------------------
+    st.info(
+        "Your profile powers personalized learning."
+    )
 
-st.title("👤 Build Your Digital Twin")
+
+# ==================================================
+# HEADER
+# ==================================================
+
+st.title(
+    "👤 Build Your Digital Twin"
+)
 
 st.subheader(
     "Let EduTwin understand you before it teaches you."
@@ -58,24 +64,27 @@ st.subheader(
 
 st.write(
     """
-    Your Digital Twin represents your **education, skills,
-    experience, interests and career goals**.
+    Your Digital Twin represents your **education,
+    skills, courses, projects, experience, interests
+    and career goals**.
     """
 )
 
 st.divider()
 
 
-# --------------------------------------------------
-# CV UPLOAD
-# --------------------------------------------------
+# ==================================================
+# STEP 1 — CV
+# ==================================================
 
-st.header("📄 Step 1 — Upload Your CV")
+st.header(
+    "📄 Step 1 — Upload Your CV"
+)
 
 st.write(
     """
-    Upload your CV in PDF format and let Groq AI
-    analyze your background.
+    Upload your CV in PDF format. Groq AI will analyze
+    it and extract information about your background.
     """
 )
 
@@ -157,9 +166,9 @@ if uploaded_cv is not None:
             )
 
 
-# --------------------------------------------------
+# ==================================================
 # AI ANALYSIS
-# --------------------------------------------------
+# ==================================================
 
 if "cv_analysis" in st.session_state:
 
@@ -170,7 +179,7 @@ if "cv_analysis" in st.session_state:
     )
 
     with st.expander(
-        "View extracted CV information",
+        "🔍 View extracted CV information",
         expanded=True
     ):
 
@@ -180,15 +189,15 @@ if "cv_analysis" in st.session_state:
 
     st.info(
         """
-        Review the information above and confirm
-        your profile details below.
+        Review the AI analysis and confirm your
+        information in the profile fields below.
         """
     )
 
 
-# --------------------------------------------------
-# PROFILE INFORMATION
-# --------------------------------------------------
+# ==================================================
+# STEP 2 — PROFILE
+# ==================================================
 
 st.divider()
 
@@ -201,9 +210,9 @@ st.caption(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # PERSONAL INFORMATION
-# --------------------------------------------------
+# ==================================================
 
 col1, col2 = st.columns(2)
 
@@ -224,11 +233,13 @@ with col2:
     )
 
 
-# --------------------------------------------------
+# ==================================================
 # SKILLS
-# --------------------------------------------------
+# ==================================================
 
-st.subheader("💻 Skills")
+st.subheader(
+    "💻 Skills"
+)
 
 skills = st.text_area(
     "Your Skills",
@@ -240,11 +251,13 @@ skills = st.text_area(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # COURSES
-# --------------------------------------------------
+# ==================================================
 
-st.subheader("📚 Courses")
+st.subheader(
+    "📚 Courses"
+)
 
 courses = st.text_area(
     "Courses You Have Studied",
@@ -256,11 +269,13 @@ courses = st.text_area(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # PROJECTS
-# --------------------------------------------------
+# ==================================================
 
-st.subheader("🚀 Projects")
+st.subheader(
+    "🚀 Projects"
+)
 
 projects = st.text_area(
     "Your Projects",
@@ -272,11 +287,13 @@ projects = st.text_area(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # INTERESTS
-# --------------------------------------------------
+# ==================================================
 
-st.subheader("💡 Interests")
+st.subheader(
+    "💡 Interests"
+)
 
 interests = st.text_area(
     "Your Interests",
@@ -288,9 +305,9 @@ interests = st.text_area(
 )
 
 
-# --------------------------------------------------
+# ==================================================
 # EXPERIENCE + CERTIFICATIONS
-# --------------------------------------------------
+# ==================================================
 
 col1, col2 = st.columns(2)
 
@@ -311,18 +328,19 @@ with col2:
     certifications = st.text_area(
         "🏆 Certifications",
         placeholder=(
-            "Python Certification, Google "
-            "Data Analytics..."
+            "Python Certification, Google Data Analytics..."
         ),
         height=120
     )
 
 
-# --------------------------------------------------
+# ==================================================
 # CAREER
-# --------------------------------------------------
+# ==================================================
 
-st.subheader("🎯 Target Career")
+st.subheader(
+    "🎯 Target Career"
+)
 
 career_options = [
     "AI Engineer",
@@ -349,9 +367,9 @@ if career_goal == "Other":
     )
 
 
-# --------------------------------------------------
+# ==================================================
 # CREATE DIGITAL TWIN
-# --------------------------------------------------
+# ==================================================
 
 st.divider()
 
@@ -421,7 +439,7 @@ if st.button(
 
 
         # ------------------------------------------
-        # PROFILE SUMMARY
+        # SUMMARY
         # ------------------------------------------
 
         st.divider()
