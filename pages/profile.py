@@ -1,5 +1,6 @@
 import streamlit as st
 
+from utils.pdf_parser import extract_text_from_pdf
 
 # -----------------------------
 # Page Configuration
@@ -27,7 +28,64 @@ st.write(
 
 
 st.divider()
+# -----------------------------
+# CV Upload
+# -----------------------------
 
+st.header("📄 Upload Your CV")
+
+uploaded_cv = st.file_uploader(
+    "Upload your CV as a PDF",
+    type=["pdf"]
+)
+
+
+if uploaded_cv is not None:
+
+    st.success(
+        f"CV uploaded: {uploaded_cv.name}"
+    )
+
+
+    if st.button("📄 Extract CV Text"):
+
+        try:
+
+            cv_text = extract_text_from_pdf(
+                uploaded_cv
+            )
+
+
+            if cv_text:
+
+                st.session_state["cv_text"] = cv_text
+
+
+                st.success(
+                    "✅ CV text extracted successfully!"
+                )
+
+
+                with st.expander("View extracted CV text"):
+
+                    st.text(cv_text)
+
+
+            else:
+
+                st.warning(
+                    "No readable text was found in this PDF."
+                )
+
+
+        except Exception as error:
+
+            st.error(
+                f"Could not read the CV: {error}"
+            )
+
+
+st.divider()
 
 # -----------------------------
 # Personal Information
