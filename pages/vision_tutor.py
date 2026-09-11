@@ -1,5 +1,5 @@
 import streamlit as st
-
+from utils.style import load_css
 from ai.vision import analyze_image
 
 
@@ -8,10 +8,40 @@ st.set_page_config(
     page_icon="📷",
     layout="wide"
 )
+load_css()
 
+st.markdown(
+    """
+    <div class="hero">
 
-st.title("📷 AI Vision Tutor")
+        <div class="hero-small">
+            MULTIMODAL AI LEARNING
+        </div>
 
+        <div class="hero-title">
+            Show me what you're learning. 📷
+        </div>
+
+        <div class="hero-text">
+            Upload a diagram, graph, computer component,
+            code screenshot or educational image.
+            EduTwin will explain it according to your
+            knowledge and career goal.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '<div class="section-label">STEP 01</div>',
+    unsafe_allow_html=True
+)
+
+st.subheader(
+    "📸 Upload something you want to understand"
+)
 
 st.write(
     """
@@ -42,6 +72,14 @@ uploaded_image = st.file_uploader(
         "png",
         "webp"
     ]
+)
+st.markdown(
+    '<div class="section-label">STEP 02</div>',
+    unsafe_allow_html=True
+)
+
+st.subheader(
+    "🧠 Choose how EduTwin should teach you"
 )
 
 
