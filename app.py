@@ -1,5 +1,7 @@
 import streamlit as st
 
+from utils.style import load_css
+
 
 st.set_page_config(
     page_title="EduTwin AI",
@@ -8,32 +10,145 @@ st.set_page_config(
 )
 
 
-st.title("🧠 EduTwin AI")
+load_css()
 
-st.subheader(
-    "Your Personal AI Learning and Career Twin"
+
+# ==========================================
+# SIDEBAR
+# ==========================================
+
+with st.sidebar:
+
+    st.markdown(
+        """
+        <div style="
+            text-align:center;
+            padding:15px 5px 25px 5px;
+        ">
+            <div style="font-size:42px;">🧠</div>
+
+            <div style="
+                font-size:24px;
+                font-weight:800;
+                color:white;
+            ">
+                EduTwin
+            </div>
+
+            <div style="
+                color:#94a3b8;
+                font-size:12px;
+            ">
+                AI Learning Intelligence
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.divider()
+
+    st.caption("YOUR LEARNING")
+
+    st.write("👤 Digital Twin")
+    st.write("📚 Adaptive Learning")
+    st.write("📷 Vision Tutor")
+
+    st.caption("YOUR CAREER")
+
+    st.write("💼 Career Analysis")
+    st.write("🎤 Interview Practice")
+
+
+# ==========================================
+# HERO
+# ==========================================
+
+st.markdown(
+    """
+    <div class="hero">
+
+        <div class="hero-small">
+            🧠 AI-POWERED PERSONAL LEARNING TWIN
+        </div>
+
+        <div class="hero-title">
+            Learn smarter.<br>
+            Grow faster.
+        </div>
+
+        <div class="hero-text">
+            EduTwin understands your skills, learning needs,
+            interests and career goals — then creates a
+            personalized learning experience around you.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
 
-st.write(
-    """
-    EduTwin AI creates a personalized digital representation
-    of your skills, knowledge, interests, and career goals.
-    """
+# ==========================================
+# BUTTONS
+# ==========================================
+
+col1, col2, col3 = st.columns(
+    [1.2, 1, 1]
 )
 
 
-st.divider()
+with col1:
+
+    if st.button(
+        "🚀 Build My Digital Twin",
+        type="primary",
+        use_container_width=True
+    ):
+
+        st.switch_page(
+            "pages/profile.py"
+        )
 
 
-st.header("Welcome to EduTwin")
+with col2:
+
+    if st.button(
+        "📷 Try Vision Tutor",
+        use_container_width=True
+    ):
+
+        st.switch_page(
+            "pages/vision_tutor.py"
+        )
 
 
-st.write(
-    """
-    EduTwin helps you understand what you know, identify
-    what you need to learn, and prepare for your desired career.
-    """
+with col3:
+
+    if st.button(
+        "💼 Explore Careers",
+        use_container_width=True
+    ):
+
+        st.switch_page(
+            "pages/career.py"
+        )
+
+
+st.write("")
+
+
+# ==========================================
+# FEATURES
+# ==========================================
+
+st.markdown(
+    '<div class="section-label">THE EDUTWIN EXPERIENCE</div>',
+    unsafe_allow_html=True
+)
+
+st.header(
+    "One AI. Personalized around you."
 )
 
 
@@ -42,55 +157,194 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    st.subheader("👤 Digital Twin")
+    st.markdown(
+        """
+        <div class="feature-card">
 
-    st.write(
-        """
-        Build a personalized profile containing your
-        skills, courses, projects, interests, and career goal.
-        """
+            <div class="feature-icon">
+                👤
+            </div>
+
+            <div class="feature-title">
+                Digital Twin
+            </div>
+
+            <div class="feature-text">
+                Build an intelligent profile of your
+                skills, education, projects, interests
+                and career goals.
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
 with col2:
 
-    st.subheader("📷 Vision Tutor")
+    st.markdown(
+        """
+        <div class="feature-card">
 
-    st.write(
-        """
-        Upload an educational image and let AI identify
-        and explain what you are looking at.
-        """
+            <div class="feature-icon">
+                📷
+            </div>
+
+            <div class="feature-title">
+                Vision Tutor
+            </div>
+
+            <div class="feature-text">
+                Show EduTwin a diagram, computer component,
+                graph or educational image and let AI
+                explain what you see.
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
 with col3:
 
-    st.subheader("💼 Career AI")
-
-    st.write(
+    st.markdown(
         """
-        Analyze your skills, identify skill gaps,
-        and understand your career readiness.
-        """
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <div class="feature-title">
+                Adaptive AI
+            </div>
+
+            <div class="feature-text">
+                Learn topics based on your current knowledge,
+                career goals and learning progress.
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
 
-st.divider()
+# ==========================================
+# HOW IT WORKS
+# ==========================================
+
+st.write("")
+st.write("")
+
+st.markdown(
+    '<div class="section-label">HOW IT WORKS</div>',
+    unsafe_allow_html=True
+)
+
+st.header(
+    "Your learning journey becomes intelligent."
+)
 
 
-if "profile" in st.session_state:
+col1, col2, col3, col4 = st.columns(4)
 
-    profile = st.session_state["profile"]
 
-    st.success(
-        f"Welcome back, {profile['name']}! "
-        f"Your target career is {profile['career_goal']}."
-    )
+steps = [
+    ("01", "👤", "Know You", "Build your Digital Twin."),
+    ("02", "📚", "Teach You", "Generate personalized learning."),
+    ("03", "📝", "Test You", "Measure your understanding."),
+    ("04", "🎯", "Guide You", "Improve your next learning step.")
+]
 
-else:
 
-    st.info(
-        "👈 Open **Profile** from the sidebar to create "
-        "your Digital Twin."
-    )
+for column, step in zip(
+    [col1, col2, col3, col4],
+    steps
+):
+
+    with column:
+
+        number, icon, title, text = step
+
+        st.markdown(
+            f"""
+            <div class="stat-card">
+
+                <div style="
+                    color:#818cf8;
+                    font-size:12px;
+                    font-weight:700;
+                ">
+                    {number}
+                </div>
+
+                <div style="
+                    font-size:30px;
+                    margin:10px;
+                ">
+                    {icon}
+                </div>
+
+                <div style="
+                    color:white;
+                    font-size:17px;
+                    font-weight:700;
+                ">
+                    {title}
+                </div>
+
+                <div style="
+                    color:#94a3b8;
+                    font-size:13px;
+                    margin-top:8px;
+                ">
+                    {text}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
+# ==========================================
+# INSIGHT
+# ==========================================
+
+st.markdown(
+    """
+    <div class="insight-card">
+
+        <div class="insight-title">
+            ✨ The idea behind EduTwin
+        </div>
+
+        <p class="insight-text">
+            Traditional learning gives everyone the same content.
+            EduTwin first understands the learner, then understands
+            what they are learning, and finally adapts the experience
+            around their knowledge and career goal.
+        </p>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# ==========================================
+# FOOTER
+# ==========================================
+
+st.markdown(
+    """
+    <div class="footer">
+        🧠 EduTwin AI &nbsp;•&nbsp;
+        Personalized Learning Intelligence
+    </div>
+    """,
+    unsafe_allow_html=True
+)
