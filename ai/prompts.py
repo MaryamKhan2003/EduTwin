@@ -3,47 +3,43 @@ def build_cv_analysis_prompt(cv_text):
     return f"""
 You are EduTwin AI.
 
-Analyze the following student's CV.
+Analyze the student's CV and extract information
+for an AI-powered Digital Twin.
 
 CV:
 -------------------------
 {cv_text}
 -------------------------
 
-Extract only information that is actually present.
+Return ONLY valid JSON.
 
-Return the information using this structure:
+Use exactly these keys:
 
-Name:
-Education:
+{{
+    "name": "",
+    "education": "",
+    "skills": [],
+    "courses": [],
+    "projects": [],
+    "interests": [],
+    "experience": "",
+    "certifications": [],
+    "career_goal": ""
+}}
 
-Skills:
-- skill 1
-- skill 2
+Rules:
 
-Courses:
-- course 1
-- course 2
-
-Projects:
-- project 1
-- project 2
-
-Interests:
-- interest 1
-- interest 2
-
-Experience:
-- experience 1
-
-Certifications:
-- certification 1
-
-Possible Career Interests:
-- career 1
-- career 2
-
-Do not invent information.
+1. Only use information actually present in the CV.
+2. Do not invent information.
+3. If information is missing, use an empty string or empty list.
+4. Skills must be returned as a list of short skill names.
+5. Courses must be returned as a list.
+6. Projects must be returned as a list.
+7. Interests must be returned as a list.
+8. Certifications must be returned as a list.
+9. If a clear career goal is not mentioned, infer a possible career
+   only when the CV strongly supports it. Otherwise use an empty string.
+10. Return JSON only.
 """
 
 
@@ -52,25 +48,25 @@ def build_learning_prompt(topic, profile):
     return f"""
 You are EduTwin AI, a personalized learning tutor.
 
-Student name:
-{profile["name"]}
+Student:
+{profile['name']}
 
 Education:
-{profile["education"]}
+{profile['education']}
 
 Skills:
-{profile["skills"]}
+{profile['skills']}
 
 Career goal:
-{profile["career_goal"]}
+{profile['career_goal']}
 
-Teach this student about:
+Teach the student about:
 
 {topic}
 
 Create a beginner-friendly lesson.
 
-Include:
+The lesson should contain:
 
 1. Simple explanation
 2. Important concepts
@@ -79,6 +75,71 @@ Include:
 5. Short summary
 6. Three questions to test understanding
 
-Use simple language.
-Do not assume advanced knowledge.
+Do not assume the student already knows advanced concepts.
+
+Keep the response below 600 words.
+"""
+
+
+def build_interview_prompt(question, answer, profile):
+
+    return f"""
+You are EduTwin AI Interview Coach.
+
+Evaluate a student's interview answer.
+
+STUDENT:
+Name: {profile['name']}
+Education: {profile['education']}
+Skills: {profile['skills']}
+Target Career: {profile['career_goal']}
+Interests: {profile['interests']}
+
+INTERVIEW QUESTION:
+{question}
+
+STUDENT ANSWER:
+{answer}
+
+Evaluate the answer based on:
+
+1. Technical knowledge
+2. Relevance to the question
+3. Communication
+4. Clarity
+5. Confidence
+6. Career alignment
+
+Return ONLY valid JSON using exactly this structure:
+
+{{
+    "overall_score": 0,
+    "technical_score": 0,
+    "communication_score": 0,
+    "relevance_score": 0,
+    "career_alignment_score": 0,
+    "strengths": [],
+    "improvements": [],
+    "better_answer": "",
+    "final_feedback": ""
+}}
+
+Scoring:
+
+0 = very weak
+1-3 = needs major improvement
+4-5 = below average
+6-7 = acceptable
+8-9 = strong
+10 = excellent
+
+Rules:
+
+- Be honest but constructive.
+- Do not invent experience for the student.
+- Do not give a high score just because the answer is long.
+- Explain what the student can improve.
+- The better_answer should be a realistic improved version,
+  based only on information available about the student.
+- Return JSON only.
 """
