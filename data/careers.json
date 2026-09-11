@@ -6,15 +6,45 @@
         "Statistics": 70,
         "SQL": 60,
         "Git": 60,
-        "Docker": 50
+        "Data Structures": 70
+    },
+
+    "Machine Learning Engineer": {
+        "Python": 90,
+        "Machine Learning": 95,
+        "Deep Learning": 90,
+        "Statistics": 85,
+        "SQL": 60,
+        "Git": 60,
+        "Data Structures": 75
+    },
+
+    "Data Scientist": {
+        "Python": 85,
+        "Statistics": 90,
+        "Machine Learning": 85,
+        "SQL": 85,
+        "Data Visualization": 80,
+        "Git": 50
     },
 
     "Data Analyst": {
         "Python": 70,
         "SQL": 90,
-        "Excel": 85,
+        "Excel": 90,
         "Statistics": 80,
-        "Power BI": 80
+        "Power BI": 80,
+        "Data Visualization": 80
+    },
+
+    "Software Engineer": {
+        "Python": 60,
+        "C++": 80,
+        "Java": 70,
+        "Data Structures": 90,
+        "Algorithms": 90,
+        "OOP": 90,
+        "Git": 70
     },
 
     "Cybersecurity Engineer": {
@@ -22,6 +52,16 @@
         "Linux": 85,
         "Python": 60,
         "Cybersecurity": 90,
-        "Cryptography": 60
+        "Cryptography": 60,
+        "Git": 50
+    },
+
+    "Cloud Engineer": {
+        "Linux": 85,
+        "Networking": 85,
+        "Python": 60,
+        "Docker": 80,
+        "Cloud": 90,
+        "Git": 70
     }
 }
