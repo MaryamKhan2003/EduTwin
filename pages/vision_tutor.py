@@ -1,7 +1,6 @@
 import streamlit as st
 
 from ai.vision import analyze_image
-from utils.style import load_css
 
 
 st.set_page_config(
@@ -11,41 +10,34 @@ st.set_page_config(
 )
 
 
-load_css()
+# ============================================================
+# HEADER
+# ============================================================
 
-
-# =========================================
-# HERO
-# =========================================
-
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-small">
-            MULTIMODAL AI LEARNING
-        </div>
-
-        <div class="hero-title">
-            Show me what you're learning. 📷
-        </div>
-
-        <div class="hero-text">
-            Upload a diagram, graph, computer component,
-            code screenshot or educational image.
-            EduTwin will explain it according to your
-            knowledge and career goal.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.title(
+    "📷 Vision Tutor"
 )
 
+st.subheader(
+    "Show me what you're learning."
+)
 
-# =========================================
-# CHECK PROFILE
-# =========================================
+st.write(
+    """
+    Upload a diagram, graph, computer component,
+    code screenshot or educational image.
+
+    EduTwin will explain it according to your
+    knowledge and career goal.
+    """
+)
+
+st.divider()
+
+
+# ============================================================
+# PROFILE CHECK
+# ============================================================
 
 if "profile" not in st.session_state:
 
@@ -68,17 +60,34 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# =========================================
-# UPLOAD
-# =========================================
+# ============================================================
+# STUDENT INFORMATION
+# ============================================================
 
-st.markdown(
-    '<div class="section-label">STEP 01</div>',
-    unsafe_allow_html=True
-)
+with st.expander(
+    "👤 Your current Digital Twin",
+    expanded=False
+):
 
-st.subheader(
-    "📸 Upload something you want to understand"
+    st.write(
+        f"**Education:** {profile['education']}"
+    )
+
+    st.write(
+        f"**Skills:** {profile['skills']}"
+    )
+
+    st.write(
+        f"**Career Goal:** {profile['career_goal']}"
+    )
+
+
+# ============================================================
+# IMAGE UPLOAD
+# ============================================================
+
+st.header(
+    "📸 Step 1 — Upload an Image"
 )
 
 
@@ -93,22 +102,17 @@ uploaded_image = st.file_uploader(
 )
 
 
-# =========================================
+# ============================================================
 # EXPLANATION MODE
-# =========================================
+# ============================================================
 
-st.markdown(
-    '<div class="section-label">STEP 02</div>',
-    unsafe_allow_html=True
-)
-
-st.subheader(
-    "🧠 Choose how EduTwin should teach you"
+st.header(
+    "🧠 Step 2 — Choose Explanation Mode"
 )
 
 
 mode = st.selectbox(
-    "Explanation mode",
+    "How should EduTwin explain it?",
     [
         "Understand",
         "Explain Like I'm 5",
@@ -118,30 +122,33 @@ mode = st.selectbox(
 )
 
 
-# =========================================
-# DISPLAY IMAGE
-# =========================================
+# ============================================================
+# IMAGE PREVIEW
+# ============================================================
 
 if uploaded_image is not None:
 
+    st.header(
+        "👀 Image Preview"
+    )
+
     st.image(
         uploaded_image,
-        caption="Uploaded Image",
+        caption="Your uploaded image",
         use_container_width=True
     )
 
 
-    st.write("")
+    st.divider()
 
 
-    # =====================================
-    # ANALYZE BUTTON
-    # =====================================
+    # ========================================================
+    # ANALYZE
+    # ========================================================
 
     if st.button(
         "🧠 Analyze Image",
-        type="primary",
-        use_container_width=False
+        type="primary"
     ):
 
         try:
@@ -187,37 +194,35 @@ First identify what is visible.
 
 Then explain it according to the selected mode.
 
-If the image contains a:
+If the image contains:
 
-- computer component
-- diagram
-- graph
-- chart
-- programming concept
-- mathematical concept
-- technical object
+- a computer component
+- a diagram
+- a graph
+- a chart
+- programming code
+- a mathematical concept
+- a technical object
 - educational material
 
-explain its purpose and the most important concepts.
+explain its purpose and important concepts.
 
 Connect the explanation to the student's
-knowledge and career goal where appropriate.
+knowledge and career goal when appropriate.
 
 Do not invent details that cannot be observed.
 
 Use simple language.
 
-Keep the response concise.
-
 Use headings and bullet points where useful.
 
-Keep the answer below 400 words.
+Keep the response below 400 words.
 """
 
 
-            # =================================
-            # AI ANALYSIS
-            # =================================
+            # =================================================
+            # AI REQUEST
+            # =================================================
 
             with st.spinner(
                 "🔍 EduTwin is analyzing your image..."
@@ -231,16 +236,11 @@ Keep the answer below 400 words.
 
 
             st.success(
-                "✅ Image analysis completed!"
+                "✅ Analysis completed!"
             )
 
 
-            st.markdown(
-                '<div class="section-label">AI RESULT</div>',
-                unsafe_allow_html=True
-            )
-
-            st.subheader(
+            st.header(
                 "🧠 Your Personalized Explanation"
             )
 
@@ -255,3 +255,10 @@ Keep the answer below 400 words.
             st.error(
                 f"Vision AI error: {error}"
             )
+
+
+else:
+
+    st.info(
+        "📷 Upload an image above to start learning."
+    )
