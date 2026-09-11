@@ -8,7 +8,6 @@
         "Git": 60,
         "Data Structures": 70
     },
-
     "Machine Learning Engineer": {
         "Python": 90,
         "Machine Learning": 95,
@@ -18,7 +17,6 @@
         "Git": 60,
         "Data Structures": 75
     },
-
     "Data Scientist": {
         "Python": 85,
         "Statistics": 90,
@@ -27,7 +25,6 @@
         "Data Visualization": 80,
         "Git": 50
     },
-
     "Data Analyst": {
         "Python": 70,
         "SQL": 90,
@@ -36,7 +33,6 @@
         "Power BI": 80,
         "Data Visualization": 80
     },
-
     "Software Engineer": {
         "Python": 60,
         "C++": 80,
@@ -46,7 +42,6 @@
         "OOP": 90,
         "Git": 70
     },
-
     "Cybersecurity Engineer": {
         "Networking": 90,
         "Linux": 85,
@@ -55,7 +50,6 @@
         "Cryptography": 60,
         "Git": 50
     },
-
     "Cloud Engineer": {
         "Linux": 85,
         "Networking": 85,
