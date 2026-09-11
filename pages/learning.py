@@ -1,5 +1,7 @@
-
 import streamlit as st
+
+from ai.groq_client import ask_groq
+from ai.prompts import build_learning_prompt
 
 
 st.set_page_config(
@@ -25,7 +27,12 @@ profile = st.session_state["profile"]
 
 
 st.write(
-    f"Learning recommendations for {profile['name']}"
+    f"Personalized learning for **{profile['name']}**"
+)
+
+
+st.write(
+    f"Target career: **{profile['career_goal']}**"
 )
 
 
@@ -39,31 +46,43 @@ topic = st.text_input(
 
 
 if st.button(
-    "📖 Start Learning",
+    "🧠 Generate Personalized Lesson",
     type="primary"
 ):
 
     if topic.strip() == "":
 
         st.warning(
-            "Please enter a topic."
+            "Please enter a topic first."
         )
 
     else:
 
-        st.subheader(
-            f"Learning Topic: {topic}"
+        prompt = build_learning_prompt(
+            topic,
+            profile
         )
 
+        try:
 
-        st.write(
-            f"""
-            EduTwin will create a personalized lesson
-            for **{profile['career_goal']}** learners.
-            """
-        )
+            with st.spinner(
+                "Groq AI is creating your lesson..."
+            ):
 
+                lesson = ask_groq(
+                    prompt
+                )
 
-        st.info(
-            "AI-generated lessons will be connected here next."
-        )
+            st.subheader(
+                f"📖 {topic}"
+            )
+
+            st.markdown(
+                lesson
+            )
+
+        except Exception as error:
+
+            st.error(
+                f"Learning AI error: {error}"
+            )
