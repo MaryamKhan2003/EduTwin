@@ -2,7 +2,6 @@ import streamlit as st
 
 from ai.groq_client import ask_groq
 from ai.prompts import build_learning_prompt
-from utils.style import load_css
 
 
 st.set_page_config(
@@ -12,39 +11,31 @@ st.set_page_config(
 )
 
 
-load_css()
+# ============================================================
+# HEADER
+# ============================================================
 
-
-# =========================================
-# HERO
-# =========================================
-
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-small">
-            PERSONALIZED AI LEARNING
-        </div>
-
-        <div class="hero-title">
-            Learn something that matters. 📚
-        </div>
-
-        <div class="hero-text">
-            EduTwin creates learning explanations based
-            on your knowledge, skills and career goal.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.title(
+    "📚 Adaptive Learning"
 )
 
+st.subheader(
+    "Learn something that matters."
+)
 
-# =========================================
+st.write(
+    """
+    EduTwin creates a learning explanation based on
+    your knowledge, skills and career goal.
+    """
+)
+
+st.divider()
+
+
+# ============================================================
 # PROFILE CHECK
-# =========================================
+# ============================================================
 
 if "profile" not in st.session_state:
 
@@ -67,25 +58,18 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# =========================================
-# LEARNING
-# =========================================
+# ============================================================
+# TOPIC
+# ============================================================
 
-st.markdown(
-    '<div class="section-label">CHOOSE A TOPIC</div>',
-    unsafe_allow_html=True
-)
-
-st.subheader(
+st.header(
     "🧠 What do you want to learn?"
 )
 
 
 topic = st.text_input(
-    "Learning topic",
-    placeholder=(
-        "Example: Neural Networks"
-    )
+    "Learning Topic",
+    placeholder="Example: Neural Networks"
 )
 
 
@@ -134,12 +118,10 @@ if st.button(
             )
 
 
-            st.markdown(
-                '<div class="section-label">YOUR LESSON</div>',
-                unsafe_allow_html=True
-            )
+            st.divider()
 
-            st.subheader(
+
+            st.header(
                 f"📚 {topic}"
             )
 
