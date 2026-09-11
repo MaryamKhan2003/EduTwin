@@ -1,7 +1,8 @@
 import streamlit as st
-from utils.style import load_css
+
 from ai.groq_client import ask_groq
 from ai.prompts import build_learning_prompt
+from utils.style import load_css
 
 
 st.set_page_config(
@@ -9,7 +10,14 @@ st.set_page_config(
     page_icon="📚",
     layout="wide"
 )
+
+
 load_css()
+
+
+# =========================================
+# HERO
+# =========================================
 
 st.markdown(
     """
@@ -24,9 +32,8 @@ st.markdown(
         </div>
 
         <div class="hero-text">
-            EduTwin uses your profile and career goal
-            to create learning content that is relevant
-            to you.
+            EduTwin creates learning explanations based
+            on your knowledge, skills and career goal.
         </div>
 
     </div>
@@ -35,11 +42,24 @@ st.markdown(
 )
 
 
+# =========================================
+# PROFILE CHECK
+# =========================================
+
 if "profile" not in st.session_state:
 
     st.warning(
-        "Please create your profile first."
+        "Please create your Digital Twin profile first."
     )
+
+    if st.button(
+        "👤 Create My Profile",
+        type="primary"
+    ):
+
+        st.switch_page(
+            "pages/profile.py"
+        )
 
     st.stop()
 
@@ -47,27 +67,30 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-st.write(
-    f"Personalized learning for **{profile['name']}**"
+# =========================================
+# LEARNING
+# =========================================
+
+st.markdown(
+    '<div class="section-label">CHOOSE A TOPIC</div>',
+    unsafe_allow_html=True
 )
 
-
-st.write(
-    f"Target career: **{profile['career_goal']}**"
+st.subheader(
+    "🧠 What do you want to learn?"
 )
-
-
-st.divider()
 
 
 topic = st.text_input(
-    "What do you want to learn?",
-    placeholder="Example: Neural Networks"
+    "Learning topic",
+    placeholder=(
+        "Example: Neural Networks"
+    )
 )
 
 
 if st.button(
-    "🧠 Generate Personalized Lesson",
+    "📖 Start Personalized Learning",
     type="primary"
 ):
 
@@ -79,28 +102,52 @@ if st.button(
 
     else:
 
-        prompt = build_learning_prompt(
-            topic,
-            profile
-        )
-
         try:
 
+            if "GROQ_API_KEY" not in st.secrets:
+
+                st.error(
+                    "GROQ_API_KEY is missing from "
+                    "Streamlit Secrets."
+                )
+
+                st.stop()
+
+
+            prompt = build_learning_prompt(
+                topic,
+                profile
+            )
+
+
             with st.spinner(
-                "Groq AI is creating your lesson..."
+                "🧠 EduTwin is preparing your lesson..."
             ):
 
                 lesson = ask_groq(
                     prompt
                 )
 
-            st.subheader(
-                f"📖 {topic}"
+
+            st.success(
+                "✅ Your personalized lesson is ready!"
             )
+
+
+            st.markdown(
+                '<div class="section-label">YOUR LESSON</div>',
+                unsafe_allow_html=True
+            )
+
+            st.subheader(
+                f"📚 {topic}"
+            )
+
 
             st.markdown(
                 lesson
             )
+
 
         except Exception as error:
 
