@@ -1,7 +1,5 @@
 import streamlit as st
 
-from utils.style import load_css
-
 
 st.set_page_config(
     page_title="EduTwin - Interview",
@@ -10,39 +8,31 @@ st.set_page_config(
 )
 
 
-load_css()
+# ============================================================
+# HEADER
+# ============================================================
 
-
-# =========================================
-# HERO
-# =========================================
-
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-small">
-            AI CAREER COACH
-        </div>
-
-        <div class="hero-title">
-            Practice like it's real. 🎤
-        </div>
-
-        <div class="hero-text">
-            Prepare for interviews using questions
-            related to your target career.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.title(
+    "🎤 AI Interview Practice"
 )
 
+st.subheader(
+    "Practice like it's real."
+)
 
-# =========================================
+st.write(
+    """
+    Prepare for interviews using questions related
+    to your target career.
+    """
+)
+
+st.divider()
+
+
+# ============================================================
 # PROFILE CHECK
-# =========================================
+# ============================================================
 
 if "profile" not in st.session_state:
 
@@ -65,22 +55,31 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# =========================================
-# INTERVIEW
-# =========================================
+# ============================================================
+# CAREER
+# ============================================================
 
-st.markdown(
-    '<div class="section-label">INTERVIEW PRACTICE</div>',
-    unsafe_allow_html=True
+st.header(
+    "🎯 Interview Target"
 )
 
-st.subheader(
-    f"🎯 Target Career: {profile['career_goal']}"
+
+st.info(
+    f"Target career: **{profile['career_goal']}**"
+)
+
+
+# ============================================================
+# QUESTION
+# ============================================================
+
+st.header(
+    "❓ Interview Question"
 )
 
 
 question = st.text_area(
-    "Interview Question",
+    "Question",
     value=(
         f"Why do you want to become a "
         f"{profile['career_goal']}?"
@@ -89,14 +88,27 @@ question = st.text_area(
 )
 
 
+# ============================================================
+# ANSWER
+# ============================================================
+
+st.header(
+    "💬 Your Answer"
+)
+
+
 answer = st.text_area(
-    "Your Answer",
+    "Answer",
     placeholder=(
         "Write your answer here..."
     ),
     height=200
 )
 
+
+# ============================================================
+# EVALUATE
+# ============================================================
 
 if st.button(
     "🎯 Evaluate My Answer",
@@ -117,7 +129,7 @@ if st.button(
 
         st.info(
             """
-            AI interview evaluation is ready
-            to be connected to your interview engine.
+            AI interview evaluation can now be connected
+            to the interview engine.
             """
         )
