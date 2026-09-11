@@ -1,12 +1,10 @@
 import streamlit as st
 
-from utils.pdf_parser import extract_text_from_pdf
-
 from ai.cv_analyzer import analyze_cv
+from utils.pdf_parser import (
+    extract_text_from_pdf
+)
 
-# -----------------------------
-# Page Configuration
-# -----------------------------
 
 st.set_page_config(
     page_title="EduTwin - Profile",
@@ -15,117 +13,74 @@ st.set_page_config(
 )
 
 
-# -----------------------------
-# Page Title
-# -----------------------------
-
 st.title("👤 My Learning Profile")
+
 
 st.write(
     """
-    Create your personal learning profile.
-    EduTwin will use this information to build your Digital Twin.
+    Create your personal Digital Twin.
+    You can manually enter your information or
+    upload a CV for AI analysis.
     """
 )
 
 
 st.divider()
-# -----------------------------
-# CV Upload
-# -----------------------------
 
-st.header("📄 Upload Your CV")
 
-uploaded_cv = st.file_uploader(
+st.header("📄 Upload CV")
+
+
+cv_file = st.file_uploader(
     "Upload your CV as a PDF",
     type=["pdf"]
 )
 
 
-if uploaded_cv is not None:
+if cv_file is not None:
 
-    st.success(
-        f"CV uploaded: {uploaded_cv.name}"
-    )
-
-
-    if st.button("📄 Extract CV Text"):
-
-        try:
-
-            cv_text = extract_text_from_pdf(
-                uploaded_cv
-            )
-
-
-            if cv_text:
-
-                st.session_state["cv_text"] = cv_text
-
-                st.subheader("🤖 AI CV Analysis")
-
-if st.button("🧠 Analyze My CV with AI"):
-
-    with st.spinner(
-        "EduTwin AI is analyzing your CV..."
+    if st.button(
+        "🤖 Analyze My CV",
+        type="secondary"
     ):
 
         try:
 
-            analysis = analyze_cv(
-                cv_text
+            cv_text = extract_text_from_pdf(
+                cv_file
             )
 
+            if not cv_text:
 
-            st.session_state["cv_analysis"] = analysis
-
-
-            st.success(
-                "✅ CV analysis completed!"
-            )
-
-
-            st.markdown(
-                analysis
-            )
-
-
-        except Exception as error:
-
-            st.error(
-                f"AI analysis failed: {error}"
-            )
-
-
-                st.success(
-                    "✅ CV text extracted successfully!"
+                st.warning(
+                    "No readable text was found in the PDF."
                 )
-
-
-                with st.expander("View extracted CV text"):
-
-                    st.text(cv_text)
-
 
             else:
 
-                st.warning(
-                    "No readable text was found in this PDF."
+                with st.spinner(
+                    "Groq AI is analyzing your CV..."
+                ):
+
+                    result = analyze_cv(
+                        cv_text
+                    )
+
+                st.subheader(
+                    "🤖 AI CV Analysis"
                 )
 
+                st.markdown(result)
 
         except Exception as error:
 
             st.error(
-                f"Could not read the CV: {error}"
+                f"CV analysis error: {error}"
             )
 
 
 st.divider()
 
-# -----------------------------
-# Personal Information
-# -----------------------------
 
 st.header("Personal Information")
 
@@ -142,26 +97,18 @@ education = st.text_input(
 )
 
 
-# -----------------------------
-# Skills
-# -----------------------------
-
 st.header("💻 Skills")
 
 
 skills = st.text_area(
     "Your Skills",
     placeholder=(
-        "Example: Python, C++, SQL, Machine Learning, "
-        "Data Structures, Git"
+        "Example: Python, C++, SQL, "
+        "Machine Learning, Git"
     ),
     height=120
 )
 
-
-# -----------------------------
-# Courses
-# -----------------------------
 
 st.header("📚 Courses")
 
@@ -176,10 +123,6 @@ courses = st.text_area(
 )
 
 
-# -----------------------------
-# Projects
-# -----------------------------
-
 st.header("🚀 Projects")
 
 
@@ -193,10 +136,6 @@ projects = st.text_area(
 )
 
 
-# -----------------------------
-# Interests
-# -----------------------------
-
 st.header("🎯 Interests")
 
 
@@ -209,10 +148,6 @@ interests = st.text_area(
     height=120
 )
 
-
-# -----------------------------
-# Career Goal
-# -----------------------------
 
 st.header("💼 Career Goal")
 
@@ -246,10 +181,6 @@ if career_goal == "Other":
 st.divider()
 
 
-# -----------------------------
-# Save Profile
-# -----------------------------
-
 if st.button(
     "💾 Save My Profile",
     type="primary"
@@ -257,80 +188,80 @@ if st.button(
 
     if name.strip() == "":
 
-        st.error("Please enter your name.")
+        st.error(
+            "Please enter your name."
+        )
 
     elif education.strip() == "":
 
-        st.error("Please enter your education.")
+        st.error(
+            "Please enter your education."
+        )
 
     elif skills.strip() == "":
 
-        st.error("Please enter at least one skill.")
+        st.error(
+            "Please enter at least one skill."
+        )
+
+    elif career_goal.strip() == "":
+
+        st.error(
+            "Please enter your career goal."
+        )
 
     else:
 
-        # Store profile in Streamlit session
-
-        st.session_state["profile"] = {
-
+        profile = {
             "name": name.strip(),
-
             "education": education.strip(),
-
             "skills": skills.strip(),
-
             "courses": courses.strip(),
-
             "projects": projects.strip(),
-
             "interests": interests.strip(),
-
             "career_goal": career_goal.strip()
         }
 
+        st.session_state["profile"] = profile
 
         st.success(
-            "✅ Your profile has been saved successfully!"
+            "✅ Your Digital Twin profile has been saved!"
         )
 
-
-        st.subheader("Your Profile Summary")
-
+        st.subheader(
+            "👤 Your Profile Summary"
+        )
 
         col1, col2 = st.columns(2)
-
 
         with col1:
 
             st.write(
-                f"**Name:** {name}"
+                f"**Name:** {profile['name']}"
             )
 
             st.write(
-                f"**Education:** {education}"
+                f"**Education:** {profile['education']}"
             )
 
             st.write(
-                f"**Career Goal:** {career_goal}"
+                f"**Career Goal:** {profile['career_goal']}"
             )
 
+            st.write(
+                f"**Skills:** {profile['skills']}"
+            )
 
         with col2:
 
             st.write(
-                f"**Skills:** {skills}"
+                f"**Courses:** {profile['courses']}"
             )
 
             st.write(
-                f"**Courses:** {courses}"
+                f"**Projects:** {profile['projects']}"
             )
 
             st.write(
-                f"**Interests:** {interests}"
+                f"**Interests:** {profile['interests']}"
             )
-
-
-        st.info(
-            "Your information will be used later by Groq AI "
-            "to create your Digital Twin."
-        )
