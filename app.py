@@ -1,6 +1,9 @@
 import streamlit as st
-from groq import Groq
 
+
+# -----------------------------
+# Page Configuration
+# -----------------------------
 
 st.set_page_config(
     page_title="EduTwin AI",
@@ -9,28 +12,80 @@ st.set_page_config(
 )
 
 
+# -----------------------------
+# Main Page
+# -----------------------------
+
 st.title("🧠 EduTwin AI")
 
-st.write("Testing Groq AI...")
+st.subheader("Your Personal AI Learning Twin")
 
-
-client = Groq(
-    api_key=st.secrets["GROQ_API_KEY"]
+st.write(
+    """
+    EduTwin AI creates a personalized digital representation
+    of your skills, knowledge, interests, and career goals.
+    """
 )
 
 
-if st.button("Test Groq AI"):
+st.divider()
 
-    response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
-        messages=[
-            {
-                "role": "user",
-                "content": "Explain AI in very simple words."
-            }
-        ]
+
+# -----------------------------
+# Welcome Section
+# -----------------------------
+
+st.header("Welcome to EduTwin")
+
+st.write(
+    """
+    EduTwin helps you understand what you know, identify what
+    you need to learn, and prepare for your desired career.
+    """
+)
+
+
+# -----------------------------
+# Features
+# -----------------------------
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+
+    st.subheader("👤 Digital Twin")
+
+    st.write(
+        "Build a personalized profile containing your "
+        "skills, courses, projects, interests, and career goal."
     )
 
-    answer = response.choices[0].message.content
 
-    st.write(answer)
+with col2:
+
+    st.subheader("📷 Vision Tutor")
+
+    st.write(
+        "Upload an educational image and let AI explain "
+        "what you are looking at."
+    )
+
+
+with col3:
+
+    st.subheader("💼 Career AI")
+
+    st.write(
+        "Analyze your skills and identify gaps for your "
+        "target career."
+    )
+
+
+st.divider()
+
+
+st.info(
+    "👈 Use the sidebar to open your profile and start building "
+    "your Digital Twin."
+)
