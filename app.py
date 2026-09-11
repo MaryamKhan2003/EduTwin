@@ -1,114 +1,97 @@
 import streamlit as st
 
-from utils.style import load_css
 
+# ============================================================
+# PAGE CONFIGURATION
+# ============================================================
 
 st.set_page_config(
     page_title="EduTwin AI",
     page_icon="🧠",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 
-load_css()
-
-
-# =========================================
-# SIDEBAR BRANDING
-# =========================================
+# ============================================================
+# SIDEBAR
+# ============================================================
 
 with st.sidebar:
 
-    st.markdown(
-        """
-        <div style="
-            text-align:center;
-            padding:20px 5px 25px 5px;
-        ">
+    st.title("🧠 EduTwin")
 
-            <div style="
-                font-size:44px;
-                margin-bottom:5px;
-            ">
-                🧠
-            </div>
+    st.caption(
+        "AI Learning Intelligence"
+    )
 
-            <div style="
-                font-size:25px;
-                font-weight:800;
-                color:white;
-            ">
-                EduTwin
-            </div>
+    st.divider()
 
-            <div style="
-                color:#94a3b8;
-                font-size:12px;
-                margin-top:5px;
-            ">
-                AI Learning Intelligence
-            </div>
+    st.subheader(
+        "Your AI Learning Companion"
+    )
 
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.write(
+        "Build your skills, understand what you see, "
+        "and move closer to your career goals."
     )
 
     st.divider()
 
     st.caption(
-        "YOUR AI LEARNING COMPANION"
-    )
-
-    st.write(
-        "Build your skills. "
-        "Understand what you see. "
-        "Reach your career goals."
+        "Use the navigation above to explore EduTwin."
     )
 
 
-# =========================================
-# HERO
-# =========================================
+# ============================================================
+# HERO SECTION
+# ============================================================
 
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-small">
-            🧠 AI-POWERED PERSONAL LEARNING TWIN
-        </div>
-
-        <div class="hero-title">
-            Learn smarter.<br>
-            Grow faster.
-        </div>
-
-        <div class="hero-text">
-            EduTwin understands your skills, learning needs,
-            interests and career goals — then creates a
-            personalized learning experience around you.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.title(
+    "🧠 EduTwin AI"
 )
 
+st.subheader(
+    "Your Personal AI Learning Twin"
+)
 
-# =========================================
+st.write(
+    """
+    EduTwin creates a personalized learning experience
+    around **your skills, knowledge, interests, and career goals**.
+    """
+)
+
+st.write("")
+
+
+# ============================================================
 # QUICK ACTIONS
-# =========================================
+# ============================================================
+
+st.header(
+    "🚀 Start Your Journey"
+)
 
 col1, col2, col3 = st.columns(3)
 
 
 with col1:
 
+    st.subheader(
+        "👤 Digital Twin"
+    )
+
+    st.write(
+        "Create your personalized learner profile "
+        "with your education, skills, projects, "
+        "interests and career goal."
+    )
+
     if st.button(
-        "🚀 Build My Digital Twin",
-        type="primary",
-        use_container_width=True
+        "Build My Digital Twin",
+        use_container_width=True,
+        type="primary"
     ):
 
         st.switch_page(
@@ -118,8 +101,17 @@ with col1:
 
 with col2:
 
+    st.subheader(
+        "📷 Vision Tutor"
+    )
+
+    st.write(
+        "Upload a diagram, graph, computer component, "
+        "code screenshot or educational image."
+    )
+
     if st.button(
-        "📷 Try Vision Tutor",
+        "Try Vision Tutor",
         use_container_width=True
     ):
 
@@ -130,8 +122,17 @@ with col2:
 
 with col3:
 
+    st.subheader(
+        "💼 Career AI"
+    )
+
+    st.write(
+        "Compare your current skills with the "
+        "skills required for your target career."
+    )
+
     if st.button(
-        "💼 Explore Careers",
+        "Explore Careers",
         use_container_width=True
     ):
 
@@ -140,20 +141,15 @@ with col3:
         )
 
 
-st.write("")
+st.divider()
 
 
-# =========================================
+# ============================================================
 # FEATURES
-# =========================================
-
-st.markdown(
-    '<div class="section-label">THE EDUTWIN EXPERIENCE</div>',
-    unsafe_allow_html=True
-)
+# ============================================================
 
 st.header(
-    "One AI. Personalized around you."
+    "✨ What Can EduTwin Do?"
 )
 
 
@@ -162,216 +158,139 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    st.markdown(
+    st.subheader(
+        "👤 Understand Me"
+    )
+
+    st.write(
         """
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                👤
-            </div>
-
-            <div class="feature-title">
-                Digital Twin
-            </div>
-
-            <div class="feature-text">
-                Build an intelligent profile of your
-                education, skills, projects, interests
-                and career goals.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+        EduTwin builds a learner profile using your
+        education, skills, courses, projects,
+        interests and career goals.
+        """
     )
 
 
 with col2:
 
-    st.markdown(
+    st.subheader(
+        "📷 Understand What I See"
+    )
+
+    st.write(
         """
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                📷
-            </div>
-
-            <div class="feature-title">
-                Vision Tutor
-            </div>
-
-            <div class="feature-text">
-                Show EduTwin a diagram, graph, computer
-                component or educational image and let
-                AI explain what you see.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+        Show EduTwin an educational image and
+        AI can identify and explain what is visible.
+        """
     )
 
 
 with col3:
 
-    st.markdown(
+    st.subheader(
+        "🎯 Guide My Future"
+    )
+
+    st.write(
         """
-        <div class="feature-card">
-
-            <div class="feature-icon">
-                🧠
-            </div>
-
-            <div class="feature-title">
-                Adaptive AI
-            </div>
-
-            <div class="feature-text">
-                Learn topics based on your current
-                knowledge, career goals and learning
-                progress.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+        Analyze your career readiness and discover
+        which skills you should improve.
+        """
     )
 
 
-# =========================================
+st.divider()
+
+
+# ============================================================
 # HOW IT WORKS
-# =========================================
-
-st.write("")
-st.write("")
-
-st.markdown(
-    '<div class="section-label">HOW EDUTWIN WORKS</div>',
-    unsafe_allow_html=True
-)
+# ============================================================
 
 st.header(
-    "Your learning journey becomes intelligent."
+    "🔄 How EduTwin Works"
 )
 
 
-col1, col2, col3, col4 = st.columns(4)
+step1, step2, step3, step4 = st.columns(4)
 
 
-steps = [
-    (
+with step1:
+
+    st.metric(
         "01",
-        "👤",
-        "Know You",
+        "Know You"
+    )
+
+    st.caption(
         "Build your Digital Twin."
-    ),
-    (
+    )
+
+
+with step2:
+
+    st.metric(
         "02",
-        "📚",
-        "Teach You",
+        "Teach You"
+    )
+
+    st.caption(
         "Create personalized learning."
-    ),
-    (
+    )
+
+
+with step3:
+
+    st.metric(
         "03",
-        "📝",
-        "Test You",
+        "Test You"
+    )
+
+    st.caption(
         "Measure your understanding."
-    ),
-    (
+    )
+
+
+with step4:
+
+    st.metric(
         "04",
-        "🎯",
-        "Guide You",
+        "Guide You"
+    )
+
+    st.caption(
         "Improve your next learning step."
     )
-]
 
 
-for column, step in zip(
-    [col1, col2, col3, col4],
-    steps
-):
-
-    number, icon, title, description = step
-
-    with column:
-
-        st.markdown(
-            f"""
-            <div class="stat-card">
-
-                <div style="
-                    color:#818cf8;
-                    font-size:12px;
-                    font-weight:800;
-                ">
-                    {number}
-                </div>
-
-                <div style="
-                    font-size:30px;
-                    margin:10px;
-                ">
-                    {icon}
-                </div>
-
-                <div style="
-                    color:white;
-                    font-size:17px;
-                    font-weight:700;
-                ">
-                    {title}
-                </div>
-
-                <div style="
-                    color:#94a3b8;
-                    font-size:13px;
-                    margin-top:8px;
-                ">
-                    {description}
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+st.divider()
 
 
-# =========================================
-# MAIN IDEA
-# =========================================
+# ============================================================
+# DIFFERENTIATOR
+# ============================================================
 
-st.markdown(
+st.header(
+    "✨ What Makes EduTwin Different?"
+)
+
+st.info(
     """
-    <div class="insight-card">
+    Traditional learning gives everyone the same content.
 
-        <div class="insight-title">
-            ✨ What makes EduTwin different?
-        </div>
-
-        <div class="insight-text">
-            Traditional learning gives everyone the same content.
-            EduTwin first understands the learner, then understands
-            what they are learning, and finally adapts the experience
-            around their knowledge and career goal.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+    **EduTwin first understands the learner, then understands
+    what they are learning, and finally adapts the experience
+    around their knowledge and career goal.**
+    """
 )
 
 
-# =========================================
-# FOOTER
-# =========================================
+st.write("")
 
-st.markdown(
-    """
-    <div class="footer">
-        🧠 EduTwin AI
-        &nbsp;•&nbsp;
-        Personalized Learning Intelligence
-    </div>
-    """,
-    unsafe_allow_html=True
+
+# ============================================================
+# FOOTER
+# ============================================================
+
+st.caption(
+    "🧠 EduTwin AI • Personalized Learning Intelligence"
 )
