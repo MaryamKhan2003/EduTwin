@@ -13,9 +13,9 @@ st.set_page_config(
 load_css()
 
 
-# ==========================================
-# SIDEBAR
-# ==========================================
+# =========================================
+# SIDEBAR BRANDING
+# =========================================
 
 with st.sidebar:
 
@@ -23,12 +23,18 @@ with st.sidebar:
         """
         <div style="
             text-align:center;
-            padding:15px 5px 25px 5px;
+            padding:20px 5px 25px 5px;
         ">
-            <div style="font-size:42px;">🧠</div>
 
             <div style="
-                font-size:24px;
+                font-size:44px;
+                margin-bottom:5px;
+            ">
+                🧠
+            </div>
+
+            <div style="
+                font-size:25px;
                 font-weight:800;
                 color:white;
             ">
@@ -38,9 +44,11 @@ with st.sidebar:
             <div style="
                 color:#94a3b8;
                 font-size:12px;
+                margin-top:5px;
             ">
                 AI Learning Intelligence
             </div>
+
         </div>
         """,
         unsafe_allow_html=True
@@ -48,21 +56,20 @@ with st.sidebar:
 
     st.divider()
 
-    st.caption("YOUR LEARNING")
+    st.caption(
+        "YOUR AI LEARNING COMPANION"
+    )
 
-    st.write("👤 Digital Twin")
-    st.write("📚 Adaptive Learning")
-    st.write("📷 Vision Tutor")
-
-    st.caption("YOUR CAREER")
-
-    st.write("💼 Career Analysis")
-    st.write("🎤 Interview Practice")
+    st.write(
+        "Build your skills. "
+        "Understand what you see. "
+        "Reach your career goals."
+    )
 
 
-# ==========================================
+# =========================================
 # HERO
-# ==========================================
+# =========================================
 
 st.markdown(
     """
@@ -89,13 +96,11 @@ st.markdown(
 )
 
 
-# ==========================================
-# BUTTONS
-# ==========================================
+# =========================================
+# QUICK ACTIONS
+# =========================================
 
-col1, col2, col3 = st.columns(
-    [1.2, 1, 1]
-)
+col1, col2, col3 = st.columns(3)
 
 
 with col1:
@@ -138,9 +143,9 @@ with col3:
 st.write("")
 
 
-# ==========================================
+# =========================================
 # FEATURES
-# ==========================================
+# =========================================
 
 st.markdown(
     '<div class="section-label">THE EDUTWIN EXPERIENCE</div>',
@@ -171,7 +176,7 @@ with col1:
 
             <div class="feature-text">
                 Build an intelligent profile of your
-                skills, education, projects, interests
+                education, skills, projects, interests
                 and career goals.
             </div>
 
@@ -196,9 +201,9 @@ with col2:
             </div>
 
             <div class="feature-text">
-                Show EduTwin a diagram, computer component,
-                graph or educational image and let AI
-                explain what you see.
+                Show EduTwin a diagram, graph, computer
+                component or educational image and let
+                AI explain what you see.
             </div>
 
         </div>
@@ -222,8 +227,9 @@ with col3:
             </div>
 
             <div class="feature-text">
-                Learn topics based on your current knowledge,
-                career goals and learning progress.
+                Learn topics based on your current
+                knowledge, career goals and learning
+                progress.
             </div>
 
         </div>
@@ -232,15 +238,15 @@ with col3:
     )
 
 
-# ==========================================
+# =========================================
 # HOW IT WORKS
-# ==========================================
+# =========================================
 
 st.write("")
 st.write("")
 
 st.markdown(
-    '<div class="section-label">HOW IT WORKS</div>',
+    '<div class="section-label">HOW EDUTWIN WORKS</div>',
     unsafe_allow_html=True
 )
 
@@ -253,10 +259,30 @@ col1, col2, col3, col4 = st.columns(4)
 
 
 steps = [
-    ("01", "👤", "Know You", "Build your Digital Twin."),
-    ("02", "📚", "Teach You", "Generate personalized learning."),
-    ("03", "📝", "Test You", "Measure your understanding."),
-    ("04", "🎯", "Guide You", "Improve your next learning step.")
+    (
+        "01",
+        "👤",
+        "Know You",
+        "Build your Digital Twin."
+    ),
+    (
+        "02",
+        "📚",
+        "Teach You",
+        "Create personalized learning."
+    ),
+    (
+        "03",
+        "📝",
+        "Test You",
+        "Measure your understanding."
+    ),
+    (
+        "04",
+        "🎯",
+        "Guide You",
+        "Improve your next learning step."
+    )
 ]
 
 
@@ -265,9 +291,9 @@ for column, step in zip(
     steps
 ):
 
-    with column:
+    number, icon, title, description = step
 
-        number, icon, title, text = step
+    with column:
 
         st.markdown(
             f"""
@@ -276,7 +302,7 @@ for column, step in zip(
                 <div style="
                     color:#818cf8;
                     font-size:12px;
-                    font-weight:700;
+                    font-weight:800;
                 ">
                     {number}
                 </div>
@@ -301,7 +327,7 @@ for column, step in zip(
                     font-size:13px;
                     margin-top:8px;
                 ">
-                    {text}
+                    {description}
                 </div>
 
             </div>
@@ -310,24 +336,24 @@ for column, step in zip(
         )
 
 
-# ==========================================
-# INSIGHT
-# ==========================================
+# =========================================
+# MAIN IDEA
+# =========================================
 
 st.markdown(
     """
     <div class="insight-card">
 
         <div class="insight-title">
-            ✨ The idea behind EduTwin
+            ✨ What makes EduTwin different?
         </div>
 
-        <p class="insight-text">
+        <div class="insight-text">
             Traditional learning gives everyone the same content.
             EduTwin first understands the learner, then understands
             what they are learning, and finally adapts the experience
             around their knowledge and career goal.
-        </p>
+        </div>
 
     </div>
     """,
@@ -335,14 +361,15 @@ st.markdown(
 )
 
 
-# ==========================================
+# =========================================
 # FOOTER
-# ==========================================
+# =========================================
 
 st.markdown(
     """
     <div class="footer">
-        🧠 EduTwin AI &nbsp;•&nbsp;
+        🧠 EduTwin AI
+        &nbsp;•&nbsp;
         Personalized Learning Intelligence
     </div>
     """,
