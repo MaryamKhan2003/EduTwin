@@ -9,24 +9,21 @@ VISION_MODEL = "qwen/qwen3.6-27b"
 def get_groq_client():
 
     if "GROQ_API_KEY" not in st.secrets:
-
         raise ValueError(
-            "GROQ_API_KEY is missing from Streamlit Secrets."
+            "GROQ_API_KEY is not configured in Streamlit Secrets."
         )
 
-    api_key = st.secrets["GROQ_API_KEY"]
-
     return Groq(
-        api_key=api_key
+        api_key=st.secrets["GROQ_API_KEY"]
     )
 
 
-def ask_groq(prompt):
+def ask_groq(prompt, model=TEXT_MODEL):
 
     client = get_groq_client()
 
     response = client.chat.completions.create(
-        model=TEXT_MODEL,
+        model=model,
         messages=[
             {
                 "role": "user",
@@ -34,7 +31,7 @@ def ask_groq(prompt):
             }
         ],
         temperature=0.3,
-        max_completion_tokens=2000
+        max_completion_tokens=900
     )
 
     return response.choices[0].message.content
