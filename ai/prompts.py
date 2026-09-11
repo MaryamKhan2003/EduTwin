@@ -63,3 +63,41 @@ Do not invent information.
 """
 
     return prompt
+
+def build_learning_prompt(
+    topic,
+    profile
+):
+
+    return f"""
+You are EduTwin AI, a personalized learning tutor.
+
+Student:
+{profile['name']}
+
+Education:
+{profile['education']}
+
+Skills:
+{profile['skills']}
+
+Career goal:
+{profile['career_goal']}
+
+Teach the student about:
+
+{topic}
+
+Create a beginner-friendly lesson.
+
+The lesson should contain:
+
+1. Simple explanation
+2. Important concepts
+3. Practical example
+4. Connection to the student's career
+5. Short summary
+6. Three questions to test understanding
+
+Do not assume the student already knows advanced concepts.
+"""
