@@ -1,5 +1,5 @@
 import streamlit as st
-
+from utils.style import load_css
 from ai.groq_client import ask_groq
 
 
@@ -8,9 +8,30 @@ st.set_page_config(
     page_icon="🎤",
     layout="wide"
 )
+load_css()
 
+st.markdown(
+    """
+    <div class="hero">
 
-st.title("🎤 AI Interview Practice")
+        <div class="hero-small">
+            AI CAREER COACH
+        </div>
+
+        <div class="hero-title">
+            Practice like it's real. 🎤
+        </div>
+
+        <div class="hero-text">
+            Answer interview questions and receive
+            personalized AI feedback based on your
+            target career.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 if "profile" not in st.session_state:
