@@ -7,49 +7,36 @@ def load_css():
         """
         <style>
 
-        /* ==============================
-           MAIN APPLICATION
-        ============================== */
+        /* =========================================
+           GLOBAL APP
+        ========================================= */
 
         .stApp {
             background:
                 radial-gradient(
-                    circle at 10% 10%,
-                    rgba(79, 70, 229, 0.18),
-                    transparent 30%
+                    circle at 5% 5%,
+                    rgba(79, 70, 229, 0.20),
+                    transparent 28%
                 ),
                 radial-gradient(
-                    circle at 90% 20%,
-                    rgba(59, 130, 246, 0.14),
-                    transparent 30%
+                    circle at 95% 10%,
+                    rgba(14, 165, 233, 0.15),
+                    transparent 28%
                 ),
-                #0b1020;
-        }
-
-
-        /* ==============================
-           SIDEBAR
-        ============================== */
-
-        [data-testid="stSidebar"] {
-            background:
                 linear-gradient(
-                    180deg,
-                    #111827 0%,
-                    #0b1020 100%
+                    135deg,
+                    #080d1a 0%,
+                    #0b1220 50%,
+                    #0f172a 100%
                 );
-            border-right: 1px solid rgba(255,255,255,0.08);
-        }
 
-
-        [data-testid="stSidebar"] * {
             color: #f8fafc;
         }
 
 
-        /* ==============================
+        /* =========================================
            MAIN CONTENT
-        ============================== */
+        ========================================= */
 
         .block-container {
             max-width: 1250px;
@@ -58,9 +45,38 @@ def load_css():
         }
 
 
-        /* ==============================
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        [data-testid="stSidebar"] {
+            background:
+                linear-gradient(
+                    180deg,
+                    #111827 0%,
+                    #0b1120 100%
+                );
+
+            border-right:
+                1px solid rgba(255, 255, 255, 0.08);
+        }
+
+
+        [data-testid="stSidebar"] * {
+            color: #f8fafc;
+        }
+
+
+        /* =========================================
            HEADINGS
-        ============================== */
+        ========================================= */
+
+        h1,
+        h2,
+        h3 {
+            color: #f8fafc !important;
+        }
+
 
         h1 {
             font-weight: 800 !important;
@@ -69,218 +85,251 @@ def load_css():
 
 
         h2 {
-            font-weight: 700 !important;
+            font-weight: 750 !important;
         }
 
 
         h3 {
-            font-weight: 650 !important;
+            font-weight: 700 !important;
         }
 
 
-        /* ==============================
-           HERO
-        ============================== */
+        /* =========================================
+           HERO CARD
+        ========================================= */
 
         .hero {
-            padding: 45px;
-            border-radius: 28px;
+            padding: 42px;
             margin-bottom: 30px;
+
+            border-radius: 28px;
 
             background:
                 linear-gradient(
                     135deg,
-                    rgba(79,70,229,0.95),
-                    rgba(37,99,235,0.85),
-                    rgba(14,165,233,0.75)
+                    rgba(79, 70, 229, 0.96),
+                    rgba(37, 99, 235, 0.90),
+                    rgba(14, 165, 233, 0.82)
                 );
 
-            box-shadow:
-                0 25px 60px rgba(0,0,0,0.35);
+            border:
+                1px solid rgba(255, 255, 255, 0.16);
 
-            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35);
         }
 
 
         .hero-small {
-            color: rgba(255,255,255,0.8);
-            font-size: 15px;
+            color: rgba(255, 255, 255, 0.78);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.8px;
+
             margin-bottom: 10px;
         }
 
 
         .hero-title {
             color: white;
-            font-size: 46px;
+
+            font-size: 44px;
+
             font-weight: 850;
+
             line-height: 1.1;
-            margin-bottom: 15px;
+
+            margin-bottom: 16px;
         }
 
 
         .hero-text {
-            color: rgba(255,255,255,0.88);
-            font-size: 18px;
-            max-width: 750px;
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.90);
+
+            font-size: 17px;
+
+            line-height: 1.65;
+
+            max-width: 800px;
         }
 
 
-        /* ==============================
-           CARDS
-        ============================== */
+        /* =========================================
+           FEATURE CARDS
+        ========================================= */
 
         .feature-card {
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(30,41,59,0.95),
-                    rgba(15,23,42,0.95)
-                );
-
-            border: 1px solid rgba(255,255,255,0.08);
-
-            border-radius: 20px;
+            min-height: 190px;
 
             padding: 25px;
 
-            min-height: 190px;
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(30, 41, 59, 0.96),
+                    rgba(15, 23, 42, 0.96)
+                );
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
 
             box-shadow:
-                0 12px 30px rgba(0,0,0,0.22);
-
-            transition:
-                transform 0.2s ease,
-                border-color 0.2s ease;
-        }
-
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-
-            border-color:
-                rgba(99,102,241,0.55);
+                0 12px 30px rgba(0, 0, 0, 0.24);
         }
 
 
         .feature-icon {
             font-size: 34px;
-            margin-bottom: 10px;
+
+            margin-bottom: 12px;
         }
 
 
         .feature-title {
             color: white;
-            font-size: 21px;
+
+            font-size: 20px;
+
             font-weight: 750;
-            margin-bottom: 8px;
+
+            margin-bottom: 9px;
         }
 
 
         .feature-text {
             color: #cbd5e1;
+
             font-size: 14px;
-            line-height: 1.6;
+
+            line-height: 1.65;
         }
 
 
-        /* ==============================
+        /* =========================================
            STAT CARDS
-        ============================== */
+        ========================================= */
 
         .stat-card {
-            background:
-                rgba(15,23,42,0.88);
-
-            border:
-                1px solid rgba(255,255,255,0.08);
-
-            border-radius: 18px;
-
             padding: 22px;
+
+            min-height: 125px;
 
             text-align: center;
 
+            border-radius: 18px;
+
+            background:
+                rgba(15, 23, 42, 0.90);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
             box-shadow:
-                0 10px 25px rgba(0,0,0,0.18);
+                0 10px 25px rgba(0, 0, 0, 0.20);
         }
 
 
         .stat-number {
             color: white;
-            font-size: 30px;
+
+            font-size: 27px;
+
             font-weight: 800;
+
+            margin-top: 5px;
         }
 
 
         .stat-label {
             color: #94a3b8;
+
             font-size: 13px;
+
             margin-top: 5px;
         }
 
 
-        /* ==============================
+        /* =========================================
            SECTION LABEL
-        ============================== */
+        ========================================= */
 
         .section-label {
             color: #a5b4fc;
-            font-size: 13px;
-            font-weight: 700;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
+
+            letter-spacing: 1.7px;
+
+            margin-bottom: 7px;
         }
 
 
-        /* ==============================
+        /* =========================================
            INSIGHT CARD
-        ============================== */
+        ========================================= */
 
         .insight-card {
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(30,41,59,0.95),
-                    rgba(49,46,129,0.35)
-                );
+            padding: 25px;
 
-            border:
-                1px solid rgba(129,140,248,0.25);
+            margin-top: 25px;
 
             border-radius: 20px;
 
-            padding: 25px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30, 41, 59, 0.96),
+                    rgba(49, 46, 129, 0.40)
+                );
 
-            margin-top: 20px;
+            border:
+                1px solid rgba(129, 140, 248, 0.25);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.20);
         }
 
 
         .insight-title {
             color: white;
+
             font-size: 20px;
+
             font-weight: 750;
         }
 
 
         .insight-text {
             color: #cbd5e1;
-            line-height: 1.6;
+
+            line-height: 1.7;
+
+            margin-top: 10px;
         }
 
 
-        /* ==============================
+        /* =========================================
            BUTTONS
-        ============================== */
+        ========================================= */
 
         .stButton > button {
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px !important;
 
-            padding: 0.65rem 1.2rem;
+            min-height: 44px;
 
-            font-weight: 650;
+            font-weight: 650 !important;
+
+            border:
+                1px solid rgba(255, 255, 255, 0.12) !important;
 
             transition:
                 transform 0.15s ease,
@@ -292,13 +341,13 @@ def load_css():
             transform: translateY(-2px);
 
             box-shadow:
-                0 8px 20px rgba(0,0,0,0.25);
+                0 8px 22px rgba(0, 0, 0, 0.28);
         }
 
 
-        /* ==============================
-           INPUTS
-        ============================== */
+        /* =========================================
+           INPUT BOXES
+        ========================================= */
 
         input,
         textarea {
@@ -306,28 +355,54 @@ def load_css():
         }
 
 
-        /* ==============================
-           DIVIDER
-        ============================== */
+        /* =========================================
+           DIVIDERS
+        ========================================= */
 
         hr {
             border-color:
-                rgba(255,255,255,0.08) !important;
+                rgba(255, 255, 255, 0.08) !important;
         }
 
 
-        /* ==============================
+        /* =========================================
            FOOTER
-        ============================== */
+        ========================================= */
 
         .footer {
             text-align: center;
+
             color: #64748b;
+
             font-size: 13px;
+
             margin-top: 50px;
+
             padding-top: 20px;
+
             border-top:
-                1px solid rgba(255,255,255,0.06);
+                1px solid rgba(255, 255, 255, 0.06);
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .hero {
+                padding: 28px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-text {
+                font-size: 15px;
+            }
+
         }
 
         </style>
