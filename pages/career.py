@@ -1,20 +1,39 @@
 import streamlit as st
-
+from utils.style import load_css
 from core.career_engine import (
     calculate_career_readiness,
     get_skill_gaps,
     load_careers
 )
 
-
+load_css()
 st.set_page_config(
     page_title="EduTwin - Career",
     page_icon="💼",
     layout="wide"
 )
 
+st.markdown(
+    """
+    <div class="hero">
 
-st.title("💼 Career Analysis")
+        <div class="hero-small">
+            AI CAREER INTELLIGENCE
+        </div>
+
+        <div class="hero-title">
+            Discover your career readiness. 💼
+        </div>
+
+        <div class="hero-text">
+            Compare your current skills with the skills
+            required for your target career.
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 if "profile" not in st.session_state:
