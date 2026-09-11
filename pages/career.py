@@ -2,6 +2,7 @@ import streamlit as st
 
 from core.career_engine import (
     calculate_career_readiness,
+    get_skill_gaps,
     load_careers
 )
 
@@ -38,13 +39,13 @@ career = st.selectbox(
 
 
 skills = [
-
     skill.strip()
-
     for skill in profile["skills"].split(",")
-
     if skill.strip()
 ]
+
+
+st.divider()
 
 
 if st.button(
@@ -57,20 +58,33 @@ if st.button(
         career
     )
 
+    gaps = get_skill_gaps(
+        skills,
+        career
+    )
+
+
+    st.subheader(
+        "Career Readiness"
+    )
+
 
     st.metric(
-        "Career Readiness",
+        "Readiness Score",
         f"{score}%"
     )
 
 
     st.progress(
-        score / 100
+        int(score)
     )
 
 
+    st.divider()
+
+
     st.subheader(
-        "Your Current Skills"
+        "💻 Your Current Skills"
     )
 
 
@@ -81,11 +95,35 @@ if st.button(
         )
 
 
+    st.divider()
+
+
+    st.subheader(
+        "⚠️ Skill Gaps"
+    )
+
+
+    if gaps:
+
+        for gap in gaps:
+
+            st.write(
+                f"**{gap['skill']}** — "
+                f"Current: {gap['current']} | "
+                f"Required: {gap['required']} | "
+                f"Gap: {gap['gap']}"
+            )
+
+    else:
+
+        st.success(
+            "No major skill gaps were detected!"
+        )
+
+
     st.info(
         """
-        This score is based on the skills currently
-        entered in your profile. Later, EduTwin will
-        combine this with AI-based skill extraction,
-        skill gaps, learning history, and recommendations.
+        The current version calculates readiness
+        from the skills entered in your Digital Twin.
         """
     )
