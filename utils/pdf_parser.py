@@ -1,10 +1,9 @@
 import fitz
 
 
-def extract_text_from_pdf(uploaded_file):
-    """
-    Extract text from an uploaded PDF file.
-    """
+def extract_text_from_pdf(
+    uploaded_file
+):
 
     pdf_bytes = uploaded_file.read()
 
@@ -17,14 +16,10 @@ def extract_text_from_pdf(uploaded_file):
 
     for page in document:
 
-        page_text = page.get_text()
-
-        text += page_text
+        text += page.get_text()
 
         text += "\n"
 
-
     document.close()
-
 
     return text.strip()
