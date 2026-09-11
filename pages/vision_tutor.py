@@ -3,6 +3,10 @@ import streamlit as st
 from ai.vision import analyze_image
 
 
+# ==================================================
+# PAGE CONFIGURATION
+# ==================================================
+
 st.set_page_config(
     page_title="EduTwin - Vision Tutor",
     page_icon="📷",
@@ -10,43 +14,22 @@ st.set_page_config(
 )
 
 
-# ============================================================
-# HEADER
-# ============================================================
-
-st.title(
-    "📷 Vision Tutor"
-)
-
-st.subheader(
-    "Show me what you're learning."
-)
-
-st.write(
-    """
-    Upload a diagram, graph, computer component,
-    code screenshot or educational image.
-
-    EduTwin will explain it according to your
-    knowledge and career goal.
-    """
-)
-
-st.divider()
-
-
-# ============================================================
+# ==================================================
 # PROFILE CHECK
-# ============================================================
+# ==================================================
 
 if "profile" not in st.session_state:
 
+    st.title(
+        "📷 Vision Tutor"
+    )
+
     st.warning(
-        "Please create your Digital Twin profile first."
+        "Create your Digital Twin first."
     )
 
     if st.button(
-        "👤 Create My Profile",
+        "👤 Create My Digital Twin",
         type="primary"
     ):
 
@@ -60,56 +43,126 @@ if "profile" not in st.session_state:
 profile = st.session_state["profile"]
 
 
-# ============================================================
-# STUDENT INFORMATION
-# ============================================================
+# ==================================================
+# SIDEBAR
+# ==================================================
+
+with st.sidebar:
+
+    st.title(
+        "📷 Vision Tutor"
+    )
+
+    st.caption(
+        "AI-powered visual learning"
+    )
+
+    st.divider()
+
+    st.write(
+        f"👤 **{profile['name']}**"
+    )
+
+    st.write(
+        f"🎯 {profile['career_goal']}"
+    )
+
+    st.divider()
+
+    st.info(
+        """
+        Upload something you're learning.
+
+        EduTwin will explain what you see
+        according to your profile.
+        """
+    )
+
+
+# ==================================================
+# HEADER
+# ==================================================
+
+st.title(
+    "📷 Vision Tutor"
+)
+
+st.subheader(
+    "Show me what you're learning."
+)
+
+st.write(
+    """
+    Upload a diagram, graph, code screenshot,
+    computer component or educational image.
+    """
+)
+
+st.divider()
+
+
+# ==================================================
+# DIGITAL TWIN
+# ==================================================
 
 with st.expander(
-    "👤 Your current Digital Twin",
+    "👤 View your Digital Twin",
     expanded=False
 ):
 
-    st.write(
-        f"**Education:** {profile['education']}"
-    )
+    col1, col2 = st.columns(2)
 
-    st.write(
-        f"**Skills:** {profile['skills']}"
-    )
+    with col1:
 
-    st.write(
-        f"**Career Goal:** {profile['career_goal']}"
-    )
+        st.write(
+            f"**Education:** {profile['education']}"
+        )
+
+        st.write(
+            f"**Skills:** {profile['skills']}"
+        )
+
+    with col2:
+
+        st.write(
+            f"**Career:** {profile['career_goal']}"
+        )
+
+        st.write(
+            f"**Interests:** {profile['interests']}"
+        )
 
 
-# ============================================================
-# IMAGE UPLOAD
-# ============================================================
+# ==================================================
+# STEP 1
+# ==================================================
 
 st.header(
-    "📸 Step 1 — Upload an Image"
+    "📸 Step 1 — Upload Your Learning Material"
 )
 
-
 uploaded_image = st.file_uploader(
-    "Choose an educational image",
+    "Choose an image",
     type=[
         "jpg",
         "jpeg",
         "png",
         "webp"
-    ]
+    ],
+    help=(
+        "Try a diagram, graph, chart, "
+        "code screenshot or technical object."
+    )
 )
 
 
-# ============================================================
-# EXPLANATION MODE
-# ============================================================
+# ==================================================
+# STEP 2
+# ==================================================
 
 st.header(
     "🧠 Step 2 — Choose Explanation Mode"
 )
-
 
 mode = st.selectbox(
     "How should EduTwin explain it?",
@@ -122,33 +175,30 @@ mode = st.selectbox(
 )
 
 
-# ============================================================
-# IMAGE PREVIEW
-# ============================================================
+# ==================================================
+# STEP 3
+# ==================================================
 
 if uploaded_image is not None:
 
+    st.divider()
+
     st.header(
-        "👀 Image Preview"
+        "👀 Step 3 — Preview"
     )
 
     st.image(
         uploaded_image,
-        caption="Your uploaded image",
+        caption="Your learning material",
         use_container_width=True
     )
 
-
-    st.divider()
-
-
-    # ========================================================
-    # ANALYZE
-    # ========================================================
+    st.write("")
 
     if st.button(
-        "🧠 Analyze Image",
-        type="primary"
+        "🧠 Analyze With EduTwin AI",
+        type="primary",
+        use_container_width=True
     ):
 
         try:
@@ -163,17 +213,13 @@ if uploaded_image is not None:
                 st.stop()
 
 
-            image_bytes = (
-                uploaded_image.getvalue()
-            )
+            image_bytes = uploaded_image.getvalue()
 
 
             prompt = f"""
 You are EduTwin AI, a personalized visual tutor.
 
-Student information:
-
-Name:
+Student name:
 {profile["name"]}
 
 Education:
@@ -185,7 +231,10 @@ Skills:
 Career goal:
 {profile["career_goal"]}
 
-Selected explanation mode:
+Interests:
+{profile["interests"]}
+
+Explanation mode:
 {mode}
 
 Analyze the uploaded image.
@@ -194,35 +243,23 @@ First identify what is visible.
 
 Then explain it according to the selected mode.
 
-If the image contains:
-
-- a computer component
-- a diagram
-- a graph
-- a chart
-- programming code
-- a mathematical concept
-- a technical object
-- educational material
-
+If it contains a computer component, diagram,
+graph, chart, programming code, mathematical
+concept, technical object or educational material,
 explain its purpose and important concepts.
 
 Connect the explanation to the student's
-knowledge and career goal when appropriate.
+knowledge and career goal when useful.
 
 Do not invent details that cannot be observed.
 
 Use simple language.
 
-Use headings and bullet points where useful.
+Use headings and bullet points.
 
 Keep the response below 400 words.
 """
 
-
-            # =================================================
-            # AI REQUEST
-            # =================================================
 
             with st.spinner(
                 "🔍 EduTwin is analyzing your image..."
@@ -239,11 +276,11 @@ Keep the response below 400 words.
                 "✅ Analysis completed!"
             )
 
+            st.divider()
 
             st.header(
                 "🧠 Your Personalized Explanation"
             )
-
 
             st.markdown(
                 answer
@@ -253,12 +290,15 @@ Keep the response below 400 words.
         except Exception as error:
 
             st.error(
-                f"Vision AI error: {error}"
+                f"❌ Vision AI error: {error}"
             )
-
 
 else:
 
     st.info(
-        "📷 Upload an image above to start learning."
+        """
+        📷 **Your visual tutor is ready.**
+
+        Upload an image above to begin.
+        """
     )
