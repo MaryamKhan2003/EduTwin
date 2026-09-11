@@ -1,5 +1,8 @@
 import streamlit as st
 
+from utils.pdf_parser import extract_text_from_pdf
+from ai.cv_analyzer import analyze_cv
+
 
 st.set_page_config(
     page_title="EduTwin - Profile",
@@ -8,42 +11,219 @@ st.set_page_config(
 )
 
 
-# ============================================================
-# HEADER
-# ============================================================
+# --------------------------------------------------
+# PAGE HEADER
+# --------------------------------------------------
 
-st.title(
-    "👤 Build Your Digital Twin"
-)
+st.title("👤 Build Your Digital Twin")
 
 st.subheader(
-    "Tell EduTwin about yourself."
+    "Let EduTwin understand you before it teaches you."
 )
 
 st.write(
     """
-    Your education, skills, courses, projects, interests
-    and career goals help EduTwin personalize your learning.
+    Upload your CV and EduTwin AI will analyze your
+    education, skills, projects, experience and interests
+    to create your personalized learning profile.
     """
 )
 
 st.divider()
 
 
-# ============================================================
-# PERSONAL INFORMATION
-# ============================================================
+# --------------------------------------------------
+# CV UPLOAD
+# --------------------------------------------------
 
-st.header(
-    "🎓 Personal Information"
+st.header("📄 Step 1 — Upload Your CV")
+
+st.write(
+    "Upload your CV in PDF format. EduTwin will extract "
+    "the relevant information automatically."
 )
 
+uploaded_cv = st.file_uploader(
+    "Choose your CV",
+    type=["pdf"],
+    help="Upload a PDF CV for AI analysis."
+)
+
+
+# --------------------------------------------------
+# ANALYZE CV BUTTON
+# --------------------------------------------------
+
+if uploaded_cv is not None:
+
+    st.success(
+        f"✅ CV uploaded: {uploaded_cv.name}"
+    )
+
+    st.info(
+        "Your CV will be analyzed by EduTwin AI. "
+        "You can review and edit the extracted information "
+        "before creating your Digital Twin."
+    )
+
+    if st.button(
+        "🤖 Analyze My CV",
+        type="primary",
+        use_container_width=True
+    ):
+
+        try:
+
+            # ------------------------------------------
+            # CHECK GROQ API KEY
+            # ------------------------------------------
+
+            if "GROQ_API_KEY" not in st.secrets:
+
+                st.error(
+                    "GROQ_API_KEY is missing from "
+                    "Streamlit Secrets."
+                )
+
+                st.stop()
+
+
+            # ------------------------------------------
+            # EXTRACT TEXT FROM PDF
+            # ------------------------------------------
+
+            with st.spinner(
+                "📄 Reading your CV..."
+            ):
+
+                cv_text = extract_text_from_pdf(
+                    uploaded_cv
+                )
+
+
+            # ------------------------------------------
+            # CHECK CV TEXT
+            # ------------------------------------------
+
+            if not cv_text.strip():
+
+                st.error(
+                    "❌ No readable text was found in the CV."
+                )
+
+                st.info(
+                    """
+                    Please make sure your PDF contains
+                    selectable text. Scanned/image-only PDFs
+                    may not be readable by the current parser.
+                    """
+                )
+
+                st.stop()
+
+
+            # ------------------------------------------
+            # SEND CV TO GROQ
+            # ------------------------------------------
+
+            with st.spinner(
+                "🧠 EduTwin AI is analyzing your CV..."
+            ):
+
+                analysis = analyze_cv(
+                    cv_text
+                )
+
+
+            # ------------------------------------------
+            # SAVE AI RESULT
+            # ------------------------------------------
+
+            st.session_state[
+                "cv_analysis"
+            ] = analysis
+
+            st.session_state[
+                "cv_text"
+            ] = cv_text
+
+            st.success(
+                "✅ CV analysis completed!"
+            )
+
+
+        except Exception as error:
+
+            st.error(
+                f"❌ CV analysis error: {error}"
+            )
+
+
+# --------------------------------------------------
+# SHOW AI ANALYSIS
+# --------------------------------------------------
+
+if "cv_analysis" in st.session_state:
+
+    st.divider()
+
+    st.header(
+        "🧠 Step 2 — AI CV Analysis"
+    )
+
+    st.write(
+        """
+        EduTwin extracted the following information
+        from your CV.
+        """
+    )
+
+    with st.expander(
+        "🔍 View AI Analysis",
+        expanded=True
+    ):
+
+        st.markdown(
+            st.session_state["cv_analysis"]
+        )
+
+    st.info(
+        """
+        💡 Review the AI analysis above, then enter
+        or correct your information in the profile
+        fields below.
+        """
+    )
+
+
+# --------------------------------------------------
+# MANUAL PROFILE SECTION
+# --------------------------------------------------
+
+st.divider()
+
+st.header(
+    "✏️ Step 3 — Confirm Your Digital Twin"
+)
+
+st.write(
+    """
+    You can manually enter or correct any information
+    before creating your Digital Twin.
+    """
+)
+
+
+# --------------------------------------------------
+# PERSONAL INFORMATION
+# --------------------------------------------------
+
+st.subheader("🎓 Personal Information")
 
 name = st.text_input(
     "Full Name",
-    placeholder="Enter your full name"
+    placeholder="Example: Maryam Khan"
 )
-
 
 education = st.text_input(
     "Education",
@@ -51,14 +231,11 @@ education = st.text_input(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # SKILLS
-# ============================================================
+# --------------------------------------------------
 
-st.header(
-    "💻 Skills"
-)
-
+st.subheader("💻 Skills")
 
 skills = st.text_area(
     "Your Skills",
@@ -70,14 +247,11 @@ skills = st.text_area(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # COURSES
-# ============================================================
+# --------------------------------------------------
 
-st.header(
-    "📚 Courses"
-)
-
+st.subheader("📚 Courses")
 
 courses = st.text_area(
     "Courses You Have Studied",
@@ -89,14 +263,11 @@ courses = st.text_area(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # PROJECTS
-# ============================================================
+# --------------------------------------------------
 
-st.header(
-    "🚀 Projects"
-)
-
+st.subheader("🚀 Projects")
 
 projects = st.text_area(
     "Your Projects",
@@ -108,14 +279,11 @@ projects = st.text_area(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # INTERESTS
-# ============================================================
+# --------------------------------------------------
 
-st.header(
-    "💡 Interests"
-)
-
+st.subheader("💡 Interests")
 
 interests = st.text_area(
     "Your Interests",
@@ -127,14 +295,43 @@ interests = st.text_area(
 )
 
 
-# ============================================================
-# CAREER
-# ============================================================
+# --------------------------------------------------
+# EXPERIENCE
+# --------------------------------------------------
 
-st.header(
-    "🎯 Career Goal"
+st.subheader("💼 Experience")
+
+experience = st.text_area(
+    "Work / Internship Experience",
+    placeholder=(
+        "Example: Software Engineering Intern, "
+        "Research Assistant"
+    ),
+    height=120
 )
 
+
+# --------------------------------------------------
+# CERTIFICATIONS
+# --------------------------------------------------
+
+st.subheader("🏆 Certifications")
+
+certifications = st.text_area(
+    "Certifications",
+    placeholder=(
+        "Example: Python Certification, "
+        "Google Data Analytics"
+    ),
+    height=100
+)
+
+
+# --------------------------------------------------
+# CAREER GOAL
+# --------------------------------------------------
+
+st.subheader("🎯 Career Goal")
 
 career_options = [
     "AI Engineer",
@@ -146,7 +343,6 @@ career_options = [
     "Cloud Engineer",
     "Other"
 ]
-
 
 career_goal = st.selectbox(
     "Select your target career",
@@ -162,18 +358,33 @@ if career_goal == "Other":
     )
 
 
+# --------------------------------------------------
+# CREATE DIGITAL TWIN
+# --------------------------------------------------
+
 st.divider()
 
+st.header(
+    "🧠 Create Your Digital Twin"
+)
 
-# ============================================================
-# SAVE
-# ============================================================
+st.write(
+    """
+    Once you confirm your information, EduTwin will
+    create your personalized Digital Twin.
+    """
+)
+
 
 if st.button(
-    "💾 Create My Digital Twin",
+    "🧠 Create My Digital Twin",
     type="primary",
     use_container_width=True
 ):
+
+    # ----------------------------------------------
+    # VALIDATION
+    # ----------------------------------------------
 
     if name.strip() == "":
 
@@ -201,6 +412,10 @@ if st.button(
 
     else:
 
+        # ------------------------------------------
+        # CREATE PROFILE
+        # ------------------------------------------
+
         st.session_state["profile"] = {
 
             "name": name.strip(),
@@ -215,36 +430,43 @@ if st.button(
 
             "interests": interests.strip(),
 
-            "career_goal": career_goal.strip()
+            "experience": experience.strip(),
 
+            "certifications": certifications.strip(),
+
+            "career_goal": career_goal.strip()
         }
 
 
-        st.success(
-            "✅ Your Digital Twin has been created!"
-        )
+        # ------------------------------------------
+        # SUCCESS MESSAGE
+        # ------------------------------------------
 
+        st.success(
+            "🎉 Your Digital Twin has been created!"
+        )
 
         st.balloons()
 
 
-        st.info(
-            """
-            Your profile is now available to EduTwin's
-            learning, Vision Tutor and career features.
-            """
+        # ------------------------------------------
+        # PROFILE SUMMARY
+        # ------------------------------------------
+
+        st.divider()
+
+        st.header(
+            "📋 Your Digital Twin Summary"
         )
-
-
-        st.subheader(
-            "📋 Profile Summary"
-        )
-
 
         col1, col2 = st.columns(2)
 
 
         with col1:
+
+            st.subheader(
+                "👤 Personal Profile"
+            )
 
             st.write(
                 f"**Name:** {name}"
@@ -258,11 +480,15 @@ if st.button(
                 f"**Career Goal:** {career_goal}"
             )
 
+            st.write(
+                f"**Skills:** {skills}"
+            )
+
 
         with col2:
 
-            st.write(
-                f"**Skills:** {skills}"
+            st.subheader(
+                "🚀 Learning Profile"
             )
 
             st.write(
@@ -270,5 +496,33 @@ if st.button(
             )
 
             st.write(
+                f"**Projects:** {projects}"
+            )
+
+            st.write(
                 f"**Interests:** {interests}"
             )
+
+            st.write(
+                f"**Experience:** {experience}"
+            )
+
+            st.write(
+                f"**Certifications:** {certifications}"
+            )
+
+
+        st.divider()
+
+        st.info(
+            """
+            🎯 Your Digital Twin is now ready.
+
+            You can use it with:
+
+            📷 Vision Tutor  
+            📚 Adaptive Learning  
+            💼 Career Intelligence  
+            🎤 AI Interview Practice
+            """
+        )
