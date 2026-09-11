@@ -1,6 +1,7 @@
 import streamlit as st
-from utils.style import load_css
+
 from ai.vision import analyze_image
+from utils.style import load_css
 
 
 st.set_page_config(
@@ -8,7 +9,14 @@ st.set_page_config(
     page_icon="📷",
     layout="wide"
 )
+
+
 load_css()
+
+
+# =========================================
+# HERO
+# =========================================
 
 st.markdown(
     """
@@ -34,6 +42,36 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
+# =========================================
+# CHECK PROFILE
+# =========================================
+
+if "profile" not in st.session_state:
+
+    st.warning(
+        "Please create your Digital Twin profile first."
+    )
+
+    if st.button(
+        "👤 Create My Profile",
+        type="primary"
+    ):
+
+        st.switch_page(
+            "pages/profile.py"
+        )
+
+    st.stop()
+
+
+profile = st.session_state["profile"]
+
+
+# =========================================
+# UPLOAD
+# =========================================
+
 st.markdown(
     '<div class="section-label">STEP 01</div>',
     unsafe_allow_html=True
@@ -43,29 +81,9 @@ st.subheader(
     "📸 Upload something you want to understand"
 )
 
-st.write(
-    """
-    Upload an educational image and EduTwin will identify
-    what you are looking at and explain it according to
-    your Digital Twin.
-    """
-)
-
-
-if "profile" not in st.session_state:
-
-    st.warning(
-        "Please create your profile first."
-    )
-
-    st.stop()
-
-
-profile = st.session_state["profile"]
-
 
 uploaded_image = st.file_uploader(
-    "Upload an educational image",
+    "Choose an educational image",
     type=[
         "jpg",
         "jpeg",
@@ -73,6 +91,12 @@ uploaded_image = st.file_uploader(
         "webp"
     ]
 )
+
+
+# =========================================
+# EXPLANATION MODE
+# =========================================
+
 st.markdown(
     '<div class="section-label">STEP 02</div>',
     unsafe_allow_html=True
@@ -84,7 +108,7 @@ st.subheader(
 
 
 mode = st.selectbox(
-    "Choose explanation mode",
+    "Explanation mode",
     [
         "Understand",
         "Explain Like I'm 5",
@@ -93,6 +117,10 @@ mode = st.selectbox(
     ]
 )
 
+
+# =========================================
+# DISPLAY IMAGE
+# =========================================
 
 if uploaded_image is not None:
 
@@ -103,9 +131,17 @@ if uploaded_image is not None:
     )
 
 
+    st.write("")
+
+
+    # =====================================
+    # ANALYZE BUTTON
+    # =====================================
+
     if st.button(
         "🧠 Analyze Image",
-        type="primary"
+        type="primary",
+        use_container_width=False
     ):
 
         try:
@@ -113,7 +149,8 @@ if uploaded_image is not None:
             if "GROQ_API_KEY" not in st.secrets:
 
                 st.error(
-                    "GROQ_API_KEY is missing from Streamlit Secrets."
+                    "GROQ_API_KEY is missing from "
+                    "Streamlit Secrets."
                 )
 
                 st.stop()
@@ -150,30 +187,40 @@ First identify what is visible.
 
 Then explain it according to the selected mode.
 
-If the image contains:
+If the image contains a:
 
-- a diagram
 - computer component
-- programming code
+- diagram
 - graph
 - chart
+- programming concept
 - mathematical concept
 - technical object
 - educational material
 
-explain its purpose and important concepts.
+explain its purpose and the most important concepts.
 
 Connect the explanation to the student's
-current knowledge and career goal where appropriate.
+knowledge and career goal where appropriate.
 
 Do not invent details that cannot be observed.
 
-Use simple educational language.
+Use simple language.
+
+Keep the response concise.
+
+Use headings and bullet points where useful.
+
+Keep the answer below 400 words.
 """
 
 
+            # =================================
+            # AI ANALYSIS
+            # =================================
+
             with st.spinner(
-                "Vision AI is analyzing the image..."
+                "🔍 EduTwin is analyzing your image..."
             ):
 
                 answer = analyze_image(
@@ -188,8 +235,13 @@ Use simple educational language.
             )
 
 
+            st.markdown(
+                '<div class="section-label">AI RESULT</div>',
+                unsafe_allow_html=True
+            )
+
             st.subheader(
-                "🧠 AI Explanation"
+                "🧠 Your Personalized Explanation"
             )
 
 
