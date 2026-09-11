@@ -1,10 +1,6 @@
 import streamlit as st
 
 
-# -----------------------------
-# Page Configuration
-# -----------------------------
-
 st.set_page_config(
     page_title="EduTwin AI",
     page_icon="🧠",
@@ -12,13 +8,12 @@ st.set_page_config(
 )
 
 
-# -----------------------------
-# Main Page
-# -----------------------------
-
 st.title("🧠 EduTwin AI")
 
-st.subheader("Your Personal AI Learning Twin")
+st.subheader(
+    "Your Personal AI Learning and Career Twin"
+)
+
 
 st.write(
     """
@@ -31,23 +26,16 @@ st.write(
 st.divider()
 
 
-# -----------------------------
-# Welcome Section
-# -----------------------------
-
 st.header("Welcome to EduTwin")
+
 
 st.write(
     """
-    EduTwin helps you understand what you know, identify what
-    you need to learn, and prepare for your desired career.
+    EduTwin helps you understand what you know, identify
+    what you need to learn, and prepare for your desired career.
     """
 )
 
-
-# -----------------------------
-# Features
-# -----------------------------
 
 col1, col2, col3 = st.columns(3)
 
@@ -57,8 +45,10 @@ with col1:
     st.subheader("👤 Digital Twin")
 
     st.write(
-        "Build a personalized profile containing your "
-        "skills, courses, projects, interests, and career goal."
+        """
+        Build a personalized profile containing your
+        skills, courses, projects, interests, and career goal.
+        """
     )
 
 
@@ -67,8 +57,10 @@ with col2:
     st.subheader("📷 Vision Tutor")
 
     st.write(
-        "Upload an educational image and let AI explain "
-        "what you are looking at."
+        """
+        Upload an educational image and let AI identify
+        and explain what you are looking at.
+        """
     )
 
 
@@ -77,15 +69,28 @@ with col3:
     st.subheader("💼 Career AI")
 
     st.write(
-        "Analyze your skills and identify gaps for your "
-        "target career."
+        """
+        Analyze your skills, identify skill gaps,
+        and understand your career readiness.
+        """
     )
 
 
 st.divider()
 
 
-st.info(
-    "👈 Use the sidebar to open your profile and start building "
-    "your Digital Twin."
-)
+if "profile" in st.session_state:
+
+    profile = st.session_state["profile"]
+
+    st.success(
+        f"Welcome back, {profile['name']}! "
+        f"Your target career is {profile['career_goal']}."
+    )
+
+else:
+
+    st.info(
+        "👈 Open **Profile** from the sidebar to create "
+        "your Digital Twin."
+    )
