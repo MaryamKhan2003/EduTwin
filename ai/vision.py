@@ -1,4 +1,3 @@
-
 import base64
 
 from groq import Groq
@@ -24,49 +23,35 @@ def analyze_image(
         api_key=api_key
     )
 
-
-    base64_image = encode_image(
+    encoded_image = encode_image(
         image_bytes
     )
 
-
     response = client.chat.completions.create(
-
         model=VISION_MODEL,
-
         messages=[
-
             {
                 "role": "user",
-
                 "content": [
-
                     {
                         "type": "text",
-
                         "text": prompt
                     },
-
                     {
                         "type": "image_url",
-
                         "image_url": {
-
-                            "url":
-                            f"data:image/jpeg;base64,{base64_image}"
+                            "url": (
+                                "data:image/jpeg;base64,"
+                                + encoded_image
+                            )
                         }
                     }
-
                 ]
             }
-
         ],
-
         temperature=0.4,
-
         max_completion_tokens=2000
     )
-
 
     return (
         response
