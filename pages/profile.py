@@ -1,7 +1,5 @@
 import streamlit as st
 
-from utils.style import load_css
-
 
 st.set_page_config(
     page_title="EduTwin - Profile",
@@ -10,45 +8,31 @@ st.set_page_config(
 )
 
 
-load_css()
+# ============================================================
+# HEADER
+# ============================================================
 
+st.title(
+    "👤 Build Your Digital Twin"
+)
 
-# =========================================
-# HERO
-# =========================================
+st.subheader(
+    "Tell EduTwin about yourself."
+)
 
-st.markdown(
+st.write(
     """
-    <div class="hero">
-
-        <div class="hero-small">
-            STEP 01 • BUILD YOUR DIGITAL TWIN
-        </div>
-
-        <div class="hero-title">
-            Tell EduTwin about you. 👤
-        </div>
-
-        <div class="hero-text">
-            Your education, skills, projects, interests and
-            career goals help EduTwin create a personalized
-            learning experience.
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
+    Your education, skills, courses, projects, interests
+    and career goals help EduTwin personalize your learning.
+    """
 )
 
+st.divider()
 
-# =========================================
+
+# ============================================================
 # PERSONAL INFORMATION
-# =========================================
-
-st.markdown(
-    '<div class="section-label">YOUR INFORMATION</div>',
-    unsafe_allow_html=True
-)
+# ============================================================
 
 st.header(
     "🎓 Personal Information"
@@ -67,17 +51,17 @@ education = st.text_input(
 )
 
 
-# =========================================
+# ============================================================
 # SKILLS
-# =========================================
+# ============================================================
 
 st.header(
-    "💻 Your Skills"
+    "💻 Skills"
 )
 
 
 skills = st.text_area(
-    "Skills",
+    "Your Skills",
     placeholder=(
         "Example: Python, C++, SQL, Machine Learning, "
         "Data Structures, Git"
@@ -86,9 +70,9 @@ skills = st.text_area(
 )
 
 
-# =========================================
+# ============================================================
 # COURSES
-# =========================================
+# ============================================================
 
 st.header(
     "📚 Courses"
@@ -105,9 +89,9 @@ courses = st.text_area(
 )
 
 
-# =========================================
+# ============================================================
 # PROJECTS
-# =========================================
+# ============================================================
 
 st.header(
     "🚀 Projects"
@@ -124,9 +108,9 @@ projects = st.text_area(
 )
 
 
-# =========================================
+# ============================================================
 # INTERESTS
-# =========================================
+# ============================================================
 
 st.header(
     "💡 Interests"
@@ -143,9 +127,9 @@ interests = st.text_area(
 )
 
 
-# =========================================
+# ============================================================
 # CAREER
-# =========================================
+# ============================================================
 
 st.header(
     "🎯 Career Goal"
@@ -181,13 +165,14 @@ if career_goal == "Other":
 st.divider()
 
 
-# =========================================
-# SAVE PROFILE
-# =========================================
+# ============================================================
+# SAVE
+# ============================================================
 
 if st.button(
-    "💾 Save My Digital Twin",
-    type="primary"
+    "💾 Create My Digital Twin",
+    type="primary",
+    use_container_width=True
 ):
 
     if name.strip() == "":
@@ -243,27 +228,17 @@ if st.button(
         st.balloons()
 
 
-        st.markdown(
+        st.info(
             """
-            <div class="insight-card">
-
-                <div class="insight-title">
-                    🧠 Your Digital Twin is ready
-                </div>
-
-                <div class="insight-text">
-                    EduTwin can now personalize your
-                    learning, vision explanations and
-                    career analysis using your profile.
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+            Your profile is now available to EduTwin's
+            learning, Vision Tutor and career features.
+            """
         )
 
 
-        st.write("")
+        st.subheader(
+            "📋 Profile Summary"
+        )
 
 
         col1, col2 = st.columns(2)
@@ -280,7 +255,7 @@ if st.button(
             )
 
             st.write(
-                f"**Career:** {career_goal}"
+                f"**Career Goal:** {career_goal}"
             )
 
 
@@ -297,9 +272,3 @@ if st.button(
             st.write(
                 f"**Interests:** {interests}"
             )
-
-
-        st.info(
-            "Your profile is now available to EduTwin's "
-            "learning and career features."
-        )
