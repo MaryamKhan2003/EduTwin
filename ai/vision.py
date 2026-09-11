@@ -29,6 +29,7 @@ def analyze_image(
 
     response = client.chat.completions.create(
         model=VISION_MODEL,
+
         messages=[
             {
                 "role": "user",
@@ -49,8 +50,12 @@ def analyze_image(
                 ]
             }
         ],
+
         temperature=0.4,
-        max_completion_tokens=2000
+
+        max_completion_tokens=700,
+
+        reasoning_effort="none"
     )
 
     return (
