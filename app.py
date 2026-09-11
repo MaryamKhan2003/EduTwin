@@ -1,9 +1,9 @@
 import streamlit as st
 
 
-# ============================================================
+# --------------------------------------------------
 # PAGE CONFIGURATION
-# ============================================================
+# --------------------------------------------------
 
 st.set_page_config(
     page_title="EduTwin AI",
@@ -13,43 +13,55 @@ st.set_page_config(
 )
 
 
-# ============================================================
+# --------------------------------------------------
 # SIDEBAR
-# ============================================================
+# --------------------------------------------------
 
 with st.sidebar:
 
-    st.title("🧠 EduTwin")
+    st.title("🧠 EduTwin AI")
 
     st.caption(
-        "AI Learning Intelligence"
+        "Your Personal AI Learning Twin"
     )
 
     st.divider()
 
-    st.subheader(
-        "Your AI Learning Companion"
-    )
+    st.subheader("🚀 Quick Start")
 
     st.write(
-        "Build your skills, understand what you see, "
-        "and move closer to your career goals."
+        """
+        **1.** Create your Digital Twin
+
+        **2.** Explore Vision Tutor
+
+        **3.** Learn with Adaptive AI
+
+        **4.** Analyze your career
+
+        **5.** Practice interviews
+        """
+    )
+
+    st.divider()
+
+    st.info(
+        "💡 EduTwin adapts learning around "
+        "your skills and career goals."
     )
 
     st.divider()
 
     st.caption(
-        "Use the navigation above to explore EduTwin."
+        "AI-Powered Personalized Learning"
     )
 
 
-# ============================================================
+# --------------------------------------------------
 # HERO SECTION
-# ============================================================
+# --------------------------------------------------
 
-st.title(
-    "🧠 EduTwin AI"
-)
+st.title("🧠 EduTwin AI")
 
 st.subheader(
     "Your Personal AI Learning Twin"
@@ -57,39 +69,40 @@ st.subheader(
 
 st.write(
     """
+    **Learn smarter. Understand faster. Build your career.**
+
     EduTwin creates a personalized learning experience
-    around **your skills, knowledge, interests, and career goals**.
+    based on your **knowledge, skills, interests and
+    career goals**.
     """
 )
 
 st.write("")
 
 
-# ============================================================
-# QUICK ACTIONS
-# ============================================================
+# --------------------------------------------------
+# PRIMARY ACTIONS
+# --------------------------------------------------
 
-st.header(
-    "🚀 Start Your Journey"
-)
+st.header("🚀 Start Your Journey")
 
 col1, col2, col3 = st.columns(3)
 
 
 with col1:
 
-    st.subheader(
-        "👤 Digital Twin"
-    )
+    st.subheader("👤 Digital Twin")
 
     st.write(
-        "Create your personalized learner profile "
-        "with your education, skills, projects, "
-        "interests and career goal."
+        """
+        Build your personal learner profile
+        using your CV, education, skills,
+        projects and career goal.
+        """
     )
 
     if st.button(
-        "Build My Digital Twin",
+        "Build My Digital Twin →",
         use_container_width=True,
         type="primary"
     ):
@@ -101,17 +114,17 @@ with col1:
 
 with col2:
 
-    st.subheader(
-        "📷 Vision Tutor"
-    )
+    st.subheader("📷 Vision Tutor")
 
     st.write(
-        "Upload a diagram, graph, computer component, "
-        "code screenshot or educational image."
+        """
+        Upload a diagram, graph, code screenshot
+        or educational image and let AI explain it.
+        """
     )
 
     if st.button(
-        "Try Vision Tutor",
+        "Try Vision Tutor →",
         use_container_width=True
     ):
 
@@ -122,17 +135,17 @@ with col2:
 
 with col3:
 
-    st.subheader(
-        "💼 Career AI"
-    )
+    st.subheader("💼 Career Intelligence")
 
     st.write(
-        "Compare your current skills with the "
-        "skills required for your target career."
+        """
+        Discover your career readiness and
+        identify the skills you need to improve.
+        """
     )
 
     if st.button(
-        "Explore Careers",
+        "Explore Careers →",
         use_container_width=True
     ):
 
@@ -141,75 +154,63 @@ with col3:
         )
 
 
+# --------------------------------------------------
+# VALUE PROPOSITION
+# --------------------------------------------------
+
 st.divider()
 
-
-# ============================================================
-# FEATURES
-# ============================================================
-
-st.header(
-    "✨ What Can EduTwin Do?"
-)
-
+st.header("✨ What Makes EduTwin Different?")
 
 col1, col2, col3 = st.columns(3)
 
 
 with col1:
 
-    st.subheader(
-        "👤 Understand Me"
-    )
+    st.subheader("👤 Understand Me")
 
     st.write(
         """
-        EduTwin builds a learner profile using your
-        education, skills, courses, projects,
-        interests and career goals.
+        EduTwin builds a learner profile from
+        your education, skills, courses,
+        projects and career goals.
         """
     )
 
 
 with col2:
 
-    st.subheader(
-        "📷 Understand What I See"
-    )
+    st.subheader("👁️ Understand What I See")
 
     st.write(
         """
-        Show EduTwin an educational image and
-        AI can identify and explain what is visible.
+        Vision AI analyzes educational images
+        and explains them according to your
+        current learning level.
         """
     )
 
 
 with col3:
 
-    st.subheader(
-        "🎯 Guide My Future"
-    )
+    st.subheader("🎯 Guide My Future")
 
     st.write(
         """
-        Analyze your career readiness and discover
-        which skills you should improve.
+        AI connects your current abilities
+        with the skills required for your
+        target career.
         """
     )
 
 
+# --------------------------------------------------
+# HOW IT WORKS
+# --------------------------------------------------
+
 st.divider()
 
-
-# ============================================================
-# HOW IT WORKS
-# ============================================================
-
-st.header(
-    "🔄 How EduTwin Works"
-)
-
+st.header("🔄 How EduTwin Works")
 
 step1, step2, step3, step4 = st.columns(4)
 
@@ -234,7 +235,7 @@ with step2:
     )
 
     st.caption(
-        "Create personalized learning."
+        "Generate personalized learning."
     )
 
 
@@ -258,38 +259,55 @@ with step4:
     )
 
     st.caption(
-        "Improve your next learning step."
+        "Recommend your next step."
     )
 
 
+# --------------------------------------------------
+# LEARNING LOOP
+# --------------------------------------------------
+
 st.divider()
 
-
-# ============================================================
-# DIFFERENTIATOR
-# ============================================================
-
-st.header(
-    "✨ What Makes EduTwin Different?"
-)
+st.header("🧠 The EduTwin Learning Loop")
 
 st.info(
     """
-    Traditional learning gives everyone the same content.
-
-    **EduTwin first understands the learner, then understands
-    what they are learning, and finally adapts the experience
-    around their knowledge and career goal.**
+    **Your Profile → AI Learning → Practice → Assessment
+    → Skill Gaps → Personalized Recommendations → Improved Profile**
     """
 )
 
 
+# --------------------------------------------------
+# FINAL CTA
+# --------------------------------------------------
+
+st.divider()
+
+st.header(
+    "🚀 Ready to build your Digital Twin?"
+)
+
+st.write(
+    """
+    Start by uploading your CV or creating your
+    learner profile manually.
+    """
+)
+
+if st.button(
+    "🧠 Create My Digital Twin",
+    type="primary",
+    use_container_width=True
+):
+
+    st.switch_page(
+        "pages/profile.py"
+    )
+
+
 st.write("")
-
-
-# ============================================================
-# FOOTER
-# ============================================================
 
 st.caption(
     "🧠 EduTwin AI • Personalized Learning Intelligence"
