@@ -3,62 +3,103 @@ def build_cv_analysis_prompt(cv_text):
     return f"""
 You are EduTwin AI.
 
-Analyze the student's CV and extract information
-for an AI-powered Digital Twin.
+You are analyzing a student's CV for an AI-powered
+Personal Digital Twin.
+
+Your task has TWO purposes:
+
+1. Extract accurate information from the CV.
+2. Analyze the student's current skills, strengths,
+   career direction and learning needs.
 
 CV:
 -------------------------
 {cv_text}
 -------------------------
 
-Return a JSON object using exactly these keys:
+Return ONLY one valid JSON object.
+
+Use exactly this structure:
 
 {{
-    "name": "",
-    "education": "",
-    "skills": [],
-    "courses": [],
-    "projects": [],
-    "interests": [],
-    "experience": "",
-    "certifications": [],
-    "career_goal": ""
+    "profile": {{
+        "name": "",
+        "education": "",
+        "skills": [],
+        "courses": [],
+        "projects": [],
+        "interests": [],
+        "experience": "",
+        "certifications": [],
+        "career_goal": ""
+    }},
+
+    "analysis": {{
+        "profile_summary": "",
+        "key_strengths": [],
+        "technical_strengths": [],
+        "skill_gaps": [],
+        "career_insight": "",
+        "learning_recommendations": []
+    }}
 }}
 
-Rules:
+IMPORTANT RULES:
 
-1. Only use information actually present in the CV.
+1. Only use information supported by the CV.
 
-2. Do not invent information.
+2. Do not invent education, skills, projects,
+   experience or certifications.
 
 3. If information is missing, use an empty string
    or an empty list.
 
-4. Skills must be returned as a list of short skill names.
+4. Skills must be a list of short skill names.
 
-5. Courses must be returned as a list.
+5. Courses must be a list.
 
-6. Projects must be returned as a list.
+6. Projects must be a list.
 
-7. Interests must be returned as a list.
+7. Interests must be a list.
 
-8. Certifications must be returned as a list.
+8. Certifications must be a list.
 
-9. Experience must be returned as a single string.
+9. Experience must be a single string.
 
-10. Education must be returned as a single string.
+10. Education must be a single string.
 
-11. If the CV clearly indicates a target career,
-    return it in career_goal.
+11. career_goal should only be filled if the CV
+    clearly indicates a target career or the
+    career can reasonably be inferred from the
+    student's education, skills and projects.
 
-12. If no career goal is clearly supported by the CV,
-    use an empty string.
+12. profile_summary should be a short professional
+    summary of the student's background.
 
-13. Do not add explanations outside the JSON object.
+13. key_strengths should contain 3 to 5 strengths
+    supported by the CV.
 
-14. Do not use markdown code fences.
+14. technical_strengths should contain technical
+    areas where the student appears strongest.
 
-The response must be a valid JSON object.
+15. skill_gaps should identify important skills
+    that appear missing or underdeveloped based
+    ONLY on the student's current profile.
+
+16. career_insight should explain which career
+    directions appear suitable based on the CV.
+
+17. learning_recommendations should contain
+    3 to 5 practical areas the student should
+    learn or improve next.
+
+18. Do not make unsupported claims.
+
+19. Do not use markdown.
+
+20. Do not put the JSON inside ```json fences.
+
+21. Return ONLY the JSON object.
 """
 
 
@@ -138,14 +179,14 @@ STUDENT ANSWER:
 Evaluate the answer based on:
 
 1. Technical knowledge
-2. Relevance to the question
+2. Relevance
 3. Communication
 4. Clarity
 5. Confidence
 6. Career alignment
 
 
-Return a JSON object using exactly these keys:
+Return ONLY a valid JSON object using exactly:
 
 {{
     "overall_score": 0,
@@ -159,7 +200,6 @@ Return a JSON object using exactly these keys:
     "final_feedback": ""
 }}
 
-
 Scoring:
 
 0 = very weak
@@ -169,18 +209,15 @@ Scoring:
 8-9 = strong
 10 = excellent
 
-
 Rules:
 
 - Be honest but constructive.
-- Do not invent experience for the student.
-- Do not give a high score just because the answer is long.
-- Explain what the student can improve.
-- The better_answer must be realistic.
-- Base the better answer only on information available
-  about the student.
-- strengths must be a list of short statements.
-- improvements must be a list of short statements.
-- All scores must be numbers from 0 to 10.
-- Return only the JSON object.
+- Do not invent experience.
+- Do not give a high score simply because the answer is long.
+- strengths must be a list.
+- improvements must be a list.
+- Scores must be between 0 and 10.
+- The better answer must be realistic.
+- Base the better answer only on the student's information.
+- Return only JSON.
 """
