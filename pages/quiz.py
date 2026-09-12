@@ -29,7 +29,7 @@ st.set_page_config(
 if "profile" not in st.session_state:
 
     st.title(
-        "📝 AI Quiz & Assessment"
+        " AI Quiz & Assessment"
     )
 
     st.warning(
@@ -38,7 +38,7 @@ if "profile" not in st.session_state:
 
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -60,7 +60,7 @@ profile = st.session_state["profile"]
 with st.sidebar:
 
     st.title(
-        "🧠 EduTwin AI"
+        " EduTwin AI"
     )
 
     st.caption(
@@ -71,12 +71,12 @@ with st.sidebar:
 
 
     st.write(
-        f"👤 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
 
     st.write(
-        f"🎯 **Career:** "
+        f" **Career:** "
         f"{profile['career_goal']}"
     )
 
@@ -88,17 +88,17 @@ with st.sidebar:
         """
         ### How it works
 
-        📚 Choose a topic
+         Choose a topic
 
-        🤖 AI generates 5 questions
+         AI generates 5 questions
 
-        📝 Answer the questions
+         Answer the questions
 
-        📊 Get your score
+         Get your score
 
-        ⚠️ Discover weak areas
+         Discover weak areas
 
-        🚀 Get personalized recommendations
+         Get personalized recommendations
         """
     )
 
@@ -120,7 +120,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    "📝 AI Quiz & Assessment"
+    " AI Quiz & Assessment"
 )
 
 st.subheader(
@@ -144,7 +144,7 @@ st.divider()
 # ==================================================
 
 st.header(
-    "📚 Step 1 — Choose a Topic"
+    " Step 1 — Choose a Topic"
 )
 
 
@@ -291,12 +291,12 @@ else:
 # ==================================================
 
 st.header(
-    "🤖 Step 2 — Generate Your Quiz"
+    " Step 2 — Generate Your Quiz"
 )
 
 
 if st.button(
-    "🤖 Generate My 5-Question Quiz",
+    " Generate My 5-Question Quiz",
     type="primary",
     use_container_width=True
 ):
@@ -304,7 +304,7 @@ if st.button(
     if not topic.strip():
 
         st.warning(
-            "⚠️ Please select or enter a topic."
+            " Please select or enter a topic."
         )
 
         st.stop()
@@ -319,7 +319,7 @@ if st.button(
         if "GROQ_API_KEY" not in st.secrets:
 
             st.error(
-                "❌ GROQ_API_KEY is missing from "
+                " GROQ_API_KEY is missing from "
                 "Streamlit Secrets."
             )
 
@@ -331,7 +331,7 @@ if st.button(
         ]:
 
             st.error(
-                "❌ GROQ_API_KEY is empty."
+                " GROQ_API_KEY is empty."
             )
 
             st.stop()
@@ -342,7 +342,7 @@ if st.button(
         # ------------------------------------------
 
         with st.spinner(
-            "🧠 Groq AI is creating your personalized quiz..."
+            " Groq AI is creating your personalized quiz..."
         ):
 
             quiz = generate_quiz(
@@ -388,14 +388,14 @@ if st.button(
 
 
         st.success(
-            "✅ Your personalized quiz is ready!"
+            " Your personalized quiz is ready!"
         )
 
 
     except Exception as error:
 
         st.error(
-            f"❌ Quiz generation error: {error}"
+            f" Quiz generation error: {error}"
         )
 
 
@@ -419,7 +419,7 @@ if "quiz" in st.session_state:
 
 
     st.header(
-        f"🧠 Quiz: {quiz_topic}"
+        f" Quiz: {quiz_topic}"
     )
 
 
@@ -483,7 +483,7 @@ if "quiz" in st.session_state:
     # ==================================================
 
     if st.button(
-        "📊 Submit Quiz",
+        " Submit Quiz",
         type="primary",
         use_container_width=True
     ):
@@ -495,7 +495,7 @@ if "quiz" in st.session_state:
         if len(user_answers) != 5:
 
             st.warning(
-                "⚠️ Please answer all 5 questions "
+                " Please answer all 5 questions "
                 "before submitting."
             )
 
@@ -529,7 +529,7 @@ if "quiz" in st.session_state:
         try:
 
             with st.spinner(
-                "🤖 EduTwin AI is analyzing your performance..."
+                " EduTwin AI is analyzing your performance..."
             ):
 
                 analysis = analyze_quiz_result(
@@ -547,14 +547,14 @@ if "quiz" in st.session_state:
 
 
             st.success(
-                "✅ Quiz evaluated successfully!"
+                " Quiz evaluated successfully!"
             )
 
 
         except Exception as error:
 
             st.error(
-                f"❌ AI analysis error: {error}"
+                f" AI analysis error: {error}"
             )
 
 
@@ -603,7 +603,7 @@ if "quiz_score" in st.session_state:
 
 
     st.header(
-        "📊 Your Quiz Result"
+        " Your Quiz Result"
     )
 
 
@@ -617,7 +617,7 @@ if "quiz_score" in st.session_state:
     with col1:
 
         st.metric(
-            "🏆 Score",
+            " Score",
             f"{score}/5"
         )
 
@@ -625,7 +625,7 @@ if "quiz_score" in st.session_state:
     with col2:
 
         st.metric(
-            "📈 Percentage",
+            " Percentage",
             f"{percentage}%"
         )
 
@@ -633,7 +633,7 @@ if "quiz_score" in st.session_state:
     with col3:
 
         st.metric(
-            "🧠 Performance",
+            " Performance",
             local_performance
         )
 
@@ -654,25 +654,25 @@ if "quiz_score" in st.session_state:
     if percentage >= 80:
 
         st.success(
-            "🎉 Excellent! You have a strong understanding of this topic."
+            " Excellent! You have a strong understanding of this topic."
         )
 
     elif percentage >= 60:
 
         st.info(
-            "👍 Good work! You understand the main concepts, but there is still room for improvement."
+            " Good work! You understand the main concepts, but there is still room for improvement."
         )
 
     elif percentage >= 40:
 
         st.warning(
-            "📚 You understand some concepts, but this topic needs more practice."
+            " You understand some concepts, but this topic needs more practice."
         )
 
     else:
 
         st.error(
-            "⚠️ This topic needs significant improvement. EduTwin recommends reviewing the fundamentals."
+            " This topic needs significant improvement. EduTwin recommends reviewing the fundamentals."
         )
 
 
@@ -693,7 +693,7 @@ if "quiz_wrong_questions" in st.session_state:
 
 
         st.header(
-            "⚠️ Questions You Missed"
+            " Questions You Missed"
         )
 
 
@@ -712,13 +712,13 @@ if "quiz_wrong_questions" in st.session_state:
 
 
                 st.write(
-                    f"❌ **Your answer:** "
+                    f" **Your answer:** "
                     f"{item['student_answer']}"
                 )
 
 
                 st.write(
-                    f"✅ **Correct answer:** "
+                    f" **Correct answer:** "
                     f"{item['correct_answer']}"
                 )
 
@@ -738,7 +738,7 @@ if "quiz_analysis" in st.session_state:
 
 
     st.header(
-        "🤖 EduTwin AI Learning Analysis"
+        " EduTwin AI Learning Analysis"
     )
 
 
@@ -753,32 +753,32 @@ if "quiz_analysis" in st.session_state:
 
 
     st.subheader(
-        "🧠 AI Performance Assessment"
+        " AI Performance Assessment"
     )
 
 
     if performance_level == "Strong":
 
         st.success(
-            f"🌟 {performance_level}"
+            f" {performance_level}"
         )
 
     elif performance_level == "Good":
 
         st.info(
-            f"👍 {performance_level}"
+            f" {performance_level}"
         )
 
     elif performance_level == "Needs Practice":
 
         st.warning(
-            f"📚 {performance_level}"
+            f" {performance_level}"
         )
 
     elif performance_level == "Weak":
 
         st.error(
-            f"⚠️ {performance_level}"
+            f" {performance_level}"
         )
 
     else:
@@ -793,7 +793,7 @@ if "quiz_analysis" in st.session_state:
     # ==================================================
 
     st.subheader(
-        "⚠️ Weak Areas"
+        " Weak Areas"
     )
 
 
@@ -808,7 +808,7 @@ if "quiz_analysis" in st.session_state:
         for weak_topic in weak_topics:
 
             st.write(
-                f"🔸 {weak_topic}"
+                f" {weak_topic}"
             )
 
     else:
@@ -823,7 +823,7 @@ if "quiz_analysis" in st.session_state:
     # ==================================================
 
     st.subheader(
-        "🚀 Personalized Recommendation"
+        " Personalized Recommendation"
     )
 
 
@@ -851,7 +851,7 @@ if "quiz_analysis" in st.session_state:
     # ==================================================
 
     st.subheader(
-        "📚 Recommended Next Learning Step"
+        " Recommended Next Learning Step"
     )
 
 
@@ -884,7 +884,7 @@ if "quiz" in st.session_state:
 
 
     if st.button(
-        "🔄 Generate Another Quiz",
+        " Generate Another Quiz",
         use_container_width=True
     ):
 
