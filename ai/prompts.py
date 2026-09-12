@@ -11,9 +11,7 @@ CV:
 {cv_text}
 -------------------------
 
-Return ONLY valid JSON.
-
-Use exactly these keys:
+Return a JSON object using exactly these keys:
 
 {{
     "name": "",
@@ -30,16 +28,37 @@ Use exactly these keys:
 Rules:
 
 1. Only use information actually present in the CV.
+
 2. Do not invent information.
-3. If information is missing, use an empty string or empty list.
+
+3. If information is missing, use an empty string
+   or an empty list.
+
 4. Skills must be returned as a list of short skill names.
+
 5. Courses must be returned as a list.
+
 6. Projects must be returned as a list.
+
 7. Interests must be returned as a list.
+
 8. Certifications must be returned as a list.
-9. If a clear career goal is not mentioned, infer a possible career
-   only when the CV strongly supports it. Otherwise use an empty string.
-10. Return JSON only.
+
+9. Experience must be returned as a single string.
+
+10. Education must be returned as a single string.
+
+11. If the CV clearly indicates a target career,
+    return it in career_goal.
+
+12. If no career goal is clearly supported by the CV,
+    use an empty string.
+
+13. Do not add explanations outside the JSON object.
+
+14. Do not use markdown code fences.
+
+The response must be a valid JSON object.
 """
 
 
@@ -89,17 +108,32 @@ You are EduTwin AI Interview Coach.
 Evaluate a student's interview answer.
 
 STUDENT:
-Name: {profile['name']}
-Education: {profile['education']}
-Skills: {profile['skills']}
-Target Career: {profile['career_goal']}
-Interests: {profile['interests']}
+
+Name:
+{profile['name']}
+
+Education:
+{profile['education']}
+
+Skills:
+{profile['skills']}
+
+Target Career:
+{profile['career_goal']}
+
+Interests:
+{profile['interests']}
+
 
 INTERVIEW QUESTION:
+
 {question}
 
+
 STUDENT ANSWER:
+
 {answer}
+
 
 Evaluate the answer based on:
 
@@ -110,7 +144,8 @@ Evaluate the answer based on:
 5. Confidence
 6. Career alignment
 
-Return ONLY valid JSON using exactly this structure:
+
+Return a JSON object using exactly these keys:
 
 {{
     "overall_score": 0,
@@ -124,6 +159,7 @@ Return ONLY valid JSON using exactly this structure:
     "final_feedback": ""
 }}
 
+
 Scoring:
 
 0 = very weak
@@ -133,13 +169,18 @@ Scoring:
 8-9 = strong
 10 = excellent
 
+
 Rules:
 
 - Be honest but constructive.
 - Do not invent experience for the student.
 - Do not give a high score just because the answer is long.
 - Explain what the student can improve.
-- The better_answer should be a realistic improved version,
-  based only on information available about the student.
-- Return JSON only.
+- The better_answer must be realistic.
+- Base the better answer only on information available
+  about the student.
+- strengths must be a list of short statements.
+- improvements must be a list of short statements.
+- All scores must be numbers from 0 to 10.
+- Return only the JSON object.
 """
