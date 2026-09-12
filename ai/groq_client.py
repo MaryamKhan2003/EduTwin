@@ -42,7 +42,14 @@ def ask_groq(prompt, model=TEXT_MODEL):
         reasoning_effort="none"
     )
 
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+
+    if not content:
+        raise ValueError(
+            "Groq returned an empty response."
+        )
+
+    return content
 
 
 def ask_groq_json(prompt, model=TEXT_MODEL):
@@ -58,7 +65,7 @@ def ask_groq_json(prompt, model=TEXT_MODEL):
             }
         ],
         temperature=0.2,
-        max_completion_tokens=900,
+        max_completion_tokens=1000,
         reasoning_effort="none",
         response_format={
             "type": "json_object"
@@ -69,7 +76,7 @@ def ask_groq_json(prompt, model=TEXT_MODEL):
 
     if not content:
         raise ValueError(
-            "Groq returned an empty response."
+            "Groq returned an empty JSON response."
         )
 
     return content
