@@ -24,7 +24,7 @@ st.set_page_config(
 if "profile" not in st.session_state:
 
     st.title(
-        "💼 Career Intelligence"
+        " Career Intelligence"
     )
 
     st.warning(
@@ -32,7 +32,7 @@ if "profile" not in st.session_state:
     )
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -55,7 +55,7 @@ careers = load_careers()
 with st.sidebar:
 
     st.title(
-        "💼 Career AI"
+        " Career AI"
     )
 
     st.caption(
@@ -65,11 +65,11 @@ with st.sidebar:
     st.divider()
 
     st.write(
-        f"👤 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
     st.write(
-        f"🎯 {profile['career_goal']}"
+        f" {profile['career_goal']}"
     )
 
 
@@ -78,7 +78,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    "💼 Career Intelligence"
+    " Career Intelligence"
 )
 
 st.subheader(
@@ -100,7 +100,7 @@ st.divider()
 # ==================================================
 
 st.header(
-    "🎯 Choose Your Career"
+    " Choose Your Career"
 )
 
 career = st.selectbox(
@@ -114,7 +114,7 @@ career = st.selectbox(
 # ==================================================
 
 if st.button(
-    "📊 Analyze My Career Readiness",
+    " Analyze My Career Readiness",
     type="primary",
     use_container_width=True
 ):
@@ -184,13 +184,13 @@ if st.button(
     elif score >= 60:
 
         st.warning(
-            "👍 Good foundation. Focus on the missing skills."
+            " Good foundation. Focus on the missing skills."
         )
 
     else:
 
         st.info(
-            "📚 Several important skills still need development."
+            " Several important skills still need development."
         )
 
 
@@ -201,13 +201,13 @@ if st.button(
     st.divider()
 
     st.header(
-        "💻 Your Current Skills"
+        " Your Current Skills"
     )
 
     for skill in skills:
 
         st.write(
-            f"✅ {skill}"
+            f" {skill}"
         )
 
 
@@ -218,7 +218,7 @@ if st.button(
     st.divider()
 
     st.header(
-        "📋 Career Requirements"
+        " Career Requirements"
     )
 
     for skill, level in careers[career].items():
@@ -235,7 +235,7 @@ if st.button(
     st.divider()
 
     st.header(
-        "🚀 Your Next Step"
+        " Your Next Step"
     )
 
     st.info(
