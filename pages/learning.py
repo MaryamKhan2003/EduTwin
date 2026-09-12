@@ -22,7 +22,7 @@ st.set_page_config(
 if "profile" not in st.session_state:
 
     st.title(
-        "📚 Adaptive Learning"
+        " Adaptive Learning"
     )
 
     st.warning(
@@ -30,7 +30,7 @@ if "profile" not in st.session_state:
     )
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -51,7 +51,7 @@ profile = st.session_state["profile"]
 with st.sidebar:
 
     st.title(
-        "📚 Adaptive Learning"
+        " Adaptive Learning"
     )
 
     st.caption(
@@ -61,11 +61,11 @@ with st.sidebar:
     st.divider()
 
     st.write(
-        f"👤 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
     st.write(
-        f"🎯 {profile['career_goal']}"
+        f" {profile['career_goal']}"
     )
 
 
@@ -74,7 +74,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    "📚 Adaptive Learning"
+    " Adaptive Learning"
 )
 
 st.subheader(
@@ -96,7 +96,7 @@ st.divider()
 # ==================================================
 
 with st.expander(
-    "👤 What EduTwin knows about you",
+    " What EduTwin knows about you",
     expanded=False
 ):
 
@@ -128,7 +128,7 @@ with st.expander(
 # ==================================================
 
 st.header(
-    "🧠 What do you want to learn?"
+    " What do you want to learn?"
 )
 
 topic = st.text_input(
@@ -145,7 +145,7 @@ topic = st.text_input(
 # ==================================================
 
 if st.button(
-    "📖 Start Personalized Learning",
+    " Start Personalized Learning",
     type="primary",
     use_container_width=True
 ):
@@ -177,7 +177,7 @@ if st.button(
 
 
             with st.spinner(
-                "🧠 EduTwin is preparing your lesson..."
+                " EduTwin is preparing your lesson..."
             ):
 
                 lesson = ask_groq(
@@ -186,13 +186,13 @@ if st.button(
 
 
             st.success(
-                "✅ Your personalized lesson is ready!"
+                " Your personalized lesson is ready!"
             )
 
             st.divider()
 
             st.header(
-                f"📚 {topic}"
+                f" {topic}"
             )
 
             st.markdown(
@@ -204,7 +204,7 @@ if st.button(
 
             st.info(
                 """
-                💡 **Keep learning!**
+                 **Keep learning!**
 
                 After understanding this topic,
                 the next version of EduTwin can
@@ -217,5 +217,5 @@ if st.button(
         except Exception as error:
 
             st.error(
-                f"❌ Learning AI error: {error}"
+                f" Learning AI error: {error}"
             )
