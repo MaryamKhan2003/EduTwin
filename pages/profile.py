@@ -11,15 +11,17 @@ st.set_page_config(
 )
 
 
-# --------------------------------------------------
-# Sidebar
-# --------------------------------------------------
+# ==================================================
+# SIDEBAR
+# ==================================================
 
 with st.sidebar:
 
     st.title("🧠 EduTwin AI")
 
-    st.caption("Digital Twin Builder")
+    st.caption(
+        "Digital Twin Builder"
+    )
 
     st.divider()
 
@@ -44,11 +46,13 @@ with st.sidebar:
     )
 
 
-# --------------------------------------------------
-# Page Header
-# --------------------------------------------------
+# ==================================================
+# PAGE HEADER
+# ==================================================
 
-st.title("👤 Build Your Digital Twin")
+st.title(
+    "👤 Build Your Digital Twin"
+)
 
 st.subheader(
     "Let EduTwin understand you before it teaches you."
@@ -65,11 +69,22 @@ st.write(
 st.divider()
 
 
-# --------------------------------------------------
-# Step 1
-# --------------------------------------------------
+# ==================================================
+# STEP 1 — CV UPLOAD
+# ==================================================
 
-st.header("📄 Step 1 — Upload Your CV")
+st.header(
+    "📄 Step 1 — Upload Your CV"
+)
+
+st.write(
+    """
+    Upload a PDF CV. EduTwin will extract the text
+    and use Groq AI to automatically identify your
+    profile information.
+    """
+)
+
 
 uploaded_cv = st.file_uploader(
     "Choose your CV",
@@ -84,6 +99,7 @@ if uploaded_cv is not None:
         f"✅ {uploaded_cv.name} uploaded successfully."
     )
 
+
     if st.button(
         "🤖 Analyze My CV",
         type="primary",
@@ -92,11 +108,24 @@ if uploaded_cv is not None:
 
         try:
 
+            # --------------------------------------
+            # Check API key
+            # --------------------------------------
+
             if "GROQ_API_KEY" not in st.secrets:
 
                 st.error(
-                    "GROQ_API_KEY is missing from "
+                    "❌ GROQ_API_KEY is missing from "
                     "Streamlit Secrets."
+                )
+
+                st.stop()
+
+
+            if not st.secrets["GROQ_API_KEY"]:
+
+                st.error(
+                    "❌ GROQ_API_KEY is empty."
                 )
 
                 st.stop()
@@ -118,14 +147,23 @@ if uploaded_cv is not None:
             if not cv_text.strip():
 
                 st.error(
-                    "❌ No readable text was found in the CV."
+                    "❌ No readable text was found "
+                    "inside this PDF."
+                )
+
+                st.info(
+                    """
+                    Please make sure your CV contains
+                    selectable text. A scanned image-only
+                    PDF may not contain extractable text.
+                    """
                 )
 
                 st.stop()
 
 
             # --------------------------------------
-            # Analyze CV
+            # Analyze with Groq
             # --------------------------------------
 
             with st.spinner(
@@ -138,12 +176,33 @@ if uploaded_cv is not None:
 
 
             # --------------------------------------
-            # Save AI result
+            # Validate result
             # --------------------------------------
 
-            st.session_state["cv_data"] = cv_data
+            if not isinstance(
+                cv_data,
+                dict
+            ):
 
-            st.session_state["cv_text"] = cv_text
+                st.error(
+                    "❌ Groq returned an unexpected data format."
+                )
+
+                st.stop()
+
+
+            # --------------------------------------
+            # Save result
+            # --------------------------------------
+
+            st.session_state[
+                "cv_data"
+            ] = cv_data
+
+            st.session_state[
+                "cv_text"
+            ] = cv_text
+
 
             st.success(
                 "✅ CV analyzed successfully!"
@@ -151,12 +210,12 @@ if uploaded_cv is not None:
 
             st.info(
                 """
-                🎯 EduTwin automatically filled your
-                profile using the information extracted
-                from your CV.
+                🎯 Your profile fields have been
+                automatically filled using your CV.
 
-                Review the information below before
-                creating your Digital Twin.
+                Review the information below.
+                You can edit anything before creating
+                your Digital Twin.
                 """
             )
 
@@ -168,9 +227,9 @@ if uploaded_cv is not None:
             )
 
 
-# --------------------------------------------------
-# Load AI Data
-# --------------------------------------------------
+# ==================================================
+# LOAD CV DATA
+# ==================================================
 
 cv_data = st.session_state.get(
     "cv_data",
@@ -178,24 +237,31 @@ cv_data = st.session_state.get(
 )
 
 
-# --------------------------------------------------
-# Helper Functions
-# --------------------------------------------------
+# ==================================================
+# HELPER FUNCTION
+# ==================================================
 
 def list_to_text(items):
 
     if not items:
         return ""
 
+    if isinstance(
+        items,
+        str
+    ):
+        return items
+
     return ", ".join(
         str(item)
         for item in items
+        if str(item).strip()
     )
 
 
-# --------------------------------------------------
-# Step 2
-# --------------------------------------------------
+# ==================================================
+# STEP 2 — REVIEW INFORMATION
+# ==================================================
 
 st.divider()
 
@@ -204,14 +270,15 @@ st.header(
 )
 
 st.caption(
-    "Groq AI has filled these fields from your CV. "
-    "You can edit anything before creating your Digital Twin."
+    "Groq AI automatically fills these fields from "
+    "your CV. You can edit them before creating "
+    "your Digital Twin."
 )
 
 
-# --------------------------------------------------
-# Basic Information
-# --------------------------------------------------
+# ==================================================
+# BASIC INFORMATION
+# ==================================================
 
 col1, col2 = st.columns(2)
 
@@ -240,11 +307,13 @@ with col2:
     )
 
 
-# --------------------------------------------------
-# Skills
-# --------------------------------------------------
+# ==================================================
+# SKILLS
+# ==================================================
 
-st.subheader("💻 Skills")
+st.subheader(
+    "💻 Skills"
+)
 
 skills = st.text_area(
     "Your Skills",
@@ -261,11 +330,13 @@ skills = st.text_area(
 )
 
 
-# --------------------------------------------------
-# Courses
-# --------------------------------------------------
+# ==================================================
+# COURSES
+# ==================================================
 
-st.subheader("📚 Courses")
+st.subheader(
+    "📚 Courses"
+)
 
 courses = st.text_area(
     "Courses You Have Studied",
@@ -283,11 +354,13 @@ courses = st.text_area(
 )
 
 
-# --------------------------------------------------
-# Projects
-# --------------------------------------------------
+# ==================================================
+# PROJECTS
+# ==================================================
 
-st.subheader("🚀 Projects")
+st.subheader(
+    "🚀 Projects"
+)
 
 projects = st.text_area(
     "Your Projects",
@@ -305,11 +378,13 @@ projects = st.text_area(
 )
 
 
-# --------------------------------------------------
-# Interests
-# --------------------------------------------------
+# ==================================================
+# INTERESTS
+# ==================================================
 
-st.subheader("💡 Interests")
+st.subheader(
+    "💡 Interests"
+)
 
 interests = st.text_area(
     "Your Interests",
@@ -327,9 +402,9 @@ interests = st.text_area(
 )
 
 
-# --------------------------------------------------
-# Experience + Certifications
-# --------------------------------------------------
+# ==================================================
+# EXPERIENCE + CERTIFICATIONS
+# ==================================================
 
 col1, col2 = st.columns(2)
 
@@ -367,11 +442,13 @@ with col2:
     )
 
 
-# --------------------------------------------------
-# Career
-# --------------------------------------------------
+# ==================================================
+# TARGET CAREER
+# ==================================================
 
-st.subheader("🎯 Target Career")
+st.subheader(
+    "🎯 Target Career"
+)
 
 
 career_options = [
@@ -425,9 +502,9 @@ if career_goal == "Other":
     career_goal = custom_career
 
 
-# --------------------------------------------------
-# Step 3
-# --------------------------------------------------
+# ==================================================
+# STEP 3 — CREATE DIGITAL TWIN
+# ==================================================
 
 st.divider()
 
@@ -469,10 +546,12 @@ if st.button(
     else:
 
         # ------------------------------------------
-        # Save Digital Twin
+        # Create profile
         # ------------------------------------------
 
-        st.session_state["profile"] = {
+        st.session_state[
+            "profile"
+        ] = {
 
             "name": name.strip(),
 
@@ -502,7 +581,7 @@ if st.button(
 
 
         # ------------------------------------------
-        # Digital Twin Summary
+        # Summary
         # ------------------------------------------
 
         st.divider()
@@ -513,19 +592,22 @@ if st.button(
 
 
         skill_list = [
-            x for x in skills.split(",")
+            x.strip()
+            for x in skills.split(",")
             if x.strip()
         ]
 
 
         course_list = [
-            x for x in courses.split(",")
+            x.strip()
+            for x in courses.split(",")
             if x.strip()
         ]
 
 
         project_list = [
-            x for x in projects.split(",")
+            x.strip()
+            for x in projects.split(",")
             if x.strip()
         ]
 
