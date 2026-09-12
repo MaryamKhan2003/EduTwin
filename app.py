@@ -19,7 +19,7 @@ st.set_page_config(
 
 with st.sidebar:
 
-    st.title("🧠 EduTwin AI")
+    st.title(" EduTwin AI")
 
     st.caption(
         "Personalized Learning Intelligence"
@@ -27,11 +27,11 @@ with st.sidebar:
 
     st.divider()
 
-    st.subheader("🚀 Explore EduTwin")
+    st.subheader(" Explore EduTwin")
 
     st.write(
         """
-        👤 **Digital Twin**
+         **Digital Twin**
 
         Build your personalized learner profile.
         """
@@ -47,7 +47,7 @@ with st.sidebar:
 
     st.write(
         """
-        📚 **Adaptive Learning**
+         **Adaptive Learning**
 
         Learn according to your knowledge level.
         """
@@ -55,7 +55,7 @@ with st.sidebar:
 
     st.write(
         """
-        💼 **Career Intelligence**
+         **Career Intelligence**
 
         Discover your career readiness.
         """
@@ -63,7 +63,7 @@ with st.sidebar:
 
     st.write(
         """
-        🎤 **Interview Practice**
+         **Interview Practice**
 
         Prepare for your target career.
         """
@@ -73,7 +73,7 @@ with st.sidebar:
 
     st.info(
         """
-        💡 **EduTwin Principle**
+         **EduTwin Principle**
 
         First understand the learner.
 
@@ -94,7 +94,7 @@ with st.sidebar:
 # HERO
 # ==================================================
 
-st.title("🧠 EduTwin AI")
+st.title(" EduTwin AI")
 
 st.subheader(
     "Your Personal AI Learning Twin"
@@ -114,7 +114,7 @@ st.write("")
 
 # Main CTA
 if st.button(
-    "🚀 Build My Digital Twin",
+    " Build My Digital Twin",
     type="primary",
     use_container_width=True
 ):
@@ -131,7 +131,7 @@ if st.button(
 st.divider()
 
 st.header(
-    "✨ One AI. Your Entire Learning Journey."
+    " One AI. Your Entire Learning Journey."
 )
 
 col1, col2, col3 = st.columns(3)
@@ -140,7 +140,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
 
     st.subheader(
-        "👤 Know Me"
+        " Know Me"
     )
 
     st.write(
@@ -157,7 +157,7 @@ with col1:
 with col2:
 
     st.subheader(
-        "👁️ See With Me"
+        " See With Me"
     )
 
     st.write(
@@ -174,7 +174,7 @@ with col2:
 with col3:
 
     st.subheader(
-        "🎯 Guide Me"
+        " Guide Me"
     )
 
     st.write(
@@ -194,7 +194,7 @@ with col3:
 st.divider()
 
 st.header(
-    "🔄 How EduTwin Works"
+    " How EduTwin Works"
 )
 
 step1, step2, step3, step4 = st.columns(4)
@@ -255,7 +255,7 @@ with step4:
 st.divider()
 
 st.header(
-    "🧠 The Intelligent Learning Loop"
+    " The Intelligent Learning Loop"
 )
 
 st.info(
@@ -278,7 +278,7 @@ st.info(
 st.divider()
 
 st.header(
-    "🚀 Explore EduTwin"
+    " Explore EduTwin"
 )
 
 col1, col2 = st.columns(2)
@@ -287,7 +287,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     if st.button(
-        "📷 Open Vision Tutor",
+        " Open Vision Tutor",
         use_container_width=True
     ):
 
@@ -299,7 +299,7 @@ with col1:
 with col2:
 
     if st.button(
-        "💼 Explore Career Intelligence",
+        " Explore Career Intelligence",
         use_container_width=True
     ):
 
@@ -316,7 +316,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     if st.button(
-        "📚 Start Adaptive Learning",
+        " Start Adaptive Learning",
         use_container_width=True
     ):
 
@@ -328,7 +328,7 @@ with col1:
 with col2:
 
     if st.button(
-        "🎤 Practice Interview",
+        " Practice Interview",
         use_container_width=True
     ):
 
@@ -344,7 +344,7 @@ with col2:
 st.divider()
 
 st.header(
-    "🚀 Ready to build your AI learning twin?"
+    " Ready to build your AI learning twin?"
 )
 
 st.write(
@@ -355,7 +355,7 @@ st.write(
 )
 
 if st.button(
-    "🧠 Create My Digital Twin →",
+    " Create My Digital Twin →",
     type="primary",
     use_container_width=True
 ):
@@ -368,5 +368,5 @@ if st.button(
 st.write("")
 
 st.caption(
-    "🧠 EduTwin AI • Personalized Learning Intelligence"
+    " EduTwin AI • Personalized Learning Intelligence"
 )
