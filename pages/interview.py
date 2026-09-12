@@ -19,14 +19,14 @@ st.set_page_config(
 
 if "profile" not in st.session_state:
 
-    st.title("🎤 AI Interview Practice")
+    st.title(" AI Interview Practice")
 
     st.warning(
         "Create your Digital Twin first."
     )
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -46,7 +46,7 @@ profile = st.session_state["profile"]
 
 with st.sidebar:
 
-    st.title("🎤 Interview AI")
+    st.title(" Interview AI")
 
     st.caption(
         "Practice for your future career"
@@ -55,11 +55,11 @@ with st.sidebar:
     st.divider()
 
     st.write(
-        f"👤 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
     st.write(
-        f"🎯 {profile['career_goal']}"
+        f" {profile['career_goal']}"
     )
 
     st.divider()
@@ -77,7 +77,7 @@ with st.sidebar:
 # --------------------------------------------------
 
 st.title(
-    "🎤 AI Interview Practice"
+    " AI Interview Practice"
 )
 
 st.subheader(
@@ -100,7 +100,7 @@ st.divider()
 # --------------------------------------------------
 
 st.header(
-    "🎯 Interview Target"
+    " Interview Target"
 )
 
 st.success(
@@ -113,7 +113,7 @@ st.success(
 # --------------------------------------------------
 
 st.header(
-    "❓ Interview Question"
+    " Interview Question"
 )
 
 question = st.text_area(
@@ -131,7 +131,7 @@ question = st.text_area(
 # --------------------------------------------------
 
 st.header(
-    "💬 Your Answer"
+    " Your Answer"
 )
 
 answer = st.text_area(
@@ -149,7 +149,7 @@ answer = st.text_area(
 # --------------------------------------------------
 
 if st.button(
-    "🎯 Evaluate My Answer",
+    " Evaluate My Answer",
     type="primary",
     use_container_width=True
 ):
@@ -200,7 +200,7 @@ if st.button(
         # ------------------------------------------
 
         with st.spinner(
-            "🧠 Groq AI is evaluating your answer..."
+            " Groq AI is evaluating your answer..."
         ):
 
             result = ask_groq(
@@ -247,14 +247,14 @@ if st.button(
 
 
         st.success(
-            "✅ Interview evaluation completed!"
+            " Interview evaluation completed!"
         )
 
 
     except Exception as error:
 
         st.error(
-            f"❌ Interview AI error: {error}"
+            f" Interview AI error: {error}"
         )
 
 
@@ -272,7 +272,7 @@ if "interview_evaluation" in st.session_state:
     st.divider()
 
     st.header(
-        "🧠 AI Interview Evaluation"
+        " AI Interview Evaluation"
     )
 
 
@@ -320,7 +320,7 @@ if "interview_evaluation" in st.session_state:
     # ----------------------------------------------
 
     st.subheader(
-        "🎯 Career Alignment"
+        " Career Alignment"
     )
 
     career_score = evaluation.get(
@@ -345,7 +345,7 @@ if "interview_evaluation" in st.session_state:
     st.divider()
 
     st.header(
-        "💪 Strengths"
+        " Strengths"
     )
 
     strengths = evaluation.get(
@@ -359,7 +359,7 @@ if "interview_evaluation" in st.session_state:
         for strength in strengths:
 
             st.write(
-                f"✅ {strength}"
+                f" {strength}"
             )
 
     else:
@@ -374,7 +374,7 @@ if "interview_evaluation" in st.session_state:
     # ----------------------------------------------
 
     st.header(
-        "📈 Areas for Improvement"
+        " Areas for Improvement"
     )
 
     improvements = evaluation.get(
@@ -388,7 +388,7 @@ if "interview_evaluation" in st.session_state:
         for improvement in improvements:
 
             st.write(
-                f"🔧 {improvement}"
+                f" {improvement}"
             )
 
     else:
@@ -405,7 +405,7 @@ if "interview_evaluation" in st.session_state:
     st.divider()
 
     st.header(
-        "✨ Suggested Better Answer"
+        " Suggested Better Answer"
     )
 
     better_answer = evaluation.get(
@@ -432,7 +432,7 @@ if "interview_evaluation" in st.session_state:
     # ----------------------------------------------
 
     st.header(
-        "🧠 Final AI Feedback"
+        " Final AI Feedback"
     )
 
     final_feedback = evaluation.get(
