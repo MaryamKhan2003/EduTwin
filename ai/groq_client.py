@@ -13,8 +13,15 @@ def get_groq_client():
             "GROQ_API_KEY is not configured in Streamlit Secrets."
         )
 
+    api_key = st.secrets["GROQ_API_KEY"]
+
+    if not api_key:
+        raise ValueError(
+            "GROQ_API_KEY is empty in Streamlit Secrets."
+        )
+
     return Groq(
-        api_key=st.secrets["GROQ_API_KEY"]
+        api_key=api_key
     )
 
 
@@ -31,7 +38,38 @@ def ask_groq(prompt, model=TEXT_MODEL):
             }
         ],
         temperature=0.3,
-        max_completion_tokens=900
+        max_completion_tokens=900,
+        reasoning_effort="none"
     )
 
     return response.choices[0].message.content
+
+
+def ask_groq_json(prompt, model=TEXT_MODEL):
+
+    client = get_groq_client()
+
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.2,
+        max_completion_tokens=900,
+        reasoning_effort="none",
+        response_format={
+            "type": "json_object"
+        }
+    )
+
+    content = response.choices[0].message.content
+
+    if not content:
+        raise ValueError(
+            "Groq returned an empty response."
+        )
+
+    return content
