@@ -17,7 +17,7 @@ st.set_page_config(
 
 with st.sidebar:
 
-    st.title("🧠 EduTwin AI")
+    st.title(" EduTwin AI")
 
     st.caption(
         "Digital Twin Builder"
@@ -29,13 +29,13 @@ with st.sidebar:
         """
         ### Build your AI profile
 
-        📄 Upload CV
+         Upload CV
 
-        🤖 AI Analysis
+         AI Analysis
 
-        ✏️ Review information
+         Review information
 
-        🧠 Create Digital Twin
+         Create Digital Twin
         """
     )
 
@@ -51,7 +51,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    "👤 Build Your Digital Twin"
+    " Build Your Digital Twin"
 )
 
 st.subheader(
@@ -74,7 +74,7 @@ st.divider()
 # ==================================================
 
 st.header(
-    "📄 Step 1 — Upload Your CV"
+    " Step 1 — Upload Your CV"
 )
 
 st.write(
@@ -96,12 +96,12 @@ uploaded_cv = st.file_uploader(
 if uploaded_cv is not None:
 
     st.success(
-        f"✅ {uploaded_cv.name} uploaded successfully."
+        f" {uploaded_cv.name} uploaded successfully."
     )
 
 
     if st.button(
-        "🤖 Analyze My CV",
+        " Analyze My CV",
         type="primary",
         use_container_width=True
     ):
@@ -115,7 +115,7 @@ if uploaded_cv is not None:
             if "GROQ_API_KEY" not in st.secrets:
 
                 st.error(
-                    "❌ GROQ_API_KEY is missing from "
+                    " GROQ_API_KEY is missing from "
                     "Streamlit Secrets."
                 )
 
@@ -125,7 +125,7 @@ if uploaded_cv is not None:
             if not st.secrets["GROQ_API_KEY"]:
 
                 st.error(
-                    "❌ GROQ_API_KEY is empty."
+                    " GROQ_API_KEY is empty."
                 )
 
                 st.stop()
@@ -136,7 +136,7 @@ if uploaded_cv is not None:
             # --------------------------------------
 
             with st.spinner(
-                "📄 Reading your CV..."
+                " Reading your CV..."
             ):
 
                 cv_text = extract_text_from_pdf(
@@ -147,7 +147,7 @@ if uploaded_cv is not None:
             if not cv_text.strip():
 
                 st.error(
-                    "❌ No readable text was found "
+                    " No readable text was found "
                     "inside this PDF."
                 )
 
@@ -168,7 +168,7 @@ if uploaded_cv is not None:
             # --------------------------------------
 
             with st.spinner(
-                "🧠 Groq AI is analyzing your CV..."
+                " Groq AI is analyzing your CV..."
             ):
 
                 cv_data = analyze_cv(
@@ -186,7 +186,7 @@ if uploaded_cv is not None:
             ):
 
                 st.error(
-                    "❌ Groq returned an unexpected format."
+                    " Groq returned an unexpected format."
                 )
 
                 st.stop()
@@ -206,14 +206,14 @@ if uploaded_cv is not None:
 
 
             st.success(
-                "✅ CV analysis completed successfully!"
+                " CV analysis completed successfully!"
             )
 
 
         except Exception as error:
 
             st.error(
-                f"❌ CV analysis error: {error}"
+                f" CV analysis error: {error}"
             )
 
 
@@ -271,7 +271,7 @@ if cv_data:
     st.divider()
 
     st.header(
-        "🧠 AI CV Analysis Report"
+        " AI CV Analysis Report"
     )
 
     st.write(
@@ -287,7 +287,7 @@ if cv_data:
     # ----------------------------------------------
 
     st.subheader(
-        "👤 Profile Summary"
+        " Profile Summary"
     )
 
     profile_summary = analysis_data.get(
@@ -319,7 +319,7 @@ if cv_data:
     with col1:
 
         st.subheader(
-            "💪 Key Strengths"
+            " Key Strengths"
         )
 
         strengths = analysis_data.get(
@@ -333,7 +333,7 @@ if cv_data:
             for strength in strengths:
 
                 st.write(
-                    f"✅ {strength}"
+                    f" {strength}"
                 )
 
         else:
@@ -350,7 +350,7 @@ if cv_data:
     with col2:
 
         st.subheader(
-            "💻 Technical Strengths"
+            " Technical Strengths"
         )
 
         technical_strengths = analysis_data.get(
@@ -364,7 +364,7 @@ if cv_data:
             for strength in technical_strengths:
 
                 st.write(
-                    f"🔹 {strength}"
+                    f" {strength}"
                 )
 
         else:
@@ -379,7 +379,7 @@ if cv_data:
     # ----------------------------------------------
 
     st.subheader(
-        "📊 Skill Gaps"
+        " Skill Gaps"
     )
 
     skill_gaps = analysis_data.get(
@@ -393,7 +393,7 @@ if cv_data:
         for gap in skill_gaps:
 
             st.write(
-                f"⚠️ {gap}"
+                f" {gap}"
             )
 
     else:
@@ -408,7 +408,7 @@ if cv_data:
     # ----------------------------------------------
 
     st.subheader(
-        "🎯 Career Insight"
+        " Career Insight"
     )
 
     career_insight = analysis_data.get(
@@ -435,7 +435,7 @@ if cv_data:
     # ----------------------------------------------
 
     st.subheader(
-        "📚 Recommended Learning Areas"
+        " Recommended Learning Areas"
     )
 
     recommendations = analysis_data.get(
@@ -449,7 +449,7 @@ if cv_data:
         for recommendation in recommendations:
 
             st.write(
-                f"🚀 {recommendation}"
+                f" {recommendation}"
             )
 
     else:
@@ -466,7 +466,7 @@ if cv_data:
 st.divider()
 
 st.header(
-    "✏️ Step 2 — Review Your Extracted Information"
+    " Step 2 — Review Your Extracted Information"
 )
 
 st.caption(
@@ -514,7 +514,7 @@ with col2:
 # ==================================================
 
 st.subheader(
-    "💻 Skills"
+    " Skills"
 )
 
 skills = st.text_area(
@@ -537,7 +537,7 @@ skills = st.text_area(
 # ==================================================
 
 st.subheader(
-    "📚 Courses"
+    " Courses"
 )
 
 courses = st.text_area(
@@ -561,7 +561,7 @@ courses = st.text_area(
 # ==================================================
 
 st.subheader(
-    "🚀 Projects"
+    " Projects"
 )
 
 projects = st.text_area(
@@ -585,7 +585,7 @@ projects = st.text_area(
 # ==================================================
 
 st.subheader(
-    "💡 Interests"
+    " Interests"
 )
 
 interests = st.text_area(
@@ -614,7 +614,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     experience = st.text_area(
-        "💼 Experience",
+        " Experience",
         value=profile_data.get(
             "experience",
             ""
@@ -629,7 +629,7 @@ with col1:
 with col2:
 
     certifications = st.text_area(
-        "🏆 Certifications",
+        " Certifications",
         value=list_to_text(
             profile_data.get(
                 "certifications",
@@ -649,7 +649,7 @@ with col2:
 # ==================================================
 
 st.subheader(
-    "🎯 Target Career"
+    " Target Career"
 )
 
 
@@ -711,7 +711,7 @@ if career_goal == "Other":
 st.divider()
 
 st.header(
-    "🧠 Step 3 — Create Your Digital Twin"
+    " Step 3 — Create Your Digital Twin"
 )
 
 
@@ -776,7 +776,7 @@ if st.button(
 
 
         st.success(
-            "🎉 Your Digital Twin has been created!"
+            " Your Digital Twin has been created!"
         )
 
         st.balloons()
@@ -789,7 +789,7 @@ if st.button(
         st.divider()
 
         st.header(
-            "✨ Your Digital Twin"
+            " Your Digital Twin"
         )
 
 
@@ -820,7 +820,7 @@ if st.button(
         with col1:
 
             st.metric(
-                "💻 Skills",
+                " Skills",
                 len(skill_list)
             )
 
@@ -828,7 +828,7 @@ if st.button(
         with col2:
 
             st.metric(
-                "📚 Courses",
+                " Courses",
                 len(course_list)
             )
 
@@ -836,13 +836,13 @@ if st.button(
         with col3:
 
             st.metric(
-                "🚀 Projects",
+                " Projects",
                 len(project_list)
             )
 
 
         st.success(
-            f"🎯 Target Career: {career_goal}"
+            f" Target Career: {career_goal}"
         )
 
 
@@ -850,7 +850,7 @@ if st.button(
 
 
         if st.button(
-            "📊 Open My Dashboard",
+            " Open My Dashboard",
             use_container_width=True
         ):
 
