@@ -29,7 +29,7 @@ if "profile" not in st.session_state:
     )
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -50,7 +50,7 @@ profile = st.session_state["profile"]
 with st.sidebar:
 
     st.title(
-        "📷 Vision Tutor"
+        " Vision Tutor"
     )
 
     st.caption(
@@ -60,11 +60,11 @@ with st.sidebar:
     st.divider()
 
     st.write(
-        f"👤 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
     st.write(
-        f"🎯 {profile['career_goal']}"
+        f" {profile['career_goal']}"
     )
 
     st.divider()
@@ -84,7 +84,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    "📷 Vision Tutor"
+    " Vision Tutor"
 )
 
 st.subheader(
@@ -106,7 +106,7 @@ st.divider()
 # ==================================================
 
 with st.expander(
-    "👤 View your Digital Twin",
+    " View your Digital Twin",
     expanded=False
 ):
 
@@ -138,7 +138,7 @@ with st.expander(
 # ==================================================
 
 st.header(
-    "📸 Step 1 — Upload Your Learning Material"
+    " Step 1 — Upload Your Learning Material"
 )
 
 uploaded_image = st.file_uploader(
@@ -161,7 +161,7 @@ uploaded_image = st.file_uploader(
 # ==================================================
 
 st.header(
-    "🧠 Step 2 — Choose Explanation Mode"
+    " Step 2 — Choose Explanation Mode"
 )
 
 mode = st.selectbox(
@@ -184,7 +184,7 @@ if uploaded_image is not None:
     st.divider()
 
     st.header(
-        "👀 Step 3 — Preview"
+        " Step 3 — Preview"
     )
 
     st.image(
@@ -196,7 +196,7 @@ if uploaded_image is not None:
     st.write("")
 
     if st.button(
-        "🧠 Analyze With EduTwin AI",
+        " Analyze With EduTwin AI",
         type="primary",
         use_container_width=True
     ):
@@ -262,7 +262,7 @@ Keep the response below 400 words.
 
 
             with st.spinner(
-                "🔍 EduTwin is analyzing your image..."
+                " EduTwin is analyzing your image..."
             ):
 
                 answer = analyze_image(
@@ -273,13 +273,13 @@ Keep the response below 400 words.
 
 
             st.success(
-                "✅ Analysis completed!"
+                " Analysis completed!"
             )
 
             st.divider()
 
             st.header(
-                "🧠 Your Personalized Explanation"
+                " Your Personalized Explanation"
             )
 
             st.markdown(
@@ -290,14 +290,14 @@ Keep the response below 400 words.
         except Exception as error:
 
             st.error(
-                f"❌ Vision AI error: {error}"
+                f" Vision AI error: {error}"
             )
 
 else:
 
     st.info(
         """
-        📷 **Your visual tutor is ready.**
+         **Your visual tutor is ready.**
 
         Upload an image above to begin.
         """
