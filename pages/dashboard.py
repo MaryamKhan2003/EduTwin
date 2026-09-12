@@ -19,7 +19,7 @@ st.set_page_config(
 if "profile" not in st.session_state:
 
     st.title(
-        "📊 Your Dashboard"
+        " Your Dashboard"
     )
 
     st.warning(
@@ -27,7 +27,7 @@ if "profile" not in st.session_state:
     )
 
     if st.button(
-        "👤 Create My Digital Twin",
+        " Create My Digital Twin",
         type="primary"
     ):
 
@@ -48,7 +48,7 @@ profile = st.session_state["profile"]
 with st.sidebar:
 
     st.title(
-        "🧠 EduTwin AI"
+        " EduTwin AI"
     )
 
     st.caption(
@@ -58,11 +58,11 @@ with st.sidebar:
     st.divider()
 
     st.write(
-        f"👋 **{profile['name']}**"
+        f" **{profile['name']}**"
     )
 
     st.write(
-        f"🎯 {profile['career_goal']}"
+        f" {profile['career_goal']}"
     )
 
     st.divider()
@@ -77,7 +77,7 @@ with st.sidebar:
 # ==================================================
 
 st.title(
-    f"Good to see you, {profile['name']} 👋"
+    f"Good to see you, {profile['name']} "
 )
 
 st.subheader(
@@ -127,7 +127,7 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
 
     st.metric(
-        "💻 Skills",
+        " Skills",
         len(skills)
     )
 
@@ -135,7 +135,7 @@ with col1:
 with col2:
 
     st.metric(
-        "📚 Courses",
+        " Courses",
         len(courses)
     )
 
@@ -143,7 +143,7 @@ with col2:
 with col3:
 
     st.metric(
-        "🚀 Projects",
+        " Projects",
         len(projects)
     )
 
@@ -151,7 +151,7 @@ with col3:
 with col4:
 
     st.metric(
-        "🎯 Career",
+        " Career",
         profile["career_goal"]
     )
 
@@ -163,7 +163,7 @@ with col4:
 st.divider()
 
 st.header(
-    "👤 Your Digital Twin"
+    " Your Digital Twin"
 )
 
 col1, col2 = st.columns(2)
@@ -172,7 +172,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     st.subheader(
-        "🎓 Education"
+        " Education"
     )
 
     st.info(
@@ -180,20 +180,20 @@ with col1:
     )
 
     st.subheader(
-        "💻 Core Skills"
+        " Core Skills"
     )
 
     for skill in skills:
 
         st.write(
-            f"✅ {skill}"
+            f" {skill}"
         )
 
 
 with col2:
 
     st.subheader(
-        "🎯 Career Direction"
+        " Career Direction"
     )
 
     st.success(
@@ -201,7 +201,7 @@ with col2:
     )
 
     st.subheader(
-        "💡 Interests"
+        " Interests"
     )
 
     if profile["interests"].strip():
@@ -229,7 +229,7 @@ col1, col2 = st.columns(2)
 with col1:
 
     st.header(
-        "📚 Learning Background"
+        " Learning Background"
     )
 
     if courses:
@@ -237,7 +237,7 @@ with col1:
         for course in courses:
 
             st.write(
-                f"📘 {course}"
+                f" {course}"
             )
 
     else:
@@ -250,7 +250,7 @@ with col1:
 with col2:
 
     st.header(
-        "🚀 Projects"
+        " Projects"
     )
 
     if projects:
@@ -258,7 +258,7 @@ with col2:
         for project in projects:
 
             st.write(
-                f"🔹 {project}"
+                f" {project}"
             )
 
     else:
@@ -275,7 +275,7 @@ with col2:
 st.divider()
 
 st.header(
-    "⚡ Continue Your Journey"
+    " Continue Your Journey"
 )
 
 col1, col2, col3, col4 = st.columns(4)
@@ -296,7 +296,7 @@ with col1:
 with col2:
 
     if st.button(
-        "📚 Learn",
+        " Learn",
         use_container_width=True
     ):
 
@@ -308,7 +308,7 @@ with col2:
 with col3:
 
     if st.button(
-        "💼 Career",
+        " Career",
         use_container_width=True
     ):
 
@@ -320,7 +320,7 @@ with col3:
 with col4:
 
     if st.button(
-        "🎤 Interview",
+        " Interview",
         use_container_width=True
     ):
 
@@ -336,7 +336,7 @@ with col4:
 st.divider()
 
 st.header(
-    "🧠 Your AI Learning Loop"
+    " Your AI Learning Loop"
 )
 
 st.info(
