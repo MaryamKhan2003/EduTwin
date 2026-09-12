@@ -1,3 +1,7 @@
+# ==================================================
+# CV ANALYSIS PROMPT
+# ==================================================
+
 def build_cv_analysis_prompt(cv_text):
 
     return f"""
@@ -97,11 +101,15 @@ IMPORTANT RULES:
 
 19. Do not use markdown.
 
-20. Do not put the JSON inside ```json fences.
+20. Do not put the JSON inside code fences.
 
 21. Return ONLY the JSON object.
 """
 
+
+# ==================================================
+# PERSONALIZED LEARNING PROMPT
+# ==================================================
 
 def build_learning_prompt(topic, profile):
 
@@ -141,7 +149,15 @@ Keep the response below 600 words.
 """
 
 
-def build_interview_prompt(question, answer, profile):
+# ==================================================
+# INTERVIEW EVALUATION PROMPT
+# ==================================================
+
+def build_interview_prompt(
+    question,
+    answer,
+    profile
+):
 
     return f"""
 You are EduTwin AI Interview Coach.
@@ -220,4 +236,278 @@ Rules:
 - The better answer must be realistic.
 - Base the better answer only on the student's information.
 - Return only JSON.
+"""
+
+
+# ==================================================
+# QUIZ GENERATION PROMPT
+# ==================================================
+
+def build_quiz_prompt(
+    topic,
+    profile
+):
+
+    return f"""
+You are EduTwin AI, an adaptive learning assessment system.
+
+Create a short personalized quiz for this student.
+
+STUDENT:
+
+Name:
+{profile['name']}
+
+Education:
+{profile['education']}
+
+Skills:
+{profile['skills']}
+
+Courses:
+{profile['courses']}
+
+Projects:
+{profile['projects']}
+
+Interests:
+{profile['interests']}
+
+Career Goal:
+{profile['career_goal']}
+
+
+QUIZ TOPIC:
+
+{topic}
+
+
+TASK:
+
+Create exactly 5 multiple-choice questions
+about the selected topic.
+
+The quiz should test understanding of the topic
+at a level appropriate for this student.
+
+
+RETURN FORMAT:
+
+Return ONLY one valid JSON object.
+
+Use exactly this structure:
+
+{{
+    "topic": "{topic}",
+    "questions": [
+        {{
+            "question": "",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 0
+        }},
+        {{
+            "question": "",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 0
+        }},
+        {{
+            "question": "",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 0
+        }},
+        {{
+            "question": "",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 0
+        }},
+        {{
+            "question": "",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 0
+        }}
+    ]
+}}
+
+
+IMPORTANT RULES:
+
+1. Create exactly 5 questions.
+
+2. Every question must have exactly 4 options.
+
+3. The answer field represents the correct option:
+
+   0 = first option
+   1 = second option
+   2 = third option
+   3 = fourth option
+
+4. Only ONE option can be correct.
+
+5. Questions should test understanding rather than
+   simple memorization whenever possible.
+
+6. Questions should be appropriate for the student's
+   education and current skills.
+
+7. Do not create trick questions.
+
+8. Do not make questions unnecessarily difficult.
+
+9. Keep questions concise.
+
+10. Keep answer options concise.
+
+11. Do not include explanations.
+
+12. Do not include feedback.
+
+13. Do not use markdown.
+
+14. Do not put the JSON inside code fences.
+
+15. Return ONLY the JSON object.
+"""
+
+
+# ==================================================
+# QUIZ PERFORMANCE ANALYSIS PROMPT
+# ==================================================
+
+def build_quiz_analysis_prompt(
+    topic,
+    score,
+    total,
+    wrong_questions,
+    profile
+):
+
+    return f"""
+You are EduTwin AI, an adaptive learning coach.
+
+Analyze this student's quiz performance.
+
+STUDENT:
+
+Name:
+{profile['name']}
+
+Education:
+{profile['education']}
+
+Skills:
+{profile['skills']}
+
+Courses:
+{profile['courses']}
+
+Career Goal:
+{profile['career_goal']}
+
+
+QUIZ TOPIC:
+
+{topic}
+
+
+QUIZ RESULT:
+
+Score:
+{score}/{total}
+
+
+INCORRECT QUESTIONS:
+
+{wrong_questions}
+
+
+TASK:
+
+Determine the student's current understanding
+of the topic and recommend what they should
+learn next.
+
+Return ONLY one valid JSON object.
+
+Use exactly this structure:
+
+{{
+    "performance_level": "",
+    "weak_topics": [],
+    "recommendation": "",
+    "next_learning_step": ""
+}}
+
+
+PERFORMANCE LEVEL RULES:
+
+Strong = 80% or higher
+
+Good = 60% to 79%
+
+Needs Practice = 40% to 59%
+
+Weak = below 40%
+
+
+IMPORTANT RULES:
+
+1. performance_level must be exactly one of:
+
+   "Strong"
+   "Good"
+   "Needs Practice"
+   "Weak"
+
+2. weak_topics must contain 1 to 3 specific
+   areas that need improvement.
+
+3. If the student performed strongly,
+   weak_topics can contain areas for further
+   improvement rather than major weaknesses.
+
+4. recommendation must be personalized
+   to the student's result.
+
+5. next_learning_step must tell the student
+   exactly what they should study or practice next.
+
+6. Connect recommendations to the student's
+   career goal when appropriate.
+
+7. Base the analysis on the quiz result and
+   incorrect questions.
+
+8. Do not invent experience or qualifications.
+
+9. Keep the response concise.
+
+10. Do not use markdown.
+
+11. Return ONLY the JSON object.
 """
