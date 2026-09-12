@@ -27,57 +27,115 @@ def analyze_cv(cv_text):
         ) from error
 
 
-    # Make sure all expected fields exist
+    # ----------------------------------------------
+    # Make sure top-level sections exist
+    # ----------------------------------------------
 
-    data.setdefault(
+    if "profile" not in data:
+
+        data["profile"] = {}
+
+
+    if "analysis" not in data:
+
+        data["analysis"] = {}
+
+
+    profile = data["profile"]
+
+    analysis = data["analysis"]
+
+
+    # ----------------------------------------------
+    # Profile defaults
+    # ----------------------------------------------
+
+    profile.setdefault(
         "name",
         ""
     )
 
-    data.setdefault(
+    profile.setdefault(
         "education",
         ""
     )
 
-    data.setdefault(
+    profile.setdefault(
         "skills",
         []
     )
 
-    data.setdefault(
+    profile.setdefault(
         "courses",
         []
     )
 
-    data.setdefault(
+    profile.setdefault(
         "projects",
         []
     )
 
-    data.setdefault(
+    profile.setdefault(
         "interests",
         []
     )
 
-    data.setdefault(
+    profile.setdefault(
         "experience",
         ""
     )
 
-    data.setdefault(
+    profile.setdefault(
         "certifications",
         []
     )
 
-    data.setdefault(
+    profile.setdefault(
         "career_goal",
         ""
     )
 
 
-    # Make sure list fields are actually lists
+    # ----------------------------------------------
+    # Analysis defaults
+    # ----------------------------------------------
 
-    list_fields = [
+    analysis.setdefault(
+        "profile_summary",
+        ""
+    )
+
+    analysis.setdefault(
+        "key_strengths",
+        []
+    )
+
+    analysis.setdefault(
+        "technical_strengths",
+        []
+    )
+
+    analysis.setdefault(
+        "skill_gaps",
+        []
+    )
+
+    analysis.setdefault(
+        "career_insight",
+        ""
+    )
+
+    analysis.setdefault(
+        "learning_recommendations",
+        []
+    )
+
+
+    # ----------------------------------------------
+    # Make sure list fields are lists
+    # ----------------------------------------------
+
+    profile_list_fields = [
         "skills",
         "courses",
         "projects",
@@ -86,16 +144,48 @@ def analyze_cv(cv_text):
     ]
 
 
-    for field in list_fields:
+    for field in profile_list_fields:
 
         if not isinstance(
-            data[field],
+            profile[field],
             list
         ):
 
-            data[field] = [
-                str(data[field])
-            ]
+            if profile[field]:
+
+                profile[field] = [
+                    str(profile[field])
+                ]
+
+            else:
+
+                profile[field] = []
+
+
+    analysis_list_fields = [
+        "key_strengths",
+        "technical_strengths",
+        "skill_gaps",
+        "learning_recommendations"
+    ]
+
+
+    for field in analysis_list_fields:
+
+        if not isinstance(
+            analysis[field],
+            list
+        ):
+
+            if analysis[field]:
+
+                analysis[field] = [
+                    str(analysis[field])
+                ]
+
+            else:
+
+                analysis[field] = []
 
 
     return data
